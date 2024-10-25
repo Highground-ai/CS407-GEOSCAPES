@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -48,6 +49,9 @@ class SettingsFragment : Fragment() {
         settingsRecyclerView = view.findViewById(R.id.settings_recycler_view)
         settingToggledKV = requireContext().getSharedPreferences(
             getString(R.string.settingToggledKV), Context.MODE_PRIVATE)
+        if (settingToggledKV.getBoolean("Dark Mode", false)) {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+        }
         // Gets settings from sharedPreferences and creates a list of SettingItem objects
         // Not sure if the user updating permissions outside app will impact this
         val settingsList = listOf(
@@ -69,6 +73,7 @@ class SettingsFragment : Fragment() {
                             android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
                         ActivityCompat.requestPermissions(this.requireActivity(),
                             arrayOf(android.Manifest.permission.ACCESS_FINE_LOCATION), 1)
+
                     }
                 }
 
@@ -95,8 +100,14 @@ class SettingsFragment : Fragment() {
                             arrayOf(android.Manifest.permission.POST_NOTIFICATIONS), 1)
                     }
                 }
+                "Dark Mode" -> {
+                    if (isChecked) {
+                        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+                    } else {
+                        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+                    }
+                }
             }
-            // TODO Changes theme to dark/light mode if the dark mode setting is checked
             // Handle the switch toggle event
             settingItem.isChecked = isChecked
             // Update sharedPreferences for the item that was checked
