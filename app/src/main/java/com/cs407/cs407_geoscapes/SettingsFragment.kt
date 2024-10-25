@@ -1,5 +1,7 @@
 package com.cs407.cs407_geoscapes
 
+import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -25,7 +27,7 @@ class SettingsFragment : Fragment() {
 
     private lateinit var settingsRecyclerView: RecyclerView
     private lateinit var settingsAdapter: SettingsAdapter
-
+    private lateinit var settingToggledKV: SharedPreferences
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
@@ -40,22 +42,24 @@ class SettingsFragment : Fragment() {
     ): View? {
         val view = inflater.inflate(R.layout.fragment_settings, container, false)
         settingsRecyclerView = view.findViewById(R.id.settings_recycler_view)
-
-        // Sample data for settings
+        settingToggledKV = requireContext().getSharedPreferences(
+            getString(R.string.settingToggledKV), Context.MODE_PRIVATE)
+        // List of setting options and default states
         val settingsList = listOf(
-            SettingItem("Dark Mode", false),
-            SettingItem("Music", true),
-            SettingItem("SFX", true),
-            SettingItem("Haptic Feedback", true),
-            SettingItem("Notifications", false),
-            SettingItem("Camera", false),
-            SettingItem("Microphone", false)
+            SettingItem("Dark Mode", settingToggledKV.getBoolean("Dark Mode", false)),
+            SettingItem("Music", settingToggledKV.getBoolean("Music", true)),
+            SettingItem("SFX", settingToggledKV.getBoolean("SFX", true)),
+            SettingItem("Haptic Feedback", settingToggledKV.getBoolean("Haptic Feedback", true)),
+            SettingItem("Notifications", settingToggledKV.getBoolean("Notifications", false)),
+            SettingItem("Camera", settingToggledKV.getBoolean("Camera", false)),
+            SettingItem("Microphone", settingToggledKV.getBoolean("Microphone", false))
         )
 
         settingsAdapter = SettingsAdapter(settingsList) { settingItem, isChecked ->
             // Handle the switch toggle event
             settingItem.isChecked = isChecked
             // Update sharedPreferences
+            settingToggledKV.edit().putBoolean(settingItem.title, isChecked).apply()
         }
 
         settingsRecyclerView.apply {

@@ -9,8 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 /**
  * Adapter for the settings RecyclerView.
- * Use the [SettingsFragment.newInstance] factory method to
- * create an instance of this fragment.
+ * Takes in a list of SettingItem and a callback for when the switch is toggled.
  */
 class SettingsAdapter(
     private val settingsList: List<SettingItem>,
