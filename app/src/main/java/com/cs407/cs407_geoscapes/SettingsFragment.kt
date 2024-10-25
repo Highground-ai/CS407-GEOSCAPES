@@ -2,11 +2,14 @@ package com.cs407.cs407_geoscapes
 
 import android.content.Context
 import android.content.SharedPreferences
+import android.content.pm.PackageManager
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 
@@ -46,6 +49,7 @@ class SettingsFragment : Fragment() {
         settingToggledKV = requireContext().getSharedPreferences(
             getString(R.string.settingToggledKV), Context.MODE_PRIVATE)
         // Gets settings from sharedPreferences and creates a list of SettingItem objects
+        // Not sure if the user updating permissions outside app will impact this
         val settingsList = listOf(
             SettingItem("Dark Mode", settingToggledKV.getBoolean("Dark Mode", false)),
             SettingItem("Music", settingToggledKV.getBoolean("Music", true)),
@@ -58,8 +62,40 @@ class SettingsFragment : Fragment() {
         )
 
         settingsAdapter = SettingsAdapter(settingsList) { settingItem, isChecked ->
-            // TODO Ask for and update permissions if the setting requires one
+            // TODO Switch the switch back off if the user denies the permission
+            when (settingItem.title) {
+                "Location" -> {
+                    if (isChecked && ContextCompat.checkSelfPermission(requireContext(),
+                            android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                        ActivityCompat.requestPermissions(this.requireActivity(),
+                            arrayOf(android.Manifest.permission.ACCESS_FINE_LOCATION), 1)
+                    }
+                }
 
+                "Camera" -> {
+                    if (isChecked && ContextCompat.checkSelfPermission(requireContext(),
+                            android.Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+                        ActivityCompat.requestPermissions(this.requireActivity(),
+                            arrayOf(android.Manifest.permission.CAMERA), 1)
+                    }
+                }
+
+                "Microphone" -> {
+                    if (isChecked && ContextCompat.checkSelfPermission(requireContext(),
+                            android.Manifest.permission.RECORD_AUDIO) != PackageManager.PERMISSION_GRANTED) {
+                        ActivityCompat.requestPermissions(this.requireActivity(),
+                            arrayOf(android.Manifest.permission.RECORD_AUDIO), 1)
+                    }
+                }
+
+                "Notifications" -> {
+                    if (isChecked && ContextCompat.checkSelfPermission(requireContext(),
+                            android.Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
+                        ActivityCompat.requestPermissions(this.requireActivity(),
+                            arrayOf(android.Manifest.permission.POST_NOTIFICATIONS), 1)
+                    }
+                }
+            }
             // TODO Changes theme to dark/light mode if the dark mode setting is checked
             // Handle the switch toggle event
             settingItem.isChecked = isChecked
