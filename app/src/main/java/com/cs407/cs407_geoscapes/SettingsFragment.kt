@@ -28,6 +28,7 @@ class SettingsFragment : Fragment() {
     private lateinit var settingsRecyclerView: RecyclerView
     private lateinit var settingsAdapter: SettingsAdapter
     private lateinit var settingToggledKV: SharedPreferences
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
@@ -44,7 +45,7 @@ class SettingsFragment : Fragment() {
         settingsRecyclerView = view.findViewById(R.id.settings_recycler_view)
         settingToggledKV = requireContext().getSharedPreferences(
             getString(R.string.settingToggledKV), Context.MODE_PRIVATE)
-        // List of setting options and default states
+        // Gets settings from sharedPreferences and creates a list of SettingItem objects
         val settingsList = listOf(
             SettingItem("Dark Mode", settingToggledKV.getBoolean("Dark Mode", false)),
             SettingItem("Music", settingToggledKV.getBoolean("Music", true)),
@@ -52,13 +53,17 @@ class SettingsFragment : Fragment() {
             SettingItem("Haptic Feedback", settingToggledKV.getBoolean("Haptic Feedback", true)),
             SettingItem("Notifications", settingToggledKV.getBoolean("Notifications", false)),
             SettingItem("Camera", settingToggledKV.getBoolean("Camera", false)),
-            SettingItem("Microphone", settingToggledKV.getBoolean("Microphone", false))
+            SettingItem("Microphone", settingToggledKV.getBoolean("Microphone", false)),
+            SettingItem("Location", settingToggledKV.getBoolean("Location", false))
         )
 
         settingsAdapter = SettingsAdapter(settingsList) { settingItem, isChecked ->
+            // TODO Ask for and update permissions if the setting requires one
+
+            // TODO Changes theme to dark/light mode if the dark mode setting is checked
             // Handle the switch toggle event
             settingItem.isChecked = isChecked
-            // Update sharedPreferences
+            // Update sharedPreferences for the item that was checked
             settingToggledKV.edit().putBoolean(settingItem.title, isChecked).apply()
         }
 
