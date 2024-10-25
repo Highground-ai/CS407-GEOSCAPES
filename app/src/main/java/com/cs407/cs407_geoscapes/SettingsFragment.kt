@@ -66,6 +66,7 @@ class SettingsFragment : Fragment() {
         )
 
         settingsAdapter = SettingsAdapter(settingsList) { settingItem, isChecked ->
+            // Handle the switch toggle event
             // TODO Switch the switch back off if the user denies the permission
             when (settingItem.title) {
                 "Location" -> {
@@ -73,7 +74,6 @@ class SettingsFragment : Fragment() {
                             android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
                         ActivityCompat.requestPermissions(this.requireActivity(),
                             arrayOf(android.Manifest.permission.ACCESS_FINE_LOCATION), 1)
-
                     }
                 }
 
@@ -108,8 +108,6 @@ class SettingsFragment : Fragment() {
                     }
                 }
             }
-            // Handle the switch toggle event
-            settingItem.isChecked = isChecked
             // Update sharedPreferences for the item that was checked
             settingToggledKV.edit().putBoolean(settingItem.title, isChecked).apply()
         }

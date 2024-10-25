@@ -3,6 +3,11 @@
     <style name="Base.Theme.CS407GEOSCAPES" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your light theme here. -->
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+        <item name="colorPrimary">#F01818</item>
+        <item name="colorSecondary">#F01818</item>
+        <item name="colorSecondaryVariant">#F01818</item>
+        <item name="colorAccent">#C01818</item>
+        <item name="android:windowBackground">#FFB9B3</item>
     </style>
 
     <style name="Theme.CS407GEOSCAPES" parent="Base.Theme.CS407GEOSCAPES" />
