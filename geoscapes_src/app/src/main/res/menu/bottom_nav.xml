@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:title="Back"
+        android:id="@+id/back"
+        android:icon="@drawable/baseline_keyboard_backspace_24"/>
+    <item android:title="Checklist"
+        android:id="@+id/checklist"
+        android:icon="@drawable/baseline_list_alt_24"/>
+    <item android:title="Home"
+        android:id="@+id/home"
+        android:icon="@drawable/baseline_home_24"/>
+    <item android:title="Camera"
+        android:id="@+id/camera"
+        android:icon="@drawable/baseline_camera_alt_24"/>
+    <item android:title="Map"
+        android:id="@+id/map"
+        android:icon="@drawable/baseline_map_24"/>
+</menu>
