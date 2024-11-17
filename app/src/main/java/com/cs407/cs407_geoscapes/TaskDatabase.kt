@@ -26,8 +26,6 @@ import java.util.Date
 data class Task (
     @PrimaryKey(autoGenerate = true) val taskId: Int = 0,
     val taskName: String, // Name of the task
-    val taskReqs: List<Task>, // List of tasks needed to unlock the task
-    val taskReqPercent: Float, // Percentage of tasks needed to unlock the task
     val taskDescription: String?, // Optional description of the task
     val taskCompletion: Float // Percentage of steps completed
 )
@@ -49,7 +47,6 @@ data class TaskStepRelation(
     val taskId: Int,
     val stepId: Int
 )
-
 
 @Entity
 data class Step (
@@ -91,10 +88,6 @@ interface TaskDao {
 
     @Query("SELECT * FROM Task WHERE taskCompletion < 100")
     suspend fun getIncompleteTasks(): List<Task>
-
-    // TODO: Get all tasks that are locked
-
-    // TODO: Get all tasks that are unlocked
 
     @Query("""SELECT * From Task, Step, TaskStepRelation
                 WHERE Task.taskId = :id
