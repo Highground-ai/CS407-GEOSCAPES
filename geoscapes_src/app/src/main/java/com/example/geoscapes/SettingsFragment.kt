@@ -1,5 +1,6 @@
-package com.cs407.cs407_geoscapes
+package com.example.geoscapes
 
+import android.Manifest
 import android.content.Context
 import android.content.SharedPreferences
 import android.content.pm.PackageManager
@@ -13,19 +14,8 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.geoscapes.SettingItem
-import com.example.geoscapes.SettingsAdapter
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
 
-/**
- * A simple [Fragment] subclass.
- * Use the [SettingsFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class SettingsFragment : Fragment() {
 
     private lateinit var settingsRecyclerView: RecyclerView
@@ -34,6 +24,7 @@ class SettingsFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
     }
 
     override fun onCreateView(
@@ -43,8 +34,7 @@ class SettingsFragment : Fragment() {
         val view = inflater.inflate(R.layout.fragment_settings, container, false)
         settingsRecyclerView = view.findViewById(R.id.settings_recycler_view)
         settingToggledKV = requireContext().getSharedPreferences(
-            getString(R.string.settingToggledKV), Context.MODE_PRIVATE
-        )
+            getString(R.string.settingToggledKV), Context.MODE_PRIVATE)
         if (settingToggledKV.getBoolean("Dark Mode", false)) {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
         }
@@ -68,12 +58,12 @@ class SettingsFragment : Fragment() {
                 "Location" -> {
                     if (isChecked && ContextCompat.checkSelfPermission(
                             requireContext(),
-                            android.Manifest.permission.ACCESS_FINE_LOCATION
+                            Manifest.permission.ACCESS_FINE_LOCATION
                         ) != PackageManager.PERMISSION_GRANTED
                     ) {
                         ActivityCompat.requestPermissions(
                             this.requireActivity(),
-                            arrayOf(android.Manifest.permission.ACCESS_FINE_LOCATION), 1
+                            arrayOf(Manifest.permission.ACCESS_FINE_LOCATION), 1
                         )
                     }
                 }
@@ -81,12 +71,12 @@ class SettingsFragment : Fragment() {
                 "Camera" -> {
                     if (isChecked && ContextCompat.checkSelfPermission(
                             requireContext(),
-                            android.Manifest.permission.CAMERA
+                            Manifest.permission.CAMERA
                         ) != PackageManager.PERMISSION_GRANTED
                     ) {
                         ActivityCompat.requestPermissions(
                             this.requireActivity(),
-                            arrayOf(android.Manifest.permission.CAMERA), 1
+                            arrayOf(Manifest.permission.CAMERA), 1
                         )
                     }
                 }
@@ -94,12 +84,12 @@ class SettingsFragment : Fragment() {
                 "Microphone" -> {
                     if (isChecked && ContextCompat.checkSelfPermission(
                             requireContext(),
-                            android.Manifest.permission.RECORD_AUDIO
+                            Manifest.permission.RECORD_AUDIO
                         ) != PackageManager.PERMISSION_GRANTED
                     ) {
                         ActivityCompat.requestPermissions(
                             this.requireActivity(),
-                            arrayOf(android.Manifest.permission.RECORD_AUDIO), 1
+                            arrayOf(Manifest.permission.RECORD_AUDIO), 1
                         )
                     }
                 }
@@ -107,12 +97,12 @@ class SettingsFragment : Fragment() {
                 "Notifications" -> {
                     if (isChecked && ContextCompat.checkSelfPermission(
                             requireContext(),
-                            android.Manifest.permission.POST_NOTIFICATIONS
+                            Manifest.permission.POST_NOTIFICATIONS
                         ) != PackageManager.PERMISSION_GRANTED
                     ) {
                         ActivityCompat.requestPermissions(
                             this.requireActivity(),
-                            arrayOf(android.Manifest.permission.POST_NOTIFICATIONS), 1
+                            arrayOf(Manifest.permission.POST_NOTIFICATIONS), 1
                         )
                     }
                 }
@@ -135,5 +125,4 @@ class SettingsFragment : Fragment() {
         }
 
         return view
-    }
 }
