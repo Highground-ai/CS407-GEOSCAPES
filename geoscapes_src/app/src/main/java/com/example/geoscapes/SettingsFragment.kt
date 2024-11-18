@@ -34,7 +34,8 @@ class SettingsFragment : Fragment() {
         val view = inflater.inflate(R.layout.fragment_settings, container, false)
         settingsRecyclerView = view.findViewById(R.id.settings_recycler_view)
         settingToggledKV = requireContext().getSharedPreferences(
-            getString(R.string.settingToggledKV), Context.MODE_PRIVATE)
+            getString(R.string.settingToggledKV), Context.MODE_PRIVATE
+        )
         if (settingToggledKV.getBoolean("Dark Mode", false)) {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
         }
@@ -125,4 +126,5 @@ class SettingsFragment : Fragment() {
         }
 
         return view
+    }
 }
