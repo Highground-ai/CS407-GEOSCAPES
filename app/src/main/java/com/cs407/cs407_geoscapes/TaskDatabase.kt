@@ -25,15 +25,15 @@ import java.util.Date
 @Entity
 data class Task (
     @PrimaryKey(autoGenerate = true) val taskId: Int = 0,
-    val taskName: String, // Name of the task
+    val taskName: String = "", // Name of the task
     val taskDescription: String?, // Optional description of the task
     val taskCompletion: Float // Percentage of steps completed
 )
 @Entity(
-    primaryKeys = ["taskId", "stepID"],
+    primaryKeys = ["taskId", "stepId"],
     foreignKeys = [ForeignKey(
         entity = Task::class,
-        parentColumns = ["taskID"],
+        parentColumns = ["taskId"],
         childColumns = ["taskId"],
         onDelete = ForeignKey.CASCADE
     ), ForeignKey(
