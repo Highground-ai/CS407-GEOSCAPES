@@ -12,6 +12,7 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import com.example.geoscapes.databinding.ActivityMainBinding
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.CameraUpdateFactory
@@ -23,6 +24,7 @@ import com.google.android.gms.maps.model.Polyline
 import com.google.android.gms.maps.model.PolylineOptions
 
 class MainActivity : AppCompatActivity() {
+    private lateinit var binding: ActivityMainBinding
     private lateinit var mFusedLocationClient: FusedLocationProviderClient
     private lateinit var mMap: GoogleMap
     private lateinit var mDestinationLatlng: LatLng
@@ -30,29 +32,31 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
-        mDestinationLatlng = LatLng(43.0753, -89.4034)
-        var mapFragment =
-            supportFragmentManager.findFragmentById(R.id.map_fragment) as? SupportMapFragment
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
-        mapFragment?.getMapAsync { googleMap: GoogleMap ->
-            mMap = googleMap
-            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(mDestinationLatlng, 15f))
-        }
-
-        mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
+//        mDestinationLatlng = LatLng(43.0753, -89.4034)
+//        var mapFragment =
+//            supportFragmentManager.findFragmentById(R.id.map_fragment) as? SupportMapFragment
+//
+//        mapFragment?.getMapAsync { googleMap: GoogleMap ->
+//            mMap = googleMap
+//            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(mDestinationLatlng, 15f))
+//        }
+//
+//        mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
     }
 
-    override fun onRequestPermissionsResult(
-        requestCode: Int,
-        permissions: Array<out String>,
-        grantResults: IntArray
-    ) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        if (requestCode ==1){
-            if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED){
-                //Add something to do with this permission
-            }
-        }
-    }
+//    override fun onRequestPermissionsResult(
+//        requestCode: Int,
+//        permissions: Array<out String>,
+//        grantResults: IntArray
+//    ) {
+//        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+//        if (requestCode ==1){
+//            if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED){
+//                //Add something to do with this permission
+//            }
+//        }
+//    }
 }
