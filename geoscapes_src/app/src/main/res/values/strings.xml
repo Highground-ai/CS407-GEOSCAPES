@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">CS407-GEOSCAPES</string>
+    <string name="app_name">GEOSCAPES</string>
     <string name="settingToggledKV">settingToggledKV</string>
     <string name="task_database">task_database</string>"
     <string name="completed">Completed</string>
