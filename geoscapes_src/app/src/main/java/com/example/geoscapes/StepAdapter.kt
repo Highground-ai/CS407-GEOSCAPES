@@ -1,4 +1,4 @@
-package com.cs407.cs407_geoscapes
+package com.example.geoscapes
 
 import android.view.LayoutInflater
 import android.view.View
@@ -8,7 +8,6 @@ import android.widget.Switch
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
-import com.example.geoscapes.R
 
 /**
  * Adapter for the steps RecyclerView.

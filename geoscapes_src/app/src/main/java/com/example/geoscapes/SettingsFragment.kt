@@ -1,4 +1,4 @@
-package com.cs407.cs407_geoscapes
+package com.example.geoscapes
 
 import android.content.Context
 import android.content.SharedPreferences
@@ -13,7 +13,6 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.geoscapes.R
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER

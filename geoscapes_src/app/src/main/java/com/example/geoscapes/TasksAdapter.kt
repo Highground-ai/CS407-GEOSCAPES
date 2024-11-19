@@ -1,4 +1,4 @@
-package com.cs407.cs407_geoscapes
+package com.example.geoscapes
 
 import android.view.LayoutInflater
 import android.view.View
@@ -12,7 +12,6 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import com.example.geoscapes.R
 
 /**
  * Adapter for the tasks RecyclerView.

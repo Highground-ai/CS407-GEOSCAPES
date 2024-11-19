@@ -1,4 +1,4 @@
-package com.cs407.cs407_geoscapes
+package com.example.geoscapes
 
 import android.content.Context
 import androidx.paging.PagingSource
@@ -20,8 +20,6 @@ import androidx.room.TypeConverters
 import androidx.room.Update
 import androidx.room.Upsert
 import com.google.android.gms.maps.model.LatLng
-import java.util.Date
-import com.example.geoscapes.R
 
 @Entity
 data class Task (
