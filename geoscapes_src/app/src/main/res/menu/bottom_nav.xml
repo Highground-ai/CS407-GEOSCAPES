@@ -13,6 +13,6 @@
         android:id="@+id/camera"
         android:icon="@drawable/baseline_camera_alt_24"/>
     <item android:title="Map"
-        android:id="@+id/map"
+        android:id="@+id/mapsFragment"
         android:icon="@drawable/baseline_map_24"/>
 </menu>

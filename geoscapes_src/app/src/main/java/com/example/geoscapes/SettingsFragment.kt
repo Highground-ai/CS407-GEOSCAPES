@@ -14,9 +14,12 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.geoscapes.databinding.FragmentSettingsBinding
 
 
 class SettingsFragment : Fragment() {
+    private var _binding: FragmentSettingsBinding? = null
+    private val binding get() = _binding!!
 
     private lateinit var settingsRecyclerView: RecyclerView
     private lateinit var settingsAdapter: SettingsAdapter
@@ -31,8 +34,9 @@ class SettingsFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view = inflater.inflate(R.layout.fragment_settings, container, false)
-        settingsRecyclerView = view.findViewById(R.id.settings_recycler_view)
+        _binding = FragmentSettingsBinding.inflate(inflater,container,false)
+
+        settingsRecyclerView = _binding!!.settingsRecyclerView
         settingToggledKV = requireContext().getSharedPreferences(
             getString(R.string.settingToggledKV), Context.MODE_PRIVATE
         )
@@ -125,6 +129,6 @@ class SettingsFragment : Fragment() {
             adapter = settingsAdapter
         }
 
-        return view
+        return binding.root
     }
 }
