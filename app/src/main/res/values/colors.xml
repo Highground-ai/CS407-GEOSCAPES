@@ -5,4 +5,6 @@
     <color name="red">#F03838</color>
     <color name="gray">#C0C0C0</color>"
     <color name="incomplete">#A12A2A</color>
+    <color name="complete">#195B15</color>
+    <color name="inProgress">#F4DA12</color>
 </resources>
