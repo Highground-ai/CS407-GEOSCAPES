@@ -13,6 +13,7 @@ import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.ui.setupWithNavController
 import com.example.geoscapes.databinding.ActivityMainBinding
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
@@ -26,10 +27,10 @@ import com.google.android.gms.maps.model.PolylineOptions
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
-    private lateinit var mFusedLocationClient: FusedLocationProviderClient
-    private lateinit var mMap: GoogleMap
-    private lateinit var mDestinationLatlng: LatLng
-    private lateinit var CurrentLatLng: LatLng
+//    private lateinit var mFusedLocationClient: FusedLocationProviderClient
+//    private lateinit var mMap: GoogleMap
+//    private lateinit var mDestinationLatlng: LatLng
+//    private lateinit var CurrentLatLng: LatLng
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,6 +39,8 @@ class MainActivity : AppCompatActivity() {
 
         val navHost = supportFragmentManager.findFragmentById(R.id.fragment_container_view) as NavHostFragment
         val navController = navHost.navController
+
+        binding.bottomNavigationView.setupWithNavController(navController)
 
 //        mDestinationLatlng = LatLng(43.0753, -89.4034)
 //        var mapFragment =

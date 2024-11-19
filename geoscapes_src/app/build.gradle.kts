@@ -70,6 +70,9 @@ dependencies {
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
 
+    // Maps SDK for Android
+    implementation("com.google.android.gms:play-services-maps:19.0.0")
+
     //Navigation
     val nav_version = "2.8.4"
 
