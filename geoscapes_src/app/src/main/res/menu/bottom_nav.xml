@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:title="Back"
-        android:id="@+id/back"
-        android:icon="@drawable/baseline_keyboard_backspace_24"/>
+    <item android:title="Settings"
+        android:id="@+id/settingsFragment"
+        android:icon="@drawable/baseline_settings_24"/>
     <item android:title="Checklist"
-        android:id="@+id/checklist"
+        android:id="@+id/tasksFragment"
         android:icon="@drawable/baseline_list_alt_24"/>
     <item android:title="Home"
         android:id="@+id/home"

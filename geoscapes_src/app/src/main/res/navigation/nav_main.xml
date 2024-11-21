@@ -16,5 +16,10 @@
         android:name="com.example.geoscapes.MapsFragment"
         android:label="fragment_maps"
         tools:layout="@layout/fragment_maps" />
+    <fragment
+        android:id="@+id/tasksFragment"
+        android:name="com.example.geoscapes.TasksFragment"
+        android:label="TasksFragment"
+        tools:layout="@layout/fragment_tasks"/>
 
 </navigation>
