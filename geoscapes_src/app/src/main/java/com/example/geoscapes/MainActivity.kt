@@ -79,42 +79,49 @@ class MainActivity : AppCompatActivity() {
             for (i in 1..20) {
                 taskDB.deleteDao().delete(i)
             }
-            taskDB.taskDao().upsert(Task(taskId=1,taskName="Test", taskDescription = null, taskCompletion=0f))
+            taskDB.taskDao().upsert(Task(taskId=1,taskName="Test", taskDescription = null, taskCompletion=0f, location = LatLng(0.0, 0.0)))
             val testTask = taskDB.taskDao().getTaskByName("Test")
             if (testTask != null) {
                 taskDB.stepDao().upsertStep(Step(
                     stepName="Test Step",
                     stepDescription = null,
-                    stepCompletion = false,
-                    location = LatLng(0.0, 0.0)),
+                    stepCompletion = false),
                     testTask.taskId)
             }
-            taskDB.taskDao().upsert(Task(taskId=2,taskName="Test2", taskDescription = null, taskCompletion=100f))
+            taskDB.taskDao().upsert(Task(
+                    taskId = 2,
+                    taskName = "Test2",
+                    taskDescription = null,
+                    taskCompletion = 100f,
+                    location = LatLng(0.0, 0.0))
+            )
             val testTask2 = taskDB.taskDao().getTaskByName("Test2")
             if (testTask2 != null) {
                 taskDB.stepDao().upsertStep(Step(
                     stepName="Test Step 2",
                     stepDescription = null,
-                    stepCompletion = true,
-                    location = LatLng(0.0, 0.0)),
+                    stepCompletion = true),
                     testTask2.taskId)
             }
-            taskDB.taskDao().upsert(Task(taskId=3,taskName="Test3", taskDescription = null, taskCompletion=50f))
+            taskDB.taskDao().upsert(Task(
+                taskId=3,taskName="Test3",
+                taskDescription = null,
+                taskCompletion=50f,
+                location = LatLng(0.0, 0.0)))
             val testTask3 = taskDB.taskDao().getTaskByName("Test3")
             if (testTask3 != null) {
                 taskDB.stepDao().upsertStep(Step(
                     stepName="Test Step 3",
                     stepDescription = null,
                     stepCompletion = true,
-                    location = LatLng(0.0, 0.0)),
+                    ),
                     testTask3.taskId)
             }
             if (testTask3 != null) {
                 taskDB.stepDao().upsertStep(Step(
                     stepName="Test Step 4",
                     stepDescription = null,
-                    stepCompletion = false,
-                    location = LatLng(0.0, 0.0)),
+                    stepCompletion = false),
                     testTask3.taskId)
             }
         }

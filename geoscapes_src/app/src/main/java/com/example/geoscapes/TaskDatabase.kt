@@ -26,7 +26,8 @@ data class Task (
     @PrimaryKey(autoGenerate = true) val taskId: Int = 0,
     val taskName: String = "", // Name of the task
     val taskDescription: String?, // Optional description of the task
-    val taskCompletion: Float // Percentage of steps completed
+    val taskCompletion: Float, // Percentage of steps completed
+    val location: LatLng, // The location of the task - could move to task if needed
 )
 @Entity(
     primaryKeys = ["taskId", "stepId"],
@@ -53,7 +54,6 @@ data class Step (
     val stepName: String, // Name of the step
     val stepDescription: String?, // Optional description of the step
     val stepCompletion: Boolean, // Whether the step has been completed
-    val location: LatLng, // The location of the step - could move to task if needed
 )
 
 class Converters {
@@ -154,7 +154,7 @@ interface DeleteDao {
     }
 }
 
-@Database(entities = [Task::class, Step::class, TaskStepRelation::class], version = 1)
+@Database(entities = [Task::class, Step::class, TaskStepRelation::class], version = 2)
 
 @TypeConverters(Converters::class)
 abstract  class TaskDatabase : RoomDatabase() {
@@ -172,7 +172,8 @@ abstract  class TaskDatabase : RoomDatabase() {
                     context.applicationContext,
                     TaskDatabase::class.java,
                     context.getString(R.string.task_database),
-                ).build()
+                ).fallbackToDestructiveMigration()
+                    .build()
                 INSTANCE = instance
 
                 instance
