@@ -38,24 +38,29 @@ class TasksFragment : Fragment() {
         completedRecyclerView = _binding!!.completedRecyclerView
         incompleteRecyclerView = _binding!!.incompleteRecyclerView
 
+        // Create adapter instances early
+        val incompleteTasksAdapter = TasksAdapter(emptyList(), taskDB) // Initialize with empty list
+        val completedTasksAdapter = TasksAdapter(emptyList(), taskDB) // Initialize with empty list
+
+        incompleteRecyclerView.apply {
+            layoutManager = LinearLayoutManager(context)
+            adapter = incompleteTasksAdapter
+        }
+
+        completedRecyclerView.apply {
+            layoutManager = LinearLayoutManager(context)
+            adapter = completedTasksAdapter
+        }
+
+
         job = CoroutineScope(Dispatchers.IO).launch {
             val incompleteTasks = taskDB.taskDao().getIncompleteTasks()
             val completedTasks = taskDB.taskDao().getCompletedTasks()
 
             withContext(Dispatchers.Main) {
-                tasksAdapter = TasksAdapter(incompleteTasks, taskDB)
-                incompleteRecyclerView.apply {
-                    layoutManager = LinearLayoutManager(context)
-                    adapter = tasksAdapter
-                }
-
-                tasksAdapter = TasksAdapter(completedTasks, taskDB)
-                completedRecyclerView.apply {
-                    layoutManager = LinearLayoutManager(context)
-                    adapter = tasksAdapter
-                }
+                incompleteTasksAdapter.submitList(incompleteTasks) // Update data and notify
+                completedTasksAdapter.submitList(completedTasks) // Update data and notify
             }
-
         }
 
         return binding.root
