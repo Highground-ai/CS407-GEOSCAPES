@@ -33,10 +33,6 @@ import kotlinx.coroutines.launch
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
-//    private lateinit var mFusedLocationClient: FusedLocationProviderClient
-//    private lateinit var mMap: GoogleMap
-//    private lateinit var mDestinationLatlng: LatLng
-//    private lateinit var CurrentLatLng: LatLng
     private lateinit var taskDB: TaskDatabase
     private var job : Job? = null
     private lateinit var settingToggledKV: SharedPreferences
@@ -105,29 +101,5 @@ class MainActivity : AppCompatActivity() {
                     testTask3.taskId)
             }
         }
-
-//        mDestinationLatlng = LatLng(43.0753, -89.4034)
-//        var mapFragment =
-//            supportFragmentManager.findFragmentById(R.id.map_fragment) as? SupportMapFragment
-//
-//        mapFragment?.getMapAsync { googleMap: GoogleMap ->
-//            mMap = googleMap
-//            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(mDestinationLatlng, 15f))
-//        }
-//
-//        mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
     }
-
-//    override fun onRequestPermissionsResult(
-//        requestCode: Int,
-//        permissions: Array<out String>,
-//        grantResults: IntArray
-//    ) {
-//        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-//        if (requestCode ==1){
-//            if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED){
-//                //Add something to do with this permission
-//            }
-//        }
-//    }
 }
