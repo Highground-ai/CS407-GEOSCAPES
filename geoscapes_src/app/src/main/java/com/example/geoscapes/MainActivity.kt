@@ -3,10 +3,14 @@ package com.example.geoscapes
 import android.content.Context
 import android.content.SharedPreferences
 import android.content.pm.PackageManager
+import android.graphics.Color
+import android.graphics.drawable.BitmapDrawable
 import android.location.Location
 import android.os.Bundle
 import android.util.Log
 import android.util.Log.d
+import android.view.View
+import android.widget.ImageView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
@@ -26,6 +30,13 @@ import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import com.google.android.gms.maps.model.Polyline
 import com.google.android.gms.maps.model.PolylineOptions
+import com.google.mlkit.vision.common.InputImage
+import com.google.mlkit.vision.label.ImageLabeler
+import com.google.mlkit.vision.label.ImageLabeling
+import com.google.mlkit.vision.label.defaults.ImageLabelerOptions
+import com.google.mlkit.vision.text.TextRecognition
+import com.google.mlkit.vision.text.TextRecognizer
+import com.google.mlkit.vision.text.latin.TextRecognizerOptions
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -37,6 +48,8 @@ class MainActivity : AppCompatActivity() {
 //    private lateinit var mMap: GoogleMap
 //    private lateinit var mDestinationLatlng: LatLng
 //    private lateinit var CurrentLatLng: LatLng
+    private var mlText: String = "" // Text from readText, is "No text found" if no text is found
+    private var mlLabels: List<String> = MutableList(0) {""} // List of labels from readLabels, first element is "No labels found" if no labels are found
     private lateinit var taskDB: TaskDatabase
     private var job : Job? = null
     private lateinit var settingToggledKV: SharedPreferences
@@ -103,6 +116,49 @@ class MainActivity : AppCompatActivity() {
                     stepCompletion = false,
                     location = LatLng(0.0, 0.0)),
                     testTask3.taskId)
+            }
+        }
+
+        // Reads text from the image and appends mlText with the text in it
+        fun readText(inputImage: ImageView){
+            val bitmap = (inputImage.drawable as BitmapDrawable).bitmap
+            val image = InputImage.fromBitmap(bitmap, 0)
+            val options = TextRecognizerOptions.DEFAULT_OPTIONS
+            val recognizer: TextRecognizer = TextRecognition.getClient(options)
+            mlText = ""
+            recognizer.process(image)
+                //executed when text recognition is successful
+                .addOnSuccessListener { visionText ->
+                    if (visionText.textBlocks.isEmpty()) {
+                        mlText = "No text found"
+                    } else {
+                        for (block in visionText.textBlocks) {
+                            mlText += block.text
+                        }
+                    }
+                }
+                .addOnFailureListener {
+                    // Failed to recognize text
+                }
+        }
+
+        fun readLabels(inputImage: ImageView) {
+            // TODO: Implement the Basic Setup For Label Recognition
+            val bitmap = (inputImage.drawable as BitmapDrawable).bitmap
+            val image = InputImage.fromBitmap(bitmap, 0)
+            val options = ImageLabelerOptions.DEFAULT_OPTIONS
+            val labeler: ImageLabeler = ImageLabeling.getClient(options)
+            mlLabels = emptyList()
+            // TODO: Add Listeners for Label detection process
+            labeler.process(image).addOnSuccessListener { labels ->
+                if (labels.isEmpty()) {
+                    mlLabels += "No labels found"
+                }
+                for (label in labels) {
+                    mlLabels += label.text
+                }
+            }.addOnFailureListener {
+                // Failed to detect labels
             }
         }
 
