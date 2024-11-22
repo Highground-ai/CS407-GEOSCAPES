@@ -3,7 +3,10 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:paddingTop="15dp"
+    android:paddingLeft="15dp"
+    android:paddingRight="15dp">
 
     <TextView
         android:id="@+id/taskTextView"
@@ -11,7 +14,7 @@
         android:layout_height="100dp"
         android:text="Task Name"
         android:gravity="center"
-        android:background="@color/gray"
+        android:background="#D9D9D9"
         android:textSize="30sp"
         android:textColor="@color/black"
         app:layout_constraintTop_toTopOf="parent"
