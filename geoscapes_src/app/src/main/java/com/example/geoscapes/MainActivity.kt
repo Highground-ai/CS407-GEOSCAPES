@@ -63,7 +63,7 @@ class MainActivity : AppCompatActivity() {
         settingToggledKV = this.getSharedPreferences(
             getString(R.string.settingToggledKV), Context.MODE_PRIVATE
         )
-        if (settingToggledKV.getBoolean("Dark Mode", false)) {
+        if (settingToggledKV.getBoolean(getString(R.string.setting_dark_mode), false)) {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
         } else {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)

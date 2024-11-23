@@ -1,6 +1,7 @@
 package com.example.geoscapes
 
 import android.Manifest
+import android.content.SharedPreferences
 import android.content.pm.PackageManager
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -21,6 +22,7 @@ class MapsFragment : Fragment() {
     private lateinit var client: FusedLocationProviderClient
     private lateinit var locationCallback: LocationCallback // Declare locationCallback
     private lateinit var googleMap: GoogleMap
+    private lateinit var settingToggledKV: SharedPreferences
     private val LOCATION_PERMISSION_REQUEST_CODE = 100 // Unique code for permissions
 
     private val callback = OnMapReadyCallback { map ->
@@ -109,9 +111,11 @@ class MapsFragment : Fragment() {
         if (requestCode == LOCATION_PERMISSION_REQUEST_CODE) {
             if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 enableMyLocation()
+                settingToggledKV.edit().putBoolean(getString(R.string.setting_location), true).apply()
             } else {
                 Toast.makeText(requireContext(), "Location permission required", Toast.LENGTH_SHORT)
                     .show()
+                settingToggledKV.edit().putBoolean(getString(R.string.setting_location), false).apply()
             }
         }
     }

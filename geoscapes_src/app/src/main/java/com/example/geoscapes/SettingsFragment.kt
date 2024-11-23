@@ -37,27 +37,27 @@ class SettingsFragment : Fragment() {
         settingToggledKV = requireContext().getSharedPreferences(
             getString(R.string.settingToggledKV), Context.MODE_PRIVATE
         )
-        if (settingToggledKV.getBoolean("Dark Mode", false)) {
+        if (settingToggledKV.getBoolean(getString(R.string.setting_dark_mode), false)) {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
         }
         // Gets settings from sharedPreferences and creates a list of SettingItem objects
         // Not sure if the user updating permissions outside app will impact this
         val settingsList = listOf(
-            SettingItem("Dark Mode", settingToggledKV.getBoolean("Dark Mode", false)),
-            SettingItem("Music", settingToggledKV.getBoolean("Music", true)),
-            SettingItem("SFX", settingToggledKV.getBoolean("SFX", true)),
-            SettingItem("Haptic Feedback", settingToggledKV.getBoolean("Haptic Feedback", true)),
-            SettingItem("Notifications", settingToggledKV.getBoolean("Notifications", false)),
-            SettingItem("Camera", settingToggledKV.getBoolean("Camera", false)),
-            SettingItem("Microphone", settingToggledKV.getBoolean("Microphone", false)),
-            SettingItem("Location", settingToggledKV.getBoolean("Location", false))
+            SettingItem(getString(R.string.setting_dark_mode), settingToggledKV.getBoolean(getString(R.string.setting_dark_mode), false)),
+            SettingItem(getString(R.string.setting_music), settingToggledKV.getBoolean(getString(R.string.setting_music), true)),
+            SettingItem(getString(R.string.setting_sfx), settingToggledKV.getBoolean(getString(R.string.setting_sfx), true)),
+            SettingItem(getString(R.string.setting_haptic_feedback), settingToggledKV.getBoolean(getString(R.string.setting_haptic_feedback), true)),
+            SettingItem(getString(R.string.setting_notifications), settingToggledKV.getBoolean(getString(R.string.setting_notifications), false)),
+            SettingItem(getString(R.string.setting_camera), settingToggledKV.getBoolean(getString(R.string.setting_camera), false)),
+            SettingItem(getString(R.string.setting_microphone), settingToggledKV.getBoolean(getString(R.string.setting_microphone), false)),
+            SettingItem(getString(R.string.setting_location), settingToggledKV.getBoolean(getString(R.string.setting_location), false))
         )
 
         settingsAdapter = SettingsAdapter(settingsList) { settingItem, isChecked ->
             // Handle the switch toggle event
             // TODO Switch the switch back off if the user denies the permission
             when (settingItem.title) {
-                "Location" -> {
+                getString(R.string.setting_location) -> {
                     if (isChecked && ContextCompat.checkSelfPermission(
                             requireContext(),
                             Manifest.permission.ACCESS_FINE_LOCATION
@@ -70,7 +70,7 @@ class SettingsFragment : Fragment() {
                     }
                 }
 
-                "Camera" -> {
+                getString(R.string.setting_camera) -> {
                     if (isChecked && ContextCompat.checkSelfPermission(
                             requireContext(),
                             Manifest.permission.CAMERA
@@ -83,7 +83,7 @@ class SettingsFragment : Fragment() {
                     }
                 }
 
-                "Microphone" -> {
+                getString(R.string.setting_microphone) -> {
                     if (isChecked && ContextCompat.checkSelfPermission(
                             requireContext(),
                             Manifest.permission.RECORD_AUDIO
@@ -96,7 +96,7 @@ class SettingsFragment : Fragment() {
                     }
                 }
 
-                "Notifications" -> {
+                getString(R.string.setting_notifications) -> {
                     if (isChecked && ContextCompat.checkSelfPermission(
                             requireContext(),
                             Manifest.permission.POST_NOTIFICATIONS
@@ -109,7 +109,7 @@ class SettingsFragment : Fragment() {
                     }
                 }
 
-                "Dark Mode" -> {
+                getString(R.string.setting_dark_mode) -> {
                     if (isChecked) {
                         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
                     } else {
