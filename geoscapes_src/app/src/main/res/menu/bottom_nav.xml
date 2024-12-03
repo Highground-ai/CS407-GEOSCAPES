@@ -7,7 +7,7 @@
         android:id="@+id/tasksFragment"
         android:icon="@drawable/baseline_list_alt_24"/>
     <item android:title="Home"
-        android:id="@+id/home"
+        android:id="@+id/landingPageFragment"
         android:icon="@drawable/baseline_home_24"/>
     <item android:title="Camera"
         android:id="@+id/camera"

@@ -21,5 +21,15 @@
         android:name="com.example.geoscapes.TasksFragment"
         android:label="TasksFragment"
         tools:layout="@layout/fragment_tasks"/>
+    <fragment
+        android:id="@+id/landingPageFragment"
+        android:name="com.example.geoscapes.LandingPage"
+        android:label="LandingPage"
+        tools:layout="@layout/fragment_landing_page">
+        <action
+            android:id="@+id/action_landingPageFragment_to_mapsFragment"
+            app:destination="@id/mapsFragment"/>
+    </fragment>
+
 
 </navigation>
