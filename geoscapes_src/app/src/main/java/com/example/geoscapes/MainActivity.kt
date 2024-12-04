@@ -81,7 +81,8 @@ class MainActivity : AppCompatActivity() {
                 taskDB.stepDao().upsertStep(Step(
                     stepName="Test Step",
                     stepDescription = null,
-                    stepCompletion = false),
+                    stepCompletion = false,
+                    activityId=null),
                     testTask.taskId)
             }
             taskDB.taskDao().upsert(Task(
@@ -96,7 +97,8 @@ class MainActivity : AppCompatActivity() {
                 taskDB.stepDao().upsertStep(Step(
                     stepName="Test Step 2",
                     stepDescription = null,
-                    stepCompletion = true),
+                    stepCompletion = true,
+                    activityId=null),
                     testTask2.taskId)
             }
             taskDB.taskDao().upsert(Task(
@@ -110,6 +112,7 @@ class MainActivity : AppCompatActivity() {
                     stepName="Test Step 3",
                     stepDescription = null,
                     stepCompletion = true,
+                    activityId=null,
                     ),
                     testTask3.taskId)
             }
@@ -117,7 +120,8 @@ class MainActivity : AppCompatActivity() {
                 taskDB.stepDao().upsertStep(Step(
                     stepName="Test Step 4",
                     stepDescription = null,
-                    stepCompletion = false),
+                    stepCompletion = false,
+                    activityId=null),
                     testTask3.taskId)
             }
         }
