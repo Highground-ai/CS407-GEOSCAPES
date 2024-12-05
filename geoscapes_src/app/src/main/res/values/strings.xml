@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">Geoscapes</string>
     <string name="settingToggledKV">settingToggledKV</string>
+    <string name="currentTaskKey">currentTaskKey</string>
     <string name="task_database">task_database</string>"
     <string name="completed">Completed</string>
     <string name="setting_dark_mode">Dark Mode</string>
