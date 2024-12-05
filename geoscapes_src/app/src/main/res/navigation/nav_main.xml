@@ -15,7 +15,13 @@
         android:id="@+id/mapsFragment"
         android:name="com.example.geoscapes.MapsFragment"
         android:label="fragment_maps"
-        tools:layout="@layout/fragment_maps" />
+        tools:layout="@layout/fragment_maps">
+        <action
+            android:id="@+id/action_mapsFragment_to_tasksFragment"
+            app:destination="@id/tasksFragment"
+            app:popUpTo="@id/mapsFragment"
+            app:popUpToInclusive="true"/>
+    </fragment>
     <fragment
         android:id="@+id/tasksFragment"
         android:name="com.example.geoscapes.TasksFragment"
@@ -28,7 +34,14 @@
         tools:layout="@layout/fragment_landing_page">
         <action
             android:id="@+id/action_landingPageFragment_to_mapsFragment"
-            app:destination="@id/mapsFragment"/>
+            app:destination="@id/mapsFragment"
+            app:popUpTo="@id/landingPageFragment"
+            app:popUpToInclusive="true"/>
+        <action
+            android:id="@+id/action_landingPageFragment_to_tasksFragment"
+            app:destination="@id/tasksFragment"
+            app:popUpTo="@id/landingPageFragment"
+            app:popUpToInclusive="true"/>
     </fragment>
 
 

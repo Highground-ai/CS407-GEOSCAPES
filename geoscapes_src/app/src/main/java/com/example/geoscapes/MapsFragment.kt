@@ -12,6 +12,7 @@ import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
+import androidx.navigation.fragment.findNavController
 import com.example.geoscapes.databinding.FragmentMapsBinding
 import com.example.geoscapes.databinding.PopupWindowBinding
 import com.google.android.gms.location.*
@@ -26,6 +27,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 
 class MapsFragment : Fragment() {
@@ -92,7 +94,9 @@ class MapsFragment : Fragment() {
             // 2) If task exists, then create marker with the specified task
             job = CoroutineScope(Dispatchers.IO).launch {
                 val task : Task = taskDB.taskDao().getTaskById(taskID)!!
-                placeTaskMarkers(task)
+                withContext(Dispatchers.Main) {
+                    placeTaskMarkers(task)
+                }
             }
         }
         // 3) else, create a toast and then navigate to the other fragment
@@ -104,7 +108,7 @@ class MapsFragment : Fragment() {
                         "the task bar")
                 .setTitle("No Task Set")
                 .setPositiveButton("Ok") { dialog, which ->
-                    Navigation.findNavController(view).navigate(R.id.tasksFragment)
+                    findNavController().navigate(R.id.action_mapsFragment_to_tasksFragment)
                 }
 
             val dialog: AlertDialog = builder.create()
@@ -219,8 +223,7 @@ class MapsFragment : Fragment() {
     private fun placeTaskMarkers(
         task : Task
     ){
-        val taskPosition = task.location!!
-        val taskDescription = task.taskDescription!!
+        val taskPosition = task.location
         val taskTitle = task.taskName
         var newMarker = googleMap.addMarker(
             MarkerOptions().position(taskPosition).title(taskTitle)
