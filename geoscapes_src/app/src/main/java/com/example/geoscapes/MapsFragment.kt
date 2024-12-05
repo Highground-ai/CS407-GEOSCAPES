@@ -101,13 +101,15 @@ class MapsFragment : Fragment() {
             val builder: AlertDialog.Builder = AlertDialog.Builder(context)
             builder
                 .setMessage("It looks like you haven't selected a task, please select a task from" +
-                        "the task bar")
+                        " the task bar")
                 .setTitle("No Task Set")
                 .setPositiveButton("Ok") { dialog, which ->
                     Navigation.findNavController(view).navigate(R.id.tasksFragment)
                 }
 
             val dialog: AlertDialog = builder.create()
+            dialog.setCancelable(false)
+            dialog.setCanceledOnTouchOutside(false)
             dialog.show()
 
         }
