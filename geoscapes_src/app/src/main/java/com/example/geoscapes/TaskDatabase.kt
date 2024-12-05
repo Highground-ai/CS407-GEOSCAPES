@@ -54,6 +54,7 @@ data class Step (
     val stepName: String, // Name of the step
     val stepDescription: String?, // Optional description of the step
     val stepCompletion: Boolean, // Whether the step has been completed
+    val activityId: String?, // Optional activityId for the step
 )
 
 class Converters {
@@ -154,7 +155,7 @@ interface DeleteDao {
     }
 }
 
-@Database(entities = [Task::class, Step::class, TaskStepRelation::class], version = 2)
+@Database(entities = [Task::class, Step::class, TaskStepRelation::class], version = 3)
 
 @TypeConverters(Converters::class)
 abstract  class TaskDatabase : RoomDatabase() {
