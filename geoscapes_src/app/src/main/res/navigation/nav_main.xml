@@ -16,10 +16,19 @@
         android:name="com.example.geoscapes.MapsFragment"
         android:label="fragment_maps"
         tools:layout="@layout/fragment_maps" />
+    <action
+        android:id="@+id/action_mapsFragment_to_tutorialFragment"
+        app:destination="@id/tutorialFragment"
+        app:enterAnim="@android:anim/fade_in" />
     <fragment
         android:id="@+id/tasksFragment"
         android:name="com.example.geoscapes.TasksFragment"
         android:label="TasksFragment"
         tools:layout="@layout/fragment_tasks"/>
+    <fragment
+        android:id="@+id/tutorialFragment"
+        android:name="com.example.geoscapes.TutorialFragment"
+        android:label="TutorialFragment"
+        tools:layout="@layout/tutorial_dialog"/>
 
 </navigation>

@@ -7,25 +7,26 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-<!--    <FrameLayout-->
-<!--        android:id="@+id/frame_layout"-->
-<!--        android:layout_width="0dp"-->
-<!--        android:layout_height="0dp"-->
-<!--        app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toTopOf="parent">-->
-<!--    </FrameLayout>-->
+    <!--    <FrameLayout-->
+    <!--        android:id="@+id/frame_layout"-->
+    <!--        android:layout_width="0dp"-->
+    <!--        android:layout_height="0dp"-->
+    <!--        app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView"-->
+    <!--        app:layout_constraintEnd_toEndOf="parent"-->
+    <!--        app:layout_constraintStart_toStartOf="parent"-->
+    <!--        app:layout_constraintTop_toTopOf="parent">-->
+    <!--    </FrameLayout>-->
 
     <androidx.fragment.app.FragmentContainerView
-        android:id = "@+id/fragment_container_view"
-        android:name = "androidx.navigation.fragment.NavHostFragment"
+        android:id="@+id/fragment_container_view"
+        android:name="androidx.navigation.fragment.NavHostFragment"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        app:defaultNavHost = "true"
+        app:defaultNavHost="true"
+        app:layout_constraintEnd_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:navGraph = "@navigation/nav_main"
-        >
+        app:navGraph="@navigation/nav_main">
 
     </androidx.fragment.app.FragmentContainerView>
 
@@ -37,6 +38,30 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:menu="@menu/bottom_nav"/>
+        app:menu="@menu/bottom_nav" />
+
+<!--    <TextView-->
+<!--        android:id="@+id/geoscapes_title"-->
+<!--        android:layout_width="417dp"-->
+<!--        android:layout_height="24dp"-->
+<!--        android:background="#80FF0000"-->
+<!--        android:text="GeoScapes"-->
+<!--        android:textAlignment="center"-->
+<!--        android:textColor="@color/white"-->
+<!--        android:textSize="20sp"-->
+<!--        android:textStyle="bold"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toTopOf="parent" />-->
+
+<!--    <ImageView-->
+<!--        android:id="@+id/help_icon"-->
+<!--        android:layout_width="32dp"-->
+<!--        android:layout_height="32dp"-->
+<!--        android:clickable="true"-->
+<!--        android:focusable="true"-->
+<!--        app:layout_constraintStart_toStartOf="@+id/fragment_container_view"-->
+<!--        app:layout_constraintTop_toTopOf="@+id/fragment_container_view"-->
+<!--        app:srcCompat="@drawable/ic_help" />-->
 
 </androidx.constraintlayout.widget.ConstraintLayout>

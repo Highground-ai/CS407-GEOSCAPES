@@ -1,5 +1,6 @@
 package com.example.geoscapes
 
+import android.app.Dialog
 import android.content.Context
 import android.content.SharedPreferences
 import android.content.pm.PackageManager
@@ -7,9 +8,13 @@ import android.graphics.Color
 import android.graphics.drawable.BitmapDrawable
 import android.location.Location
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.util.Log
 import android.util.Log.d
 import android.view.View
+import android.view.ViewGroup
+import android.widget.Button
 import android.widget.ImageView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -18,6 +23,7 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.navigation.Navigation
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.example.geoscapes.databinding.ActivityMainBinding
@@ -61,8 +67,9 @@ class MainActivity : AppCompatActivity() {
         binding.bottomNavigationView.setupWithNavController(navController)
 
         settingToggledKV = this.getSharedPreferences(
-            getString(R.string.settingToggledKV), Context.MODE_PRIVATE
+            getString(R.string.settingToggledKV), MODE_PRIVATE
         )
+
         if (settingToggledKV.getBoolean("Dark Mode", false)) {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
         } else {
@@ -81,22 +88,23 @@ class MainActivity : AppCompatActivity() {
                 taskDB.stepDao().upsertStep(Step(
                     stepName="Test Step",
                     stepDescription = null,
-                    stepCompletion = false),
+                    stepCompletion = false,),
                     testTask.taskId)
             }
             taskDB.taskDao().upsert(Task(
-                    taskId = 2,
-                    taskName = "Test2",
-                    taskDescription = null,
-                    taskCompletion = 100f,
-                    location = LatLng(0.0, 0.0))
+                taskId = 2,
+                taskName = "Test2",
+                taskDescription = null,
+                taskCompletion = 100f,
+                location = LatLng(0.0, 0.0))
             )
             val testTask2 = taskDB.taskDao().getTaskByName("Test2")
             if (testTask2 != null) {
                 taskDB.stepDao().upsertStep(Step(
                     stepName="Test Step 2",
                     stepDescription = null,
-                    stepCompletion = true),
+                    stepCompletion = true,
+                   ),
                     testTask2.taskId)
             }
             taskDB.taskDao().upsert(Task(
@@ -110,14 +118,15 @@ class MainActivity : AppCompatActivity() {
                     stepName="Test Step 3",
                     stepDescription = null,
                     stepCompletion = true,
-                    ),
+                ),
                     testTask3.taskId)
             }
             if (testTask3 != null) {
                 taskDB.stepDao().upsertStep(Step(
                     stepName="Test Step 4",
                     stepDescription = null,
-                    stepCompletion = false),
+                    stepCompletion = false,
+                    ),
                     testTask3.taskId)
             }
         }
