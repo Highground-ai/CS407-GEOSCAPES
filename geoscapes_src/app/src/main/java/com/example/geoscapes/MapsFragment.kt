@@ -216,7 +216,7 @@ class MapsFragment : Fragment() {
                     val currentLatLng = LatLng(location.latitude, location.longitude)
                     googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(currentLatLng, 15f))
                     if (currentTask.getInt("taskID", -1) != -1) {
-                        if (checkRadius(currentLatLng, activeTask!!.location, 100)) {
+                        if (checkRadius(currentLatLng, activeTask!!.location, activeTask!!.radius)) {
                             showPopup(activeTask!!.taskName, activeTask!!.taskDescription)
                         }
                     }
@@ -267,7 +267,7 @@ class MapsFragment : Fragment() {
         )
         val circle = googleMap.addCircle(CircleOptions()
             .center(taskPosition)
-            .radius(100.0)
+            .radius(task.radius.toDouble())
             .fillColor(Color.argb(128, 255, 0, 0))
             .strokeColor(ContextCompat.getColor(requireContext(), R.color.red)))
 
