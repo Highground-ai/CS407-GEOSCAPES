@@ -75,7 +75,11 @@ class MainActivity : AppCompatActivity() {
             for (i in 1..20) {
                 taskDB.deleteDao().delete(i)
             }
-            taskDB.taskDao().upsert(Task(taskId=1,taskName="Test", taskDescription = null, taskCompletion=0f, location = LatLng(0.0, 0.0)))
+            taskDB.taskDao().upsert(Task(
+                taskId=1,taskName="Test",
+                taskDescription = null,
+                taskCompletion=0f,
+                location = LatLng(43.0756930639629, -89.41034114655307)))
             val testTask = taskDB.taskDao().getTaskByName("Test")
             if (testTask != null) {
                 taskDB.stepDao().upsertStep(Step(
@@ -90,7 +94,7 @@ class MainActivity : AppCompatActivity() {
                     taskName = "Test2",
                     taskDescription = null,
                     taskCompletion = 100f,
-                    location = LatLng(0.0, 0.0))
+                    location = LatLng(43.0746930639629, -89.41074114655))
             )
             val testTask2 = taskDB.taskDao().getTaskByName("Test2")
             if (testTask2 != null) {
@@ -105,7 +109,7 @@ class MainActivity : AppCompatActivity() {
                 taskId=3,taskName="Test3",
                 taskDescription = null,
                 taskCompletion=50f,
-                location = LatLng(0.0, 0.0)))
+                location = LatLng(43.0766930639629, -89.41004114655)))
             val testTask3 = taskDB.taskDao().getTaskByName("Test3")
             if (testTask3 != null) {
                 taskDB.stepDao().upsertStep(Step(
