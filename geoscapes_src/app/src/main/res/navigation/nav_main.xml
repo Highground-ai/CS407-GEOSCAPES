@@ -21,6 +21,10 @@
             app:destination="@id/tasksFragment"
             app:popUpTo="@id/mapsFragment"
             app:popUpToInclusive="true"/>
+        <action
+            android:id="@+id/action_mapsFragment_to_tutorialFragment"
+            app:destination="@id/tutorialFragment"
+            app:enterAnim="@android:anim/fade_in" />
     </fragment>
     <fragment
         android:id="@+id/tasksFragment"
@@ -49,6 +53,11 @@
             app:popUpTo="@id/landingPageFragment"
             app:popUpToInclusive="true"/>
     </fragment>
+    <fragment
+        android:id="@+id/tutorialFragment"
+        android:name="com.example.geoscapes.TutorialFragment"
+        android:label="TutorialFragment"
+        tools:layout="@layout/tutorial_dialog"/>
 
 
 </navigation>

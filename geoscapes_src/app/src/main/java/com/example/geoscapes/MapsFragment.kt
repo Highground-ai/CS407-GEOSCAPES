@@ -77,7 +77,28 @@ class MapsFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        // Use ViewBinding to inflate the fragment layout
         _binding = FragmentMapsBinding.inflate(inflater, container, false)
+
+        // Access the helpIcon through ViewBinding instead of findViewById
+        val helpIcon = binding.helpIcon
+
+        // Handle ImageView click to show custom alert dialog
+        helpIcon.setOnClickListener {
+            // Inflate the custom layout (tutorial_dialog.xml)
+            val dialogView = inflater.inflate(R.layout.tutorial_dialog, null)
+
+            // Create the alert dialog
+            val dialog = AlertDialog.Builder(requireContext())
+                .setView(dialogView)  // Set the custom view
+                .setCancelable(true)  // Set the dialog to be dismissable
+                .create()
+
+            // Show the dialog
+            dialog.show()
+        }
+
+        // Return the root view from ViewBinding
         return binding.root
     }
 
