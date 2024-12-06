@@ -33,6 +33,10 @@
             app:popUpTo="@id/tasksFragment"
             app:popUpToInclusive="true"/>
     </fragment>
+    <dialog
+        android:id="@+id/tutorialFragment"
+        android:name="com.example.geoscapes.TutorialDialogFragment"
+        android:label="TutorialDialogFragment" />
     <fragment
         android:id="@+id/landingPageFragment"
         android:name="com.example.geoscapes.LandingPage"
