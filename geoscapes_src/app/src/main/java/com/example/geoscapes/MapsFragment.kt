@@ -6,6 +6,8 @@ import android.app.AlertDialog
 import android.content.Context
 import android.content.SharedPreferences
 import android.content.pm.PackageManager
+import android.graphics.Color.BLACK
+import android.location.Location
 import android.os.Bundle
 import android.view.*
 import android.widget.Toast
@@ -19,6 +21,7 @@ import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
+import com.google.android.gms.maps.model.CircleOptions
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import com.google.maps.android.SphericalUtil
@@ -39,6 +42,7 @@ class MapsFragment : Fragment() {
     private lateinit var settingToggledKV: SharedPreferences // Used to get the settings
     private lateinit var currentTask: SharedPreferences // Used to display location of active
     private lateinit var taskDB: TaskDatabase // Used to access tasks
+    private lateinit var userLocation : Location
     private val LOCATION_PERMISSION_REQUEST_CODE = 100 // Unique code for permissions
 
 
@@ -93,6 +97,7 @@ class MapsFragment : Fragment() {
             job = CoroutineScope(Dispatchers.IO).launch {
                 val task : Task = taskDB.taskDao().getTaskById(taskID)!!
                 placeTaskMarkers(task)
+                drawCircle(task.location,20.0) // TODO: Replace this with an actual task radius
             }
         }
         // 3) else, create a toast and then navigate to the other fragment
@@ -125,7 +130,11 @@ class MapsFragment : Fragment() {
         popupBinding.titleTextView.text = title
         popupBinding.descriptionTextView.text = description
 
-        // Set up button functionality
+        //TODO:
+        // Set up button functionality, should navigate to the AR_template activity
+        // Using the specified location, task information, and activity ID - however this button
+        // should only be clickable when the user location is within the radius (i.e, checkRadius
+        // function, else it should make a toast that says user isn't with the specified radius.
         popupBinding.actionButton.setOnClickListener {
             Toast.makeText(requireContext(), "Action button clicked", Toast.LENGTH_SHORT).show()
         }
@@ -174,9 +183,9 @@ class MapsFragment : Fragment() {
         locationCallback = object : LocationCallback() { // Initialize locationCallback here
             override fun onLocationResult(locationResult: LocationResult) {
                 super.onLocationResult(locationResult)
-                val location = locationResult.lastLocation
-                if (location != null) {
-                    val currentLatLng = LatLng(location.latitude, location.longitude)
+                userLocation = locationResult.lastLocation!!
+                if (userLocation != null) {
+                    val currentLatLng = LatLng(userLocation.latitude, userLocation.longitude)
                     googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(currentLatLng, 15f))
                     googleMap.addMarker(
                         MarkerOptions().position(currentLatLng).title("You are here")
@@ -213,6 +222,30 @@ class MapsFragment : Fragment() {
                 settingToggledKV.edit().putBoolean(getString(R.string.setting_location), false).apply()
             }
         }
+    }
+
+    private fun drawCircle(point: LatLng, radius: Double) {
+        // Instantiating CircleOptions to draw a circle around the marker
+
+        val circleOptions = CircleOptions()
+
+        // Specifying the center of the circle
+        circleOptions.center(point)
+
+        // Radius of the circle
+        circleOptions.radius(radius)
+
+        // Border color of the circle
+        circleOptions.strokeColor(BLACK)
+
+        // Fill color of the circle
+        circleOptions.fillColor(0x30ff0000)
+
+        // Border width of the circle
+        circleOptions.strokeWidth(2f)
+
+        // Adding the circle to the GoogleMap
+        googleMap.addCircle(circleOptions)
     }
 
     /**
