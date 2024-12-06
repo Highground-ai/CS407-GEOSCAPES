@@ -79,7 +79,8 @@ class MainActivity : AppCompatActivity() {
                 taskId=1,taskName="Test",
                 taskDescription = null,
                 taskCompletion=0f,
-                location = LatLng(43.0756930639629, -89.41034114655307)))
+                location = LatLng(43.0756930639629, -89.41034114655307),
+                radius = 200))
             val testTask = taskDB.taskDao().getTaskByName("Test")
             if (testTask != null) {
                 taskDB.stepDao().upsertStep(Step(

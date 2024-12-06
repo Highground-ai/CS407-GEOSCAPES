@@ -28,6 +28,7 @@ data class Task (
     val taskDescription: String?, // Optional description of the task
     val taskCompletion: Float, // Percentage of steps completed
     val location: LatLng, // The location of the task - could move to task if needed
+    val radius: Int = 100, // Radius of the task in meters
 )
 @Entity(
     primaryKeys = ["taskId", "stepId"],
@@ -155,7 +156,7 @@ interface DeleteDao {
     }
 }
 
-@Database(entities = [Task::class, Step::class, TaskStepRelation::class], version = 3)
+@Database(entities = [Task::class, Step::class, TaskStepRelation::class], version = 4)
 
 @TypeConverters(Converters::class)
 abstract  class TaskDatabase : RoomDatabase() {
