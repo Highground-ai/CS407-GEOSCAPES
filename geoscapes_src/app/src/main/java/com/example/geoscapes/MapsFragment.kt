@@ -6,14 +6,16 @@ import android.app.AlertDialog
 import android.content.Context
 import android.content.SharedPreferences
 import android.content.pm.PackageManager
-import android.graphics.Color.BLACK
+import android.graphics.Color
 import android.location.Location
 import android.os.Bundle
 import android.view.*
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
+import androidx.navigation.fragment.findNavController
 import com.example.geoscapes.databinding.FragmentMapsBinding
 import com.example.geoscapes.databinding.PopupWindowBinding
 import com.google.android.gms.location.*
@@ -29,6 +31,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 
 class MapsFragment : Fragment() {
@@ -42,13 +45,15 @@ class MapsFragment : Fragment() {
     private lateinit var settingToggledKV: SharedPreferences // Used to get the settings
     private lateinit var currentTask: SharedPreferences // Used to display location of active
     private lateinit var taskDB: TaskDatabase // Used to access tasks
+    private var activeTask: Task? = null // Used to store active task
     private lateinit var userLocation : Location
     private val LOCATION_PERMISSION_REQUEST_CODE = 100 // Unique code for permissions
-
+    private var taskDialog: AlertDialog? = null
 
     @SuppressLint("PotentialBehaviorOverride")
     private val callback = OnMapReadyCallback { map ->
         googleMap = map
+        googleMap.clear()
         if (ActivityCompat.checkSelfPermission(
                 requireContext(),
                 Manifest.permission.ACCESS_FINE_LOCATION
@@ -63,7 +68,8 @@ class MapsFragment : Fragment() {
 
         // Set marker click listener
         googleMap.setOnMarkerClickListener { marker ->
-            showPopup(marker.title, "This is the description for ${marker.title}")
+            //showPopup(marker.title, "This is the description for ${marker.title}")
+            marker.showInfoWindow()
             true // Return true to consume the click event
         }
     }
@@ -95,9 +101,12 @@ class MapsFragment : Fragment() {
         if (taskID != -1){
             // 2) If task exists, then create marker with the specified task
             job = CoroutineScope(Dispatchers.IO).launch {
-                val task : Task = taskDB.taskDao().getTaskById(taskID)!!
-                placeTaskMarkers(task)
-                drawCircle(task.location,20.0) // TODO: Replace this with an actual task radius
+                activeTask = taskDB.taskDao().getTaskById(taskID)
+                withContext(Dispatchers.Main) {
+                    activeTask?.let {
+                        placeTaskMarkers(it)
+                    }
+                }
             }
         }
         // 3) else, create a toast and then navigate to the other fragment
@@ -109,7 +118,7 @@ class MapsFragment : Fragment() {
                         " the task bar")
                 .setTitle("No Task Set")
                 .setPositiveButton("Ok") { dialog, which ->
-                    Navigation.findNavController(view).navigate(R.id.tasksFragment)
+                    findNavController().navigate(R.id.action_mapsFragment_to_tasksFragment)
                 }
 
             val dialog: AlertDialog = builder.create()
@@ -129,6 +138,12 @@ class MapsFragment : Fragment() {
         // Set title and description
         popupBinding.titleTextView.text = title
         popupBinding.descriptionTextView.text = description
+        if (activeTask?.taskCompletion == 0f){
+            popupBinding.actionButton.text = "Start Task"
+        } else {
+            popupBinding.actionButton.text = "Continue Task"
+        }
+
 
         //TODO:
         // Set up button functionality, should navigate to the AR_template activity
@@ -138,12 +153,14 @@ class MapsFragment : Fragment() {
         popupBinding.actionButton.setOnClickListener {
             Toast.makeText(requireContext(), "Action button clicked", Toast.LENGTH_SHORT).show()
         }
+        // Shows the dialog if it is not already showing
+        if (taskDialog == null || !taskDialog!!.isShowing) {
+            taskDialog = AlertDialog.Builder(requireContext())
+                .setView(popupBinding.root)
+                .create()
+            taskDialog!!.show()
+        }
 
-        // Create and show the dialog
-        AlertDialog.Builder(requireContext())
-            .setView(popupBinding.root)
-            .create()
-            .show()
     }
 
 
@@ -187,9 +204,11 @@ class MapsFragment : Fragment() {
                 if (userLocation != null) {
                     val currentLatLng = LatLng(userLocation.latitude, userLocation.longitude)
                     googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(currentLatLng, 15f))
-                    googleMap.addMarker(
-                        MarkerOptions().position(currentLatLng).title("You are here")
-                    )
+                    if (currentTask.getInt("taskID", -1) != -1) {
+                        if (checkRadius(currentLatLng, activeTask!!.location, activeTask!!.radius)) {
+                            showPopup(activeTask!!.taskName, activeTask!!.taskDescription)
+                        }
+                    }
                 }
             }
         }
@@ -224,42 +243,23 @@ class MapsFragment : Fragment() {
         }
     }
 
-    private fun drawCircle(point: LatLng, radius: Double) {
-        // Instantiating CircleOptions to draw a circle around the marker
-
-        val circleOptions = CircleOptions()
-
-        // Specifying the center of the circle
-        circleOptions.center(point)
-
-        // Radius of the circle
-        circleOptions.radius(radius)
-
-        // Border color of the circle
-        circleOptions.strokeColor(BLACK)
-
-        // Fill color of the circle
-        circleOptions.fillColor(0x30ff0000)
-
-        // Border width of the circle
-        circleOptions.strokeWidth(2f)
-
-        // Adding the circle to the GoogleMap
-        googleMap.addCircle(circleOptions)
-    }
-
     /**
      * Helper method used to quickly add markers to map
      */
     private fun placeTaskMarkers(
         task : Task
     ){
-        val taskPosition = task.location!!
-        val taskDescription = task.taskDescription!!
+        val taskPosition = task.location
         val taskTitle = task.taskName
         var newMarker = googleMap.addMarker(
             MarkerOptions().position(taskPosition).title(taskTitle)
         )
+        val circle = googleMap.addCircle(CircleOptions()
+            .center(taskPosition)
+            .radius(task.radius.toDouble())
+            .fillColor(Color.argb(128, 255, 0, 0))
+            .strokeColor(ContextCompat.getColor(requireContext(), R.color.red)))
+
         newMarker?.tag = task
     }
 

@@ -1,5 +1,7 @@
 package com.example.geoscapes
 
+import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -23,6 +25,7 @@ class TasksFragment : Fragment() {
     private lateinit var completedRecyclerView: RecyclerView
     private lateinit var tasksAdapter: TasksAdapter
     private lateinit var taskDB: TaskDatabase
+    private lateinit var currentTask: SharedPreferences // Used to display location of active
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,13 +37,15 @@ class TasksFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentTasksBinding.inflate(inflater,container,false)
+        currentTask = activity?.getSharedPreferences(
+            getString(R.string.currentTaskKey), Context.MODE_PRIVATE)!!
 
         completedRecyclerView = _binding!!.completedRecyclerView
         incompleteRecyclerView = _binding!!.incompleteRecyclerView
 
         // Create adapter instances early
-        val incompleteTasksAdapter = TasksAdapter(emptyList(), taskDB) // Initialize with empty list
-        val completedTasksAdapter = TasksAdapter(emptyList(), taskDB) // Initialize with empty list
+        val incompleteTasksAdapter = TasksAdapter(emptyList(), taskDB, currentTask) // Initialize with empty list
+        val completedTasksAdapter = TasksAdapter(emptyList(), taskDB, currentTask) // Initialize with empty list
 
         incompleteRecyclerView.apply {
             layoutManager = LinearLayoutManager(context)
