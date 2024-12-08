@@ -67,6 +67,14 @@ dependencies {
     // Maps SDK for Android
     implementation("com.google.android.gms:play-services-maps:19.0.0")
     implementation("com.google.maps.android:android-maps-utils:3.4.0")
+    implementation ("com.google.android.gms:play-services-location:16")
+
+    // Sceneform UX and Filament for 3D rendering
+
+
+
+    implementation ("com.gorisse.thomas.sceneform:sceneform:1.23.0")
+
 
     // Navigation
     val nav_version = "2.8.4"
@@ -90,5 +98,5 @@ dependencies {
 
     // Add ARCore dependencies
     implementation("com.google.ar:core:1.44.0")
-    implementation("com.google.ar.sceneform.ux:sceneform-ux:1.17.1")
+    //implementation("com.google.ar.sceneform.ux:sceneform-ux:1.17.1")
 }

@@ -151,7 +151,15 @@ class MapsFragment : Fragment() {
         // should only be clickable when the user location is within the radius (i.e, checkRadius
         // function, else it should make a toast that says user isn't with the specified radius.
         popupBinding.actionButton.setOnClickListener {
-            Toast.makeText(requireContext(), "Action button clicked", Toast.LENGTH_SHORT).show()
+            val bundle = Bundle().apply {
+                putDouble("latitude", activeTask!!.location.latitude)
+                putDouble("longitude", activeTask!!.location.longitude)
+                putString("title", title)
+                putInt("TaskID", activeTask!!.taskId)
+                putString("description", description)
+            }
+            Navigation.findNavController(requireView())
+                .navigate(R.id.action_mapsFragment_to_arTemplateFragment, bundle)
         }
         // Shows the dialog if it is not already showing
         if (taskDialog == null || !taskDialog!!.isShowing) {

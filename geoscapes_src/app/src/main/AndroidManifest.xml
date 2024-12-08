@@ -42,6 +42,10 @@
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="${MAPS_API_KEY}"/>
+        <meta-data
+            android:name="com.google.android.ar.API_KEY"
+            android:value="AIzaSyA_MOD7ByHCIpVjmY1D6diLwecg9rIUDbo"/>
+
 
         <!-- "AR Required" app, requires "Google Play Services for AR" (ARCore)
        to be installed, as the app does not include any non-AR features. -->

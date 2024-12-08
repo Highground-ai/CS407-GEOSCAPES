@@ -21,6 +21,9 @@
             app:destination="@id/tasksFragment"
             app:popUpTo="@id/mapsFragment"
             app:popUpToInclusive="true"/>
+        <action
+            android:id="@+id/action_mapsFragment_to_arTemplateFragment"
+            app:destination="@id/ARTemplateFragment" />
     </fragment>
     <fragment
         android:id="@+id/tasksFragment"
@@ -48,6 +51,17 @@
             app:destination="@id/tasksFragment"
             app:popUpTo="@id/landingPageFragment"
             app:popUpToInclusive="true"/>
+    </fragment>
+    <fragment
+        android:id="@+id/ARTemplateFragment"
+        android:name="com.example.geoscapes.ARTemplateFragment"
+        android:label="ARTemplateFragment"
+        >
+        <action
+            android:id="@+id/action_ArTemplateFragment_to_landingFragment"
+            app:destination="@id/landingPageFragment"
+
+            />
     </fragment>
 
 
