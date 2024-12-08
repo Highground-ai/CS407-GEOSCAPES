@@ -23,7 +23,9 @@
             app:popUpToInclusive="true"/>
         <action
             android:id="@+id/action_mapsFragment_to_arTemplateFragment"
-            app:destination="@id/ARTemplateFragment" />
+            app:destination="@id/ARTemplateFragment"
+            app:popUpTo="@id/mapsFragment"
+            app:popUpToInclusive="true" />
     </fragment>
     <fragment
         android:id="@+id/tasksFragment"
@@ -60,7 +62,14 @@
         <action
             android:id="@+id/action_ArTemplateFragment_to_landingFragment"
             app:destination="@id/landingPageFragment"
-
+            app:popUpTo="@id/ARTemplateFragment"
+            app:popUpToInclusive="true"
+            />
+        <action
+            android:id="@+id/action_ArTemplateFragment_to_mapsFragment"
+            app:destination="@id/mapsFragment"
+            app:popUpTo="@id/ARTemplateFragment"
+            app:popUpToInclusive="true"
             />
     </fragment>
 

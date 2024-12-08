@@ -78,7 +78,8 @@ class MainActivity : AppCompatActivity() {
             taskDB.taskDao().upsert(Task(taskId=1,taskName="Test",
                 taskDescription = null,
                 taskCompletion=0f,
-                location = LatLng(0.0, 0.0),
+                location = LatLng(43.0756930639629, -89.41034114655307),
+                radius = 200,
                 storyline = "This is a line of story for Test"))
             val testTask = taskDB.taskDao().getTaskByName("Test")
             if (testTask != null) {

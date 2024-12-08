@@ -160,6 +160,7 @@ class MapsFragment : Fragment() {
             }
             Navigation.findNavController(requireView())
                 .navigate(R.id.action_mapsFragment_to_arTemplateFragment, bundle)
+            taskDialog?.dismiss()
         }
         // Shows the dialog if it is not already showing
         if (taskDialog == null || !taskDialog!!.isShowing) {
