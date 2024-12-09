@@ -80,6 +80,9 @@ class MapsFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentMapsBinding.inflate(inflater, container, false)
+        settingToggledKV = requireContext().getSharedPreferences(
+            getString(R.string.settingToggledKV), Context.MODE_PRIVATE
+        )
         return binding.root
     }
 
