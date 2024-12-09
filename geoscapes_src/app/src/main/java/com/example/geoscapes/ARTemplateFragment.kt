@@ -23,35 +23,20 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import android.net.Uri
+import android.util.Log
 import androidx.navigation.Navigation
+import com.google.ar.core.Frame
+import com.google.ar.core.Plane
+import com.google.ar.core.Pose
 
 class ARTemplateFragment : Fragment(R.layout.fragment_ar_template) {
 
-    // AR Variables
     private lateinit var arFragment: ArFragment
     private var arSession: Session? = null
-    private var modelRenderable: ModelRenderable? = null
-
-    // Location Variables
-    private var targetLatLng: LatLng? = null
-    private var markerTitle: String? = null
-    private var markerDescription: String? = null
-    private var taskID: Int? = null
-    private lateinit var taskDB: TaskDatabase
-    private var currTask: Task? = null
-    private var job: Job? = null
+    private var modelRenderer: ModelRenderable? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        arguments?.let {
-            val latitude = it.getDouble("latitude")
-            val longitude = it.getDouble("longitude")
-            targetLatLng = LatLng(latitude, longitude)
-            markerTitle = it.getString("title")
-            markerDescription = it.getString("description")
-            taskID = it.getInt("taskID")
-        }
     }
 
     override fun onAttach(context: Context) {
@@ -65,17 +50,10 @@ class ARTemplateFragment : Fragment(R.layout.fragment_ar_template) {
     override fun onViewCreated(view: android.view.View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // Initialize the ARFragment
         arFragment = childFragmentManager.findFragmentById(R.id.ARTemplateFragment) as ArFragment
 
         // Check permissions and initialize AR session
         checkPermissionsAndInitialize()
-
-        // Get the task related to this AR Activity
-        job = CoroutineScope(Dispatchers.IO).launch {
-            taskDB = TaskDatabase.getDatabase(requireActivity())
-            currTask = taskDB.taskDao().getTaskById(taskID!!)
-        }
     }
 
     private fun isARCoreSupportedAndUpToDate(context: Context): Boolean {
@@ -110,44 +88,56 @@ class ARTemplateFragment : Fragment(R.layout.fragment_ar_template) {
 
     private fun initializeARSession() {
         try {
-            // Create AR session and configure for geospatial mode
             arSession = Session(requireContext())
-            val config = arSession!!.config
-            config.geospatialMode = Config.GeospatialMode.ENABLED  // Enabling geospatial mode
+            val config = arSession!!.config.apply {
+                planeFindingMode = Config.PlaneFindingMode.HORIZONTAL
+                instantPlacementMode = Config.InstantPlacementMode.LOCAL_Y_UP
+                lightEstimationMode = Config.LightEstimationMode.AMBIENT_INTENSITY
+            }
             arSession!!.configure(config)
 
-            // Directly set up the AR session
-            arFragment.arSceneView.session = arSession
+            //arFragment.arSceneView.session = (arSession)
+            arFragment.arSceneView.post {
+                //arFragment.arSceneView.session = arSession
 
-            // Optionally, set up AR fragment listeners or callbacks here
-            // For instance, for tapping on a plane to place objects:
-            /**
-            arFragment.setOnTapArPlaneListener { hitResult, _, _ ->
-                val anchor = hitResult.createAnchor()
-                val anchorNode = AnchorNode(anchor)
-                anchorNode.setParent(arFragment.arSceneView.scene)
+                // Load the 3D model
+                loadModel()
 
-                // Add a transformable node (3D object) to the anchor
-                val modelNode = TransformableNode(arFragment.transformationSystem)
-                modelNode.setParent(anchorNode)
-                modelNode.select()
+                // Set up the tap listener to place the model
+                arFragment.setOnTapArPlaneListener { hitResult, plane, motionEvent ->
+                    if (plane.type == Plane.Type.HORIZONTAL_UPWARD_FACING && hitResult != null) {
+                        val anchor = hitResult.createAnchor()
+                        placeAnchorNode(anchor)
+                    } else {
+                        Toast.makeText(context, "Please tap on a horizontal plane.", Toast.LENGTH_SHORT).show()
+                    }
+                }
             }
-            */
+            // Load the 3D model
+            loadModel()
 
+            // Set up the tap listener to place the model
+            arFragment.setOnTapArPlaneListener { hitResult, plane, _ ->
+                if (plane.type == Plane.Type.HORIZONTAL_UPWARD_FACING) {
+                    val anchor = hitResult.createAnchor()
+                    placeAnchorNode(anchor)
+                } else {
+                    Toast.makeText(context, "Please tap on a horizontal plane.", Toast.LENGTH_SHORT).show()
+                }
+            }
         } catch (e: Exception) {
             Toast.makeText(context, "Failed to initialize AR session: ${e.message}", Toast.LENGTH_LONG).show()
+            Log.d("Except", e.message!!)
         }
     }
 
-
     private fun loadModel() {
-        // Load the GLB model from raw resource
         ModelRenderable.builder()
-            .setSource(requireContext(), Uri.parse("axe.glb"))
+            .setSource(requireContext(), Uri.parse("raw/axe.glb")) // Correct path for raw resource
             .build()
             .thenAccept { renderable ->
-                modelRenderable = renderable
-                Toast.makeText(context, "Model loaded", Toast.LENGTH_SHORT).show()
+                modelRenderer = renderable
+                Toast.makeText(context, "Model loaded successfully.", Toast.LENGTH_SHORT).show()
             }
             .exceptionally { throwable ->
                 Toast.makeText(context, "Error loading model: ${throwable.message}", Toast.LENGTH_LONG).show()
@@ -155,46 +145,17 @@ class ARTemplateFragment : Fragment(R.layout.fragment_ar_template) {
             }
     }
 
-    private fun placeGeospatialAnchor() {
-        val earth = arSession?.earth
-        if (earth == null || targetLatLng == null) {
-            Toast.makeText(context, "Earth or target location is not ready.", Toast.LENGTH_SHORT).show()
-            return
-        }
-
-        if (earth.trackingState != TrackingState.TRACKING) {
-            Toast.makeText(context, "Waiting for Earth to start tracking.", Toast.LENGTH_SHORT).show()
-            return
-        }
-
-        // Create a geospatial anchor
-        val latitude = targetLatLng!!.latitude
-        val longitude = targetLatLng!!.longitude
-        val altitude = earth.cameraGeospatialPose.altitude // Use camera altitude as a base
-        val heading = earth.cameraGeospatialPose.eastUpSouthQuaternion // Use current camera heading if necessary
-
-        val anchor = earth.createAnchor(latitude, longitude, altitude, heading)
-        if (anchor != null) {
-            placeAnchorNode(anchor)
-        } else {
-            Toast.makeText(context, "Failed to create a geospatial anchor.", Toast.LENGTH_SHORT).show()
-        }
-    }
-
     private fun placeAnchorNode(anchor: Anchor) {
-        val anchorNode = AnchorNode(anchor)
-        anchorNode.setParent(arFragment.arSceneView.scene)
+        val anchorNode = AnchorNode(anchor).apply {
+            setParent(arFragment.arSceneView.scene)
+        }
 
-        // Add the model at the anchor
-        val modelNode = TransformableNode(arFragment.transformationSystem)
-        modelNode.renderable = modelRenderable
-        modelNode.setParent(anchorNode)
-
-        // Set click listener to end the activity when the object is clicked
-        modelNode.setOnTapListener { _, _ ->
-            // TODO: Implement navigation or additional functionality after clicking the model
-            Navigation.findNavController(requireView()).navigate(R.id.action_ArTemplateFragment_to_landingFragment)
-            onDestroy()
+        val modelNode = TransformableNode(arFragment.transformationSystem).apply {
+            renderable = modelRenderer
+            setParent(anchorNode)
+            setOnTapListener { _, _ ->
+                Navigation.findNavController(requireView()).navigate(R.id.action_ArTemplateFragment_to_landingFragment)
+            }
         }
 
         modelNode.select()
@@ -202,14 +163,18 @@ class ARTemplateFragment : Fragment(R.layout.fragment_ar_template) {
 
     override fun onResume() {
         super.onResume()
-        arFragment.arSceneView.resume()
-        arSession?.resume()
+        try {
+            arSession?.resume()
+            arFragment.arSceneView.resume()
+        } catch (e: Exception) {
+            Toast.makeText(context, "Error resuming AR session: ${e.message}", Toast.LENGTH_SHORT).show()
+        }
     }
 
     override fun onPause() {
         super.onPause()
-        arFragment.arSceneView.pause()
         arSession?.pause()
+        arFragment.arSceneView.pause()
     }
 
     override fun onDestroy() {
