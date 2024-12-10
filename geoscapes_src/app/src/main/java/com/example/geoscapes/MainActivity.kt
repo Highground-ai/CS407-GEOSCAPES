@@ -43,20 +43,28 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 
 class MainActivity : AppCompatActivity() {
+    private var mlText: String = "" // Text from readText, is "No text found" if no text is found
+    private var mlLabels: List<String> = MutableList(0) {""} // List of labels from readLabels, first element is "No labels found" if no labels are found
     private lateinit var binding: ActivityMainBinding
     private lateinit var taskDB: TaskDatabase
     private var job : Job? = null
     private lateinit var settingToggledKV: SharedPreferences
+    private lateinit var tutorialOnFirstLoad: SharedPreferences
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val navHost = supportFragmentManager.findFragmentById(R.id.fragment_container_view) as NavHostFragment
+        tutorialOnFirstLoad = getSharedPreferences("TutorialPrefs", MODE_PRIVATE)
+
+        val navHost =
+            supportFragmentManager.findFragmentById(R.id.fragment_container_view) as NavHostFragment
         val navController = navHost.navController
 
         binding.bottomNavigationView.setupWithNavController(navController)
+
+        tutorialOnFirstLoad = getSharedPreferences("TutorialPrefs", MODE_PRIVATE)
 
         settingToggledKV = this.getSharedPreferences(
             getString(R.string.settingToggledKV), Context.MODE_PRIVATE
@@ -156,11 +164,32 @@ class MainActivity : AppCompatActivity() {
                     stepName=getString(R.string.fourth_task_step_two_name)),
                     fourthTask.taskId)
             }
-            if (taskDB.stepDao().getByName(getString(R.string.fourth_task_step_three_name)) == null) {
-                taskDB.stepDao().upsertStep(Step(
-                    stepName=getString(R.string.fourth_task_step_three_name)),
-                    fourthTask.taskId)
-            }
         }
+
+//        // Check if it's the first time the app is opened
+//        if (isFirstTimeUser()) {
+//            // Show tutorial
+//            showTutorialDialog()
+//        }
+//    }
+//
+//        // Check if it's the user's first time
+//         fun isFirstTimeUser(): Boolean {
+//            val isFirstTime = tutorialOnFirstLoad.getBoolean("isFirstTime", true)
+//            if (isFirstTime) {
+//                // Set flag to false after first time
+//                tutorialOnFirstLoad.edit().putBoolean("isFirstTime", false).apply()
+//            }
+//            return isFirstTime
+//        }
+//
+//        // Show the tutorial dialog
+//         fun showTutorialDialog() {
+//            val transaction: FragmentTransaction = supportFragmentManager.beginTransaction()
+//            val tutorialDialogFragment = TutorialDialogFragment()
+//            tutorialDialogFragment.show(transaction, "TutorialDialog")
+//        }
+
+
     }
 }
