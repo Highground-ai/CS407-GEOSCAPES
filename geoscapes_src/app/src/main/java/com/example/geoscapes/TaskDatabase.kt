@@ -52,7 +52,7 @@ data class TaskStepRelation(
 
 @Entity
 data class Step (
-    @PrimaryKey(autoGenerate = true) val stepId: Int = 0,
+    @PrimaryKey(autoGenerate = true) var stepId: Int = 0,
     val stepName: String, // Name of the step
     val stepDescription: String?, // Optional description of the step
     val stepCompletion: Boolean, // Whether the step has been completed
@@ -104,6 +104,9 @@ interface StepDao {
     @Query("SELECT * FROM step WHERE stepId = :id")
     suspend fun getById(id: Int): Step
 
+    @Query("SELECT * FROM step WHERE stepName = :name")
+    suspend fun getByName(name: String): Step?
+
     @Query("SELECT stepId FROM step WHERE rowid = :rowId")
     suspend fun getByRowId(rowId: Long): Int
 
@@ -115,13 +118,19 @@ interface StepDao {
 
     @Transaction
     suspend fun upsertStep(step: Step, taskId: Int): Int {
-        val rowId = upsert(step)
-        if (step.stepId == 0) {
+        val existingStep = getByName(step.stepName)
+        if (existingStep != null) {
+            // Update existing step
+            step.stepId = existingStep.stepId // Set the stepId to the existing step's ID
+            upsert(step) // Update the existing step in the database
+            return existingStep.stepId
+        } else {
+            // Insert new step
+            val rowId = upsert(step)
             val stepId = getByRowId(rowId)
             insertRelation(TaskStepRelation(taskId, stepId))
             return stepId
         }
-        return step.stepId
     }
 
     @Query(

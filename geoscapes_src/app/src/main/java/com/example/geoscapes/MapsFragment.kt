@@ -9,6 +9,8 @@ import android.content.pm.PackageManager
 import android.graphics.Color
 import android.location.Location
 import android.os.Bundle
+import android.os.VibrationEffect
+import android.os.Vibrator
 import android.view.*
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
@@ -171,6 +173,12 @@ class MapsFragment : Fragment() {
                 .setView(popupBinding.root)
                 .create()
             taskDialog!!.show()
+
+            // Haptic feedback
+            if (settingToggledKV.getBoolean(getString(R.string.setting_haptic_feedback), false)){
+                val vibrator = requireContext().getSystemService(Vibrator::class.java)
+                vibrator.vibrate(VibrationEffect.createOneShot(250, 1))
+            }
         }
 
     }

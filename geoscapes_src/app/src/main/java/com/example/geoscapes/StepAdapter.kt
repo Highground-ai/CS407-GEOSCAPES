@@ -33,7 +33,7 @@ class StepsAdapter(
 
     fun submitList(newSteps: List<Step>) {
         stepList = newSteps
-        notifyItemRangeInserted(0, newSteps.size) // Or use more specific notify methods for better performance
+        notifyItemRangeInserted(0, newSteps.size)
     }
 
     inner class StepsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
