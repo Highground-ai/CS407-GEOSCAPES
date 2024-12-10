@@ -28,6 +28,7 @@ class LandingPage : Fragment() {
     private lateinit var setTaskTextView: TextView
     private lateinit var taskTextView: TextView
     private lateinit var currentTaskTextView: TextView
+    private lateinit var storyTextView: TextView
 
     private lateinit var currentTask: SharedPreferences // Used to display location of active
     private lateinit var taskDB: TaskDatabase
@@ -51,6 +52,7 @@ class LandingPage : Fragment() {
         setTaskTextView = _binding!!.setTaskTextView
         taskTextView = _binding!!.taskTextView
         currentTaskTextView = _binding!!.currentTaskTextView
+        storyTextView = _binding!!.storyTextView
 
         goButton.setOnClickListener {
             if (currentTask.getInt("taskID", -1) != -1) {
@@ -66,6 +68,7 @@ class LandingPage : Fragment() {
             // Get current task and display it
             job = CoroutineScope(Dispatchers.IO).launch {
                 val task = taskDB.taskDao().getTaskById(currentTask.getInt("taskID", -1))
+                val tasks = taskDB.taskDao().getAllTasks()
                 withContext(Dispatchers.Main) {
                     setTaskTextView.text = "Go to Task"
                     currentTaskTextView.text = task?.taskName
@@ -73,6 +76,11 @@ class LandingPage : Fragment() {
                         taskTextView.text = "No Task Description"
                     } else {
                         taskTextView.text = task.taskDescription
+                    }
+                    for (t in tasks) {
+                        if (t.taskCompletion > 0f) {
+                            storyTextView.append(t.storyline + "\n\n")
+                        }
                     }
                 }
             }

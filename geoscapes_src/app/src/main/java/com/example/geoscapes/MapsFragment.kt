@@ -110,6 +110,7 @@ class MapsFragment : Fragment() {
                 withContext(Dispatchers.Main) {
                     activeTask?.let {
                         placeTaskMarkers(it)
+                        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(activeTask!!.location, 15f))
                     }
                 }
             }
@@ -223,7 +224,6 @@ class MapsFragment : Fragment() {
                 userLocation = locationResult.lastLocation!!
                 if (userLocation != null) {
                     val currentLatLng = LatLng(userLocation.latitude, userLocation.longitude)
-                    googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(currentLatLng, 15f))
                     if (currentTask.getInt("taskID", -1) != -1) {
                         if (checkRadius(currentLatLng, activeTask!!.location, activeTask!!.radius)) {
                             showPopup(activeTask!!.taskName, activeTask!!.taskDescription)
@@ -284,13 +284,16 @@ class MapsFragment : Fragment() {
     }
 
     /**
-     * Helper Method to see if user is within radius of marker
+     * Helper Method to see if user is within radius of marker. Always returns true if radius is 0
      */
     private fun checkRadius(
         start: LatLng,
         end: LatLng,
         radius: Int
     ): Boolean {
+        if (radius == 0) {
+            return true
+        }
         val dist = SphericalUtil.computeDistanceBetween(start, end)
         if (dist > radius){
             return false;

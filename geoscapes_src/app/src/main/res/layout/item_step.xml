@@ -12,9 +12,9 @@
         android:text="Step Name"
         android:gravity="center_vertical"
         android:paddingStart="75dp"
-        android:paddingEnd="75dp"
+        android:paddingEnd="15dp"
         android:background="#EFEDED"
-        android:textSize="24sp"
+        android:textSize="16sp"
         android:textColor="@color/black"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent" />

@@ -15,28 +15,42 @@
         android:layout_marginTop="15dp"
         android:layout_marginEnd="15dp"
         android:background="@color/incomplete"
-        android:text="Story Line:"
+        android:text="To Catch a Badger"
         android:textAlignment="center"
         android:textColor="@color/white"
         android:textSize="30sp" />
 
-    <!-- Can replace with RecyclerView -->
-    <TextView
-        android:id="@+id/storyTextView"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_marginStart="15dp"
-        android:layout_marginEnd="15dp"
-        android:background="@color/gray"
-        android:isScrollContainer="true"
-        android:layout_weight="1"
-        android:paddingLeft="10dp"
-        android:paddingTop="5dp"
-        android:paddingRight="10dp"
-        android:paddingBottom="5dp"
-        android:scrollbars="vertical"
-        android:text="Example Story Line"
-        android:textSize="24sp" />
+        android:layout_height="wrap_content">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintHeight_max="400dp"
+            app:layout_constrainedHeight="true"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
+
+            <TextView
+                android:id="@+id/storyTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/gray"
+                android:paddingLeft="10dp"
+                android:paddingTop="5dp"
+                android:layout_marginStart="15dp"
+                android:layout_marginEnd="15dp"
+                android:paddingRight="10dp"
+                android:paddingBottom="5dp"
+                android:text=""
+                android:textSize="24sp" />
+
+        </ScrollView>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <TextView
         android:id="@+id/currentTaskTextView"

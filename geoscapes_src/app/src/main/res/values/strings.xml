@@ -12,6 +12,24 @@
     <string name="setting_camera">Camera</string>
     <string name="setting_microphone">Microphone</string>
     <string name="setting_location">Location</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <!-- Quest strings -->
+    <string name="first_task_name">A Hunter’s Tools</string>
+    <string name="first_task_description">GeoScapes Tutorial, familiarize yourself with the features of the app, complete as many times as you need</string>
+    <string name="first_task_storyline">Bucky’s gone rogue, and with him, so has any chance for UW-Madison students to have affordable housing (slim as that chance may be). To find the highly implausible savior of this whole mess you’ll need to acquaint yourself with the tools of the trade: GeoScapes.</string>
+    <string name="second_task_name">A Badger’s Shame</string>
+    <string name="second_task_description">Find Bucky (and the axe) at the Camp Randall Arch in order to calm him down.</string>"
+    <string name="second_task_storyline">It’s no secret that the UW-Madison football team has taken a deep dive into insignificance. Following the tragic thanksgiving game, Bucky has stolen the Axe in a desperate gamble to bring back relevance to the team. Retrieve the Axe, hidden at Camp Randall, in order to redirect Bucky’s rage into a more… healthy outlet.</string>
+    <string name="second_task_step_one_name">Go To Camp Randall</string>
+    <string name="second_task_step_two_name">Find Bucky and the Axe</string>
+    <string name="third_task_name">A Badger’s Origin</string>
+    <string name="third_task_description">Find Abe Lincoln on Bascom Hill and use his description to inspire Bucky.</string>
+    <string name="third_task_storyline">With Bucky in tow, it’s now up to you to reignite the spark that started it all- Bascom hill (Not my choice of inspiration, but hey- if it works it works.) Go to the Hill, and find Honest Abe, a suitable companion for this endeavor - with any luck, he’ll be able to help you find your way forward.</string>
+    <string name="third_task_step_one_name">Go to Bascom Hill</string>
+    <string name="third_task_step_two_name">Take a photo of the Sign next to Abe</string>
+    <string name="fourth_task_name">A Badger’s Escape</string>
+    <string name="fourth_task_description">Go to the Memorial Union and place treats around the area in order to lure bucky</string>
+    <string name="fourth_task_storyline">Turns out Badgers don’t really understand platitudes. With Bucky on the run, the only way to get him back is to place treats at his favorite spot- The Terrace. </string>
+    <string name="fourth_task_step_one_name">Go To Memorial Union</string>
+    <string name="fourth_task_step_two_name">Place Three “Lures”</string>
+    <string name="fourth_task_step_three_name">“Catch” Bucky</string>"
 </resources>

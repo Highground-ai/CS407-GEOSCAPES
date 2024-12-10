@@ -72,108 +72,136 @@ class MainActivity : AppCompatActivity() {
         taskDB = TaskDatabase.getDatabase(this)
 
         job = CoroutineScope(Dispatchers.IO).launch {
-            for (i in 1..20) {
-                taskDB.deleteDao().delete(i)
+            if (taskDB.taskDao().getTaskByName("Test") != null) {
+                for (task in taskDB.taskDao().getAllTasks()) {
+                    taskDB.deleteDao().delete(task.taskId)
+                }
             }
-            taskDB.taskDao().upsert(Task(taskId=1,taskName="Test",
-                taskDescription = null,
-                taskCompletion=0f,
-                location = LatLng(43.071610705117166, -89.39538308007549),
-                radius = 200,
-                storyline = "This is a line of story for Test"))
-            val testTask = taskDB.taskDao().getTaskByName("Test")
-            if (testTask != null) {
-                taskDB.stepDao().upsertStep(Step(
-                    stepName="Test Step",
-                    stepDescription = null,
-                    stepCompletion = false,
-                    activityId=null),
-                    testTask.taskId)
-            }
-            taskDB.taskDao().upsert(Task(
-                    taskId = 2,
-                    taskName = "Test2",
-                    taskDescription = null,
-                    taskCompletion = 100f,
-                    location = LatLng(43.0746930639629, -89.41074114655),
-                    storyline = "This is a line of story for Test2")
-            )
-            val testTask2 = taskDB.taskDao().getTaskByName("Test2")
-            if (testTask2 != null) {
-                taskDB.stepDao().upsertStep(Step(
-                    stepName="Test Step 2",
-                    stepDescription = null,
-                    stepCompletion = true,
-                    activityId=null),
-                    testTask2.taskId)
-            }
-            taskDB.taskDao().upsert(Task(
-                taskId=3,taskName="Test3",
-                taskDescription = null,
-                taskCompletion=50f,
-                location = LatLng(43.0766930639629, -89.41004114655),
-                storyline = "This is a line of story for Test3"))
-
-            val testTask3 = taskDB.taskDao().getTaskByName("Test3")
-            if (testTask3 != null) {
-                taskDB.stepDao().upsertStep(Step(
-                    stepName="Test Step 3",
-                    stepDescription = null,
-                    stepCompletion = true,
-                    activityId=null,
-                    ),
-                    testTask3.taskId)
-            }
-            if (testTask3 != null) {
-                taskDB.stepDao().upsertStep(Step(
-                    stepName="Test Step 4",
-                    stepDescription = null,
-                    stepCompletion = false,
-                    activityId=null),
-                    testTask3.taskId)
+            if (taskDB.taskDao().getAllTasks().isEmpty()) {
+                createTasks()
             }
         }
+    }
 
-        // Reads text from the image and appends mlText with the text in it
-        fun readText(inputImage: ImageView){
-            val bitmap = (inputImage.drawable as BitmapDrawable).bitmap
-            val image = InputImage.fromBitmap(bitmap, 0)
-            val options = TextRecognizerOptions.DEFAULT_OPTIONS
-            val recognizer: TextRecognizer = TextRecognition.getClient(options)
-            mlText = ""
-            recognizer.process(image)
-                //executed when text recognition is successful
-                .addOnSuccessListener { visionText ->
-                    if (visionText.textBlocks.isEmpty()) {
-                        mlText = "No text found"
-                    } else {
-                        for (block in visionText.textBlocks) {
-                            mlText += block.text
-                        }
+    // Reads text from the image and appends mlText with the text in it
+    fun readText(inputImage: ImageView){
+        val bitmap = (inputImage.drawable as BitmapDrawable).bitmap
+        val image = InputImage.fromBitmap(bitmap, 0)
+        val options = TextRecognizerOptions.DEFAULT_OPTIONS
+        val recognizer: TextRecognizer = TextRecognition.getClient(options)
+        mlText = ""
+        recognizer.process(image)
+            //executed when text recognition is successful
+            .addOnSuccessListener { visionText ->
+                if (visionText.textBlocks.isEmpty()) {
+                    mlText = "No text found"
+                } else {
+                    for (block in visionText.textBlocks) {
+                        mlText += block.text
                     }
                 }
-                .addOnFailureListener {
-                    // Failed to recognize text
-                }
+            }
+            .addOnFailureListener {
+                // Failed to recognize text
+            }
+    }
+
+    fun readLabels(inputImage: ImageView) {
+        // TODO: Implement the Basic Setup For Label Recognition
+        val bitmap = (inputImage.drawable as BitmapDrawable).bitmap
+        val image = InputImage.fromBitmap(bitmap, 0)
+        val options = ImageLabelerOptions.DEFAULT_OPTIONS
+        val labeler: ImageLabeler = ImageLabeling.getClient(options)
+        mlLabels = emptyList()
+        // TODO: Add Listeners for Label detection process
+        labeler.process(image).addOnSuccessListener { labels ->
+            if (labels.isEmpty()) {
+                mlLabels += "No labels found"
+            }
+            for (label in labels) {
+                mlLabels += label.text
+            }
+        }.addOnFailureListener {
+            // Failed to detect labels
+        }
+    }
+
+    private suspend fun createTasks() {
+        // First task: A Hunter’s Tools
+        taskDB.taskDao().upsert(Task(taskId=1,taskName=getString(R.string.first_task_name),
+            taskDescription = getString(R.string.first_task_description),
+            storyline = getString(R.string.first_task_storyline)))
+        val firstTask = taskDB.taskDao().getTaskByName(getString(R.string.first_task_name))
+
+        // Second Task: A Badger’s Shame
+        taskDB.taskDao().upsert(Task(
+            taskName = getString(R.string.second_task_name),
+            taskDescription = getString(R.string.second_task_description),
+            location = LatLng(43.0711021300514, -89.4093681166184), // Arch outside camp randall
+            radius = 100,
+            storyline = getString(R.string.second_task_storyline))
+        )
+        val secondTask = taskDB.taskDao().getTaskByName(getString(R.string.second_task_name))
+        if (secondTask != null) {
+            if (taskDB.stepDao().getByName(getString(R.string.second_task_step_one_name)) == null) {
+                taskDB.stepDao().upsertStep(Step(
+                    stepName=getString(R.string.second_task_step_one_name),
+                    activityId=null),
+                    secondTask.taskId)
+            }
+            if (taskDB.stepDao().getByName(getString(R.string.second_task_step_two_name)) == null) {
+                taskDB.stepDao().upsertStep(Step(
+                    stepName=getString(R.string.second_task_step_two_name),
+                    activityId=null),
+                    secondTask.taskId)
+            }
         }
 
-        fun readLabels(inputImage: ImageView) {
-            // TODO: Implement the Basic Setup For Label Recognition
-            val bitmap = (inputImage.drawable as BitmapDrawable).bitmap
-            val image = InputImage.fromBitmap(bitmap, 0)
-            val options = ImageLabelerOptions.DEFAULT_OPTIONS
-            val labeler: ImageLabeler = ImageLabeling.getClient(options)
-            mlLabels = emptyList()
-            // TODO: Add Listeners for Label detection process
-            labeler.process(image).addOnSuccessListener { labels ->
-                if (labels.isEmpty()) {
-                    mlLabels += "No labels found"
-                }
-                for (label in labels) {
-                    mlLabels += label.text
-                }
-            }.addOnFailureListener {
-                // Failed to detect labels
+        // Third Task: A Badger’s Origin
+        taskDB.taskDao().upsert(Task(
+            taskName=getString(R.string.third_task_name),
+            taskDescription = getString(R.string.third_task_description),
+            radius = 50,
+            location = LatLng(43.07532181449608, -89.40369435577482),
+            storyline = getString(R.string.third_task_storyline)))
+
+        val thirdTask = taskDB.taskDao().getTaskByName(getString(R.string.third_task_name))
+        if (thirdTask != null) {
+            if (taskDB.stepDao().getByName(getString(R.string.third_task_step_one_name)) == null) {
+                taskDB.stepDao().upsertStep(Step(
+                    stepName=getString(R.string.third_task_step_one_name),
+                    activityId=null), thirdTask.taskId)
+            }
+            if (taskDB.stepDao().getByName(getString(R.string.third_task_step_two_name)) == null) {
+                taskDB.stepDao().upsertStep(Step(
+                    stepName=getString(R.string.third_task_step_two_name),
+                    activityId=null), thirdTask.taskId)
+            }
+        }
+
+        // Fourth Task: A Badger’s Escape
+        taskDB.taskDao().upsert(Task(
+            taskName=getString(R.string.fourth_task_name),
+            taskDescription = getString(R.string.fourth_task_description),
+            radius = 100,
+            location = LatLng(43.076282453635386, -89.39986102675734),
+            storyline = getString(R.string.fourth_task_storyline)))
+        val fourthTask = taskDB.taskDao().getTaskByName(getString(R.string.fourth_task_name))
+        if (fourthTask != null) {
+            if (taskDB.stepDao().getByName(getString(R.string.fourth_task_step_one_name)) == null) {
+                taskDB.stepDao().upsertStep(Step(
+                    stepName=getString(R.string.fourth_task_step_one_name),
+                    activityId=null), fourthTask.taskId)
+            }
+            if (taskDB.stepDao().getByName(getString(R.string.fourth_task_step_two_name)) == null) {
+                taskDB.stepDao().upsertStep(Step(
+                    stepName=getString(R.string.fourth_task_step_two_name),
+                    activityId=null), fourthTask.taskId)
+            }
+            if (taskDB.stepDao().getByName(getString(R.string.fourth_task_step_three_name)) == null) {
+                taskDB.stepDao().upsertStep(Step(
+                    stepName=getString(R.string.fourth_task_step_three_name),
+                    activityId=null), fourthTask.taskId)
             }
         }
     }

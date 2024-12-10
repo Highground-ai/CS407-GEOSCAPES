@@ -25,11 +25,11 @@ import com.google.android.gms.maps.model.LatLng
 data class Task (
     @PrimaryKey(autoGenerate = true) val taskId: Int = 0,
     val taskName: String = "", // Name of the task
-    val taskDescription: String?, // Optional description of the task
-    val taskCompletion: Float, // Percentage of steps completed
-    val location: LatLng, // The location of the task - could move to task if needed
-    val radius: Int = 100, // Radius user needs to be to start task
-    val storyline: String?, // Optional story of the task
+    val taskDescription: String? = null, // Optional description of the task
+    val taskCompletion: Float = 0f, // Percentage of steps completed
+    val location: LatLng = LatLng(0.0, 0.0), // The location of the task - could move to task if needed
+    val radius: Int = 0, // Radius user needs to be to start task
+    val storyline: String? = null, // Optional story of the task
 )
 @Entity(
     primaryKeys = ["taskId", "stepId"],
@@ -54,9 +54,9 @@ data class TaskStepRelation(
 data class Step (
     @PrimaryKey(autoGenerate = true) var stepId: Int = 0,
     val stepName: String, // Name of the step
-    val stepDescription: String?, // Optional description of the step
-    val stepCompletion: Boolean, // Whether the step has been completed
-    val activityId: String?, // Optional activityId for the step
+    val stepDescription: String? = null, // Optional description of the step
+    val stepCompletion: Boolean = false, // Whether the step has been completed
+    val activityId: String? = null, // Optional activityId for the step
 )
 
 class Converters {
