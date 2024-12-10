@@ -102,6 +102,9 @@ class TutorialDialogFragment : DialogFragment() {
 
                     continueButton.setOnClickListener {
                         nextDialog.dismiss()
+                        if (currentStep == 1) {
+                            currentTask.edit().putInt("taskID", 1).apply() //Moved here in case user dismisses first dialog
+                        }
                         navigateToNextFragment(fragmentSequence) // Proceed to the next step
                         if (currentStep == fragmentSequence.size - 1) {
                             job = CoroutineScope(Dispatchers.IO).launch {

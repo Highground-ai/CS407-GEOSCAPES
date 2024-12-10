@@ -84,7 +84,6 @@ class MainActivity : AppCompatActivity() {
             // This is the same as first time user
             if (taskDB.taskDao().getAllTasks().isEmpty()) {
                 createTasks()
-                currentTask.edit().putInt("taskID", 1).apply()
                 TutorialDialogFragment().show(supportFragmentManager, "tutorial")
             }
         }

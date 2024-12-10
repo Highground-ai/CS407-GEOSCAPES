@@ -29,7 +29,6 @@ class BannerFragment : Fragment() {
 
         helpIcon.setOnClickListener {
             TutorialDialogFragment().show(parentFragmentManager, "tutorial")
-            currentTask.edit().putInt("taskID", 1).apply()
         }
 
 
