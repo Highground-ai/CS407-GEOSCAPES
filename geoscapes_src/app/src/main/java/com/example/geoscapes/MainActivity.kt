@@ -91,7 +91,9 @@ class MainActivity : AppCompatActivity() {
 
     private suspend fun createTasks() {
         // First task: A Hunter’s Tools
-        taskDB.taskDao().upsert(Task(taskId=1,taskName=getString(R.string.first_task_name),
+        taskDB.taskDao().upsert(Task(
+            taskId=1,
+            taskName=getString(R.string.first_task_name),
             taskDescription = getString(R.string.first_task_description),
             storyline = getString(R.string.first_task_storyline)))
         val firstTask = taskDB.taskDao().getTaskByName(getString(R.string.first_task_name))
