@@ -11,7 +11,6 @@
     <string name="setting_notifications">Notifications</string>
     <string name="setting_camera">Camera</string>
     <string name="setting_microphone">Microphone</string>
-    <string name="setting_location">Location</string>
     <!-- Quest strings -->
     <string name="first_task_name">A Hunter’s Tools</string>
     <string name="first_task_description">GeoScapes Tutorial, familiarize yourself with the features of the app, complete as many times as you need</string>

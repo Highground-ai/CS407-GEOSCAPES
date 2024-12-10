@@ -280,11 +280,9 @@ class MapsFragment : Fragment() {
         if (requestCode == LOCATION_PERMISSION_REQUEST_CODE) {
             if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 enableMyLocation()
-                settingToggledKV.edit().putBoolean(getString(R.string.setting_location), true).apply()
             } else {
                 Toast.makeText(requireContext(), "Location permission required", Toast.LENGTH_SHORT)
                     .show()
-                settingToggledKV.edit().putBoolean(getString(R.string.setting_location), false).apply()
             }
         }
     }
