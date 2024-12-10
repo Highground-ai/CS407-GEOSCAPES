@@ -1,0 +1,385 @@
+1<?xml version="1.0" encoding="utf-8"?>
+2<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+3    package="com.example.geoscapes"
+4    android:versionCode="1"
+5    android:versionName="1.0" >
+6
+7    <uses-sdk
+8        android:minSdkVersion="33"
+9        android:targetSdkVersion="34" />
+10
+11    <uses-feature
+11-->/Users/Patron/StudioProjects/CS407-GEOSCAPES-arcore-mock_tutorial/app/app/src/main/AndroidManifest.xml:5:5-7:36
+12        android:name="android.hardware.camera"
+12-->/Users/Patron/StudioProjects/CS407-GEOSCAPES-arcore-mock_tutorial/app/app/src/main/AndroidManifest.xml:6:9-47
+13        android:required="false" />
+13-->/Users/Patron/StudioProjects/CS407-GEOSCAPES-arcore-mock_tutorial/app/app/src/main/AndroidManifest.xml:7:9-33
+14    <!--
+15         Limits app visibility in the Google Play Store to ARCore supported devices
+16         (https://developers.google.com/ar/devices).
+17    -->
+18    <uses-feature android:name="android.hardware.camera.ar" />
+18-->/Users/Patron/StudioProjects/CS407-GEOSCAPES-arcore-mock_tutorial/app/app/src/main/AndroidManifest.xml:10:5-63
+18-->/Users/Patron/StudioProjects/CS407-GEOSCAPES-arcore-mock_tutorial/app/app/src/main/AndroidManifest.xml:10:19-60
+19
+20    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+20-->/Users/Patron/StudioProjects/CS407-GEOSCAPES-arcore-mock_tutorial/app/app/src/main/AndroidManifest.xml:12:5-81
+20-->/Users/Patron/StudioProjects/CS407-GEOSCAPES-arcore-mock_tutorial/app/app/src/main/AndroidManifest.xml:12:22-78
+21    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+21-->/Users/Patron/StudioProjects/CS407-GEOSCAPES-arcore-mock_tutorial/app/app/src/main/AndroidManifest.xml:13:5-79
+21-->/Users/Patron/StudioProjects/CS407-GEOSCAPES-arcore-mock_tutorial/app/app/src/main/AndroidManifest.xml:13:22-76
+22    <uses-permission android:name="android.permission.CAMERA" />
+22-->/Users/Patron/StudioProjects/CS407-GEOSCAPES-arcore-mock_tutorial/app/app/src/main/AndroidManifest.xml:14:5-65
+22-->/Users/Patron/StudioProjects/CS407-GEOSCAPES-arcore-mock_tutorial/app/app/src/main/AndroidManifest.xml:14:22-62
+23    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+23-->/Users/Patron/StudioProjects/CS407-GEOSCAPES-arcore-mock_tutorial/app/app/src/main/AndroidManifest.xml:15:5-77
+23-->/Users/Patron/StudioProjects/CS407-GEOSCAPES-arcore-mock_tutorial/app/app/src/main/AndroidManifest.xml:15:22-74
+24    <uses-permission android:name="android.permission.INTERNET" />
+24-->/Users/Patron/StudioProjects/CS407-GEOSCAPES-arcore-mock_tutorial/app/app/src/main/AndroidManifest.xml:16:5-67
+24-->/Users/Patron/StudioProjects/CS407-GEOSCAPES-arcore-mock_tutorial/app/app/src/main/AndroidManifest.xml:16:22-64
+25    <uses-permission android:name="android.permission.VIBRATE" />
+25-->/Users/Patron/StudioProjects/CS407-GEOSCAPES-arcore-mock_tutorial/app/app/src/main/AndroidManifest.xml:17:5-66
+25-->/Users/Patron/StudioProjects/CS407-GEOSCAPES-arcore-mock_tutorial/app/app/src/main/AndroidManifest.xml:17:22-63
+26    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+26-->/Users/Patron/StudioProjects/CS407-GEOSCAPES-arcore-mock_tutorial/app/app/src/main/AndroidManifest.xml:18:5-71
+26-->/Users/Patron/StudioProjects/CS407-GEOSCAPES-arcore-mock_tutorial/app/app/src/main/AndroidManifest.xml:18:22-68
+27
+28    <!-- Include required permissions for Google Maps API to run. -->
+29    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+29-->[com.google.android.gms:play-services-maps:19.0.0] /Users/Patron/.gradle/caches/transforms-4/fb6cbac34fa65ecd58f89cb75f8e30a4/transformed/jetified-play-services-maps-19.0.0/AndroidManifest.xml:23:5-79
+29-->[com.google.android.gms:play-services-maps:19.0.0] /Users/Patron/.gradle/caches/transforms-4/fb6cbac34fa65ecd58f89cb75f8e30a4/transformed/jetified-play-services-maps-19.0.0/AndroidManifest.xml:23:22-76
+30
+31    <uses-feature
+31-->[com.google.android.gms:play-services-maps:19.0.0] /Users/Patron/.gradle/caches/transforms-4/fb6cbac34fa65ecd58f89cb75f8e30a4/transformed/jetified-play-services-maps-19.0.0/AndroidManifest.xml:26:5-28:35
+32        android:glEsVersion="0x00020000"
+32-->[com.google.android.gms:play-services-maps:19.0.0] /Users/Patron/.gradle/caches/transforms-4/fb6cbac34fa65ecd58f89cb75f8e30a4/transformed/jetified-play-services-maps-19.0.0/AndroidManifest.xml:27:9-41
+33        android:required="true" />
+33-->[com.google.android.gms:play-services-maps:19.0.0] /Users/Patron/.gradle/caches/transforms-4/fb6cbac34fa65ecd58f89cb75f8e30a4/transformed/jetified-play-services-maps-19.0.0/AndroidManifest.xml:28:9-32
+34
+35    <queries>
+35-->[com.google.android.gms:play-services-maps:19.0.0] /Users/Patron/.gradle/caches/transforms-4/fb6cbac34fa65ecd58f89cb75f8e30a4/transformed/jetified-play-services-maps-19.0.0/AndroidManifest.xml:30:5-34:15
+36
+37        <!-- Needs to be explicitly declared on Android R+ -->
+38        <package android:name="com.google.android.apps.maps" />
+38-->[com.google.android.gms:play-services-maps:19.0.0] /Users/Patron/.gradle/caches/transforms-4/fb6cbac34fa65ecd58f89cb75f8e30a4/transformed/jetified-play-services-maps-19.0.0/AndroidManifest.xml:33:9-64
+38-->[com.google.android.gms:play-services-maps:19.0.0] /Users/Patron/.gradle/caches/transforms-4/fb6cbac34fa65ecd58f89cb75f8e30a4/transformed/jetified-play-services-maps-19.0.0/AndroidManifest.xml:33:18-61
+39        <package android:name="com.google.ar.core" />
+39-->[com.google.ar:core:1.44.0] /Users/Patron/.gradle/caches/transforms-4/3ee412ce8563a874c63803f4ab63e21e/transformed/jetified-core-1.44.0/AndroidManifest.xml:21:9-54
+39-->[com.google.ar:core:1.44.0] /Users/Patron/.gradle/caches/transforms-4/3ee412ce8563a874c63803f4ab63e21e/transformed/jetified-core-1.44.0/AndroidManifest.xml:21:18-51
+40        <package android:name="com.android.vending" />
+40-->[com.google.ar:core:1.44.0] /Users/Patron/.gradle/caches/transforms-4/3ee412ce8563a874c63803f4ab63e21e/transformed/jetified-core-1.44.0/AndroidManifest.xml:22:9-55
+40-->[com.google.ar:core:1.44.0] /Users/Patron/.gradle/caches/transforms-4/3ee412ce8563a874c63803f4ab63e21e/transformed/jetified-core-1.44.0/AndroidManifest.xml:22:18-52
+41
+42        <intent>
+42-->[com.google.ar:core:1.44.0] /Users/Patron/.gradle/caches/transforms-4/3ee412ce8563a874c63803f4ab63e21e/transformed/jetified-core-1.44.0/AndroidManifest.xml:24:9-26:18
+43            <action android:name="com.google.android.play.core.install.BIND_INSTALL_SERVICE" />
+43-->[com.google.ar:core:1.44.0] /Users/Patron/.gradle/caches/transforms-4/3ee412ce8563a874c63803f4ab63e21e/transformed/jetified-core-1.44.0/AndroidManifest.xml:25:13-96
+43-->[com.google.ar:core:1.44.0] /Users/Patron/.gradle/caches/transforms-4/3ee412ce8563a874c63803f4ab63e21e/transformed/jetified-core-1.44.0/AndroidManifest.xml:25:21-93
+44        </intent>
+45    </queries>
+46
+47    <permission
+47-->[androidx.core:core:1.12.0] /Users/Patron/.gradle/caches/transforms-4/3fbe1319387d8efe4b69f747aae6a3e6/transformed/core-1.12.0/AndroidManifest.xml:22:5-24:47
+48        android:name="com.example.geoscapes.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION"
+48-->[androidx.core:core:1.12.0] /Users/Patron/.gradle/caches/transforms-4/3fbe1319387d8efe4b69f747aae6a3e6/transformed/core-1.12.0/AndroidManifest.xml:23:9-81
+49        android:protectionLevel="signature" />
+49-->[androidx.core:core:1.12.0] /Users/Patron/.gradle/caches/transforms-4/3fbe1319387d8efe4b69f747aae6a3e6/transformed/core-1.12.0/AndroidManifest.xml:24:9-44
+50
+51    <uses-permission android:name="com.example.geoscapes.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION" />
+51-->[androidx.core:core:1.12.0] /Users/Patron/.gradle/caches/transforms-4/3fbe1319387d8efe4b69f747aae6a3e6/transformed/core-1.12.0/AndroidManifest.xml:26:5-97
+51-->[androidx.core:core:1.12.0] /Users/Patron/.gradle/caches/transforms-4/3fbe1319387d8efe4b69f747aae6a3e6/transformed/core-1.12.0/AndroidManifest.xml:26:22-94
+52
+53    <application
+53-->/Users/Patron/StudioProjects/CS407-GEOSCAPES-arcore-mock_tutorial/app/app/src/main/AndroidManifest.xml:20:5-59:19
+54        android:allowBackup="true"
+54-->/Users/Patron/StudioProjects/CS407-GEOSCAPES-arcore-mock_tutorial/app/app/src/main/AndroidManifest.xml:21:9-35
+55        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
+55-->[androidx.core:core:1.12.0] /Users/Patron/.gradle/caches/transforms-4/3fbe1319387d8efe4b69f747aae6a3e6/transformed/core-1.12.0/AndroidManifest.xml:28:18-86
+56        android:dataExtractionRules="@xml/data_extraction_rules"
+56-->/Users/Patron/StudioProjects/CS407-GEOSCAPES-arcore-mock_tutorial/app/app/src/main/AndroidManifest.xml:22:9-65
+57        android:debuggable="true"
+58        android:extractNativeLibs="false"
+59        android:fullBackupContent="@xml/backup_rules"
+59-->/Users/Patron/StudioProjects/CS407-GEOSCAPES-arcore-mock_tutorial/app/app/src/main/AndroidManifest.xml:23:9-54
+60        android:icon="@mipmap/ic_launcher"
+60-->/Users/Patron/StudioProjects/CS407-GEOSCAPES-arcore-mock_tutorial/app/app/src/main/AndroidManifest.xml:24:9-43
+61        android:label="@string/app_name"
+61-->/Users/Patron/StudioProjects/CS407-GEOSCAPES-arcore-mock_tutorial/app/app/src/main/AndroidManifest.xml:25:9-41
+62        android:roundIcon="@mipmap/ic_launcher_round"
+62-->/Users/Patron/StudioProjects/CS407-GEOSCAPES-arcore-mock_tutorial/app/app/src/main/AndroidManifest.xml:26:9-54
+63        android:supportsRtl="true"
+63-->/Users/Patron/StudioProjects/CS407-GEOSCAPES-arcore-mock_tutorial/app/app/src/main/AndroidManifest.xml:27:9-35
+64        android:testOnly="true"
+65        android:theme="@style/Theme.Geoscapes" >
+65-->/Users/Patron/StudioProjects/CS407-GEOSCAPES-arcore-mock_tutorial/app/app/src/main/AndroidManifest.xml:28:9-47
+66
+67        <!--
+68             TODO: Before you run your application, you need a Google Maps API key.
+69
+70             To get one, follow the directions here:
+71
+72                https://developers.google.com/maps/documentation/android-sdk/get-api-key
+73
+74             Once you have your API key (it starts with "AIza"), define a new property in your
+75             project's local.properties file (e.g. MAPS_API_KEY=Aiza...), and replace the
+76             "YOUR_API_KEY" string in this file with "${MAPS_API_KEY}".
+77        -->
+78        <meta-data
+79            android:name="com.google.android.geo.API_KEY"
+79-->/Users/Patron/StudioProjects/CS407-GEOSCAPES-arcore-mock_tutorial/app/app/src/main/AndroidManifest.xml:43:13-58
+80            android:value="AIzaSyDgu-J6rqelUCup6vRq-vE9LNz9nrjgkBI" />
+80-->/Users/Patron/StudioProjects/CS407-GEOSCAPES-arcore-mock_tutorial/app/app/src/main/AndroidManifest.xml:44:13-44
+81
+82        <!--
+83       "AR Required" app, requires "Google Play Services for AR" (ARCore)
+84       to be installed, as the app does not include any non-AR features.
+85        -->
+86        <meta-data
+86-->/Users/Patron/StudioProjects/CS407-GEOSCAPES-arcore-mock_tutorial/app/app/src/main/AndroidManifest.xml:48:9-81
+87            android:name="com.google.ar.core"
+87-->/Users/Patron/StudioProjects/CS407-GEOSCAPES-arcore-mock_tutorial/app/app/src/main/AndroidManifest.xml:48:20-53
+88            android:value="required" />
+88-->/Users/Patron/StudioProjects/CS407-GEOSCAPES-arcore-mock_tutorial/app/app/src/main/AndroidManifest.xml:48:54-78
+89
+90        <activity
+90-->/Users/Patron/StudioProjects/CS407-GEOSCAPES-arcore-mock_tutorial/app/app/src/main/AndroidManifest.xml:50:9-58:20
+91            android:name="com.example.geoscapes.MainActivity"
+91-->/Users/Patron/StudioProjects/CS407-GEOSCAPES-arcore-mock_tutorial/app/app/src/main/AndroidManifest.xml:51:13-41
+92            android:exported="true" >
+92-->/Users/Patron/StudioProjects/CS407-GEOSCAPES-arcore-mock_tutorial/app/app/src/main/AndroidManifest.xml:52:13-36
+93            <intent-filter>
+93-->/Users/Patron/StudioProjects/CS407-GEOSCAPES-arcore-mock_tutorial/app/app/src/main/AndroidManifest.xml:53:13-57:29
+94                <action android:name="android.intent.action.MAIN" />
+94-->/Users/Patron/StudioProjects/CS407-GEOSCAPES-arcore-mock_tutorial/app/app/src/main/AndroidManifest.xml:54:17-69
+94-->/Users/Patron/StudioProjects/CS407-GEOSCAPES-arcore-mock_tutorial/app/app/src/main/AndroidManifest.xml:54:25-66
+95
+96                <category android:name="android.intent.category.LAUNCHER" />
+96-->/Users/Patron/StudioProjects/CS407-GEOSCAPES-arcore-mock_tutorial/app/app/src/main/AndroidManifest.xml:56:17-77
+96-->/Users/Patron/StudioProjects/CS407-GEOSCAPES-arcore-mock_tutorial/app/app/src/main/AndroidManifest.xml:56:27-74
+97            </intent-filter>
+98        </activity>
+99        <!-- Needs to be explicitly declared on P+ -->
+100        <uses-library
+100-->[com.google.android.gms:play-services-maps:19.0.0] /Users/Patron/.gradle/caches/transforms-4/fb6cbac34fa65ecd58f89cb75f8e30a4/transformed/jetified-play-services-maps-19.0.0/AndroidManifest.xml:39:9-41:40
+101            android:name="org.apache.http.legacy"
+101-->[com.google.android.gms:play-services-maps:19.0.0] /Users/Patron/.gradle/caches/transforms-4/fb6cbac34fa65ecd58f89cb75f8e30a4/transformed/jetified-play-services-maps-19.0.0/AndroidManifest.xml:40:13-50
+102            android:required="false" />
+102-->[com.google.android.gms:play-services-maps:19.0.0] /Users/Patron/.gradle/caches/transforms-4/fb6cbac34fa65ecd58f89cb75f8e30a4/transformed/jetified-play-services-maps-19.0.0/AndroidManifest.xml:41:13-37
+103
+104        <service
+104-->[com.google.mlkit:image-labeling:17.0.7] /Users/Patron/.gradle/caches/transforms-4/945194626aa509a31c6bb51652936a74/transformed/jetified-image-labeling-17.0.7/AndroidManifest.xml:8:9-14:19
+105            android:name="com.google.mlkit.common.internal.MlKitComponentDiscoveryService"
+105-->[com.google.mlkit:image-labeling:17.0.7] /Users/Patron/.gradle/caches/transforms-4/945194626aa509a31c6bb51652936a74/transformed/jetified-image-labeling-17.0.7/AndroidManifest.xml:9:13-91
+106            android:directBootAware="true"
+106-->[com.google.mlkit:common:18.8.0] /Users/Patron/.gradle/caches/transforms-4/1339d1e40e7629e5a47a3ef7b38d81f2/transformed/jetified-common-18.8.0/AndroidManifest.xml:17:13-43
+107            android:exported="false" >
+107-->[com.google.mlkit:image-labeling:17.0.7] /Users/Patron/.gradle/caches/transforms-4/945194626aa509a31c6bb51652936a74/transformed/jetified-image-labeling-17.0.7/AndroidManifest.xml:10:13-37
+108            <meta-data
+108-->[com.google.mlkit:image-labeling:17.0.7] /Users/Patron/.gradle/caches/transforms-4/945194626aa509a31c6bb51652936a74/transformed/jetified-image-labeling-17.0.7/AndroidManifest.xml:11:13-13:85
+109                android:name="com.google.firebase.components:com.google.mlkit.vision.label.defaults.internal.BundledLabelRegistrar"
+109-->[com.google.mlkit:image-labeling:17.0.7] /Users/Patron/.gradle/caches/transforms-4/945194626aa509a31c6bb51652936a74/transformed/jetified-image-labeling-17.0.7/AndroidManifest.xml:12:17-132
+110                android:value="com.google.firebase.components.ComponentRegistrar" />
+110-->[com.google.mlkit:image-labeling:17.0.7] /Users/Patron/.gradle/caches/transforms-4/945194626aa509a31c6bb51652936a74/transformed/jetified-image-labeling-17.0.7/AndroidManifest.xml:13:17-82
+111            <meta-data
+111-->[com.google.mlkit:vision-internal-vkp:18.2.2] /Users/Patron/.gradle/caches/transforms-4/1b9e1c5aedd44c3c03fb26b281f7569a/transformed/jetified-vision-internal-vkp-18.2.2/AndroidManifest.xml:14:13-16:85
+112                android:name="com.google.firebase.components:com.google.mlkit.vision.vkp.VkpRegistrar"
+112-->[com.google.mlkit:vision-internal-vkp:18.2.2] /Users/Patron/.gradle/caches/transforms-4/1b9e1c5aedd44c3c03fb26b281f7569a/transformed/jetified-vision-internal-vkp-18.2.2/AndroidManifest.xml:15:17-103
+113                android:value="com.google.firebase.components.ComponentRegistrar" />
+113-->[com.google.mlkit:vision-internal-vkp:18.2.2] /Users/Patron/.gradle/caches/transforms-4/1b9e1c5aedd44c3c03fb26b281f7569a/transformed/jetified-vision-internal-vkp-18.2.2/AndroidManifest.xml:16:17-82
+114            <meta-data
+114-->[com.google.android.gms:play-services-mlkit-text-recognition-common:19.0.0] /Users/Patron/.gradle/caches/transforms-4/f646ec544658a21c7b7cf664fcb97a28/transformed/jetified-play-services-mlkit-text-recognition-common-19.0.0/AndroidManifest.xml:12:13-14:85
+115                android:name="com.google.firebase.components:com.google.mlkit.vision.text.internal.TextRegistrar"
+115-->[com.google.android.gms:play-services-mlkit-text-recognition-common:19.0.0] /Users/Patron/.gradle/caches/transforms-4/f646ec544658a21c7b7cf664fcb97a28/transformed/jetified-play-services-mlkit-text-recognition-common-19.0.0/AndroidManifest.xml:13:17-114
+116                android:value="com.google.firebase.components.ComponentRegistrar" />
+116-->[com.google.android.gms:play-services-mlkit-text-recognition-common:19.0.0] /Users/Patron/.gradle/caches/transforms-4/f646ec544658a21c7b7cf664fcb97a28/transformed/jetified-play-services-mlkit-text-recognition-common-19.0.0/AndroidManifest.xml:14:17-82
+117            <meta-data
+117-->[com.google.mlkit:vision-common:17.3.0] /Users/Patron/.gradle/caches/transforms-4/ef864498e80f9fce01469286769843e9/transformed/jetified-vision-common-17.3.0/AndroidManifest.xml:12:13-14:85
+118                android:name="com.google.firebase.components:com.google.mlkit.vision.common.internal.VisionCommonRegistrar"
+118-->[com.google.mlkit:vision-common:17.3.0] /Users/Patron/.gradle/caches/transforms-4/ef864498e80f9fce01469286769843e9/transformed/jetified-vision-common-17.3.0/AndroidManifest.xml:13:17-124
+119                android:value="com.google.firebase.components.ComponentRegistrar" />
+119-->[com.google.mlkit:vision-common:17.3.0] /Users/Patron/.gradle/caches/transforms-4/ef864498e80f9fce01469286769843e9/transformed/jetified-vision-common-17.3.0/AndroidManifest.xml:14:17-82
+120            <meta-data
+120-->[com.google.mlkit:common:18.8.0] /Users/Patron/.gradle/caches/transforms-4/1339d1e40e7629e5a47a3ef7b38d81f2/transformed/jetified-common-18.8.0/AndroidManifest.xml:20:13-22:85
+121                android:name="com.google.firebase.components:com.google.mlkit.common.internal.CommonComponentRegistrar"
+121-->[com.google.mlkit:common:18.8.0] /Users/Patron/.gradle/caches/transforms-4/1339d1e40e7629e5a47a3ef7b38d81f2/transformed/jetified-common-18.8.0/AndroidManifest.xml:21:17-120
+122                android:value="com.google.firebase.components.ComponentRegistrar" />
+122-->[com.google.mlkit:common:18.8.0] /Users/Patron/.gradle/caches/transforms-4/1339d1e40e7629e5a47a3ef7b38d81f2/transformed/jetified-common-18.8.0/AndroidManifest.xml:22:17-82
+123        </service>
+124
+125        <provider
+125-->[com.google.mlkit:common:18.8.0] /Users/Patron/.gradle/caches/transforms-4/1339d1e40e7629e5a47a3ef7b38d81f2/transformed/jetified-common-18.8.0/AndroidManifest.xml:9:9-13:38
+126            android:name="com.google.mlkit.common.internal.MlKitInitProvider"
+126-->[com.google.mlkit:common:18.8.0] /Users/Patron/.gradle/caches/transforms-4/1339d1e40e7629e5a47a3ef7b38d81f2/transformed/jetified-common-18.8.0/AndroidManifest.xml:10:13-78
+127            android:authorities="com.example.geoscapes.mlkitinitprovider"
+127-->[com.google.mlkit:common:18.8.0] /Users/Patron/.gradle/caches/transforms-4/1339d1e40e7629e5a47a3ef7b38d81f2/transformed/jetified-common-18.8.0/AndroidManifest.xml:11:13-69
+128            android:exported="false"
+128-->[com.google.mlkit:common:18.8.0] /Users/Patron/.gradle/caches/transforms-4/1339d1e40e7629e5a47a3ef7b38d81f2/transformed/jetified-common-18.8.0/AndroidManifest.xml:12:13-37
+129            android:initOrder="99" />
+129-->[com.google.mlkit:common:18.8.0] /Users/Patron/.gradle/caches/transforms-4/1339d1e40e7629e5a47a3ef7b38d81f2/transformed/jetified-common-18.8.0/AndroidManifest.xml:13:13-35
+130
+131        <activity
+131-->[com.google.android.gms:play-services-base:18.5.0] /Users/Patron/.gradle/caches/transforms-4/faf6ff9ed26d36e84aca8015df6c17cb/transformed/jetified-play-services-base-18.5.0/AndroidManifest.xml:5:9-173
+132            android:name="com.google.android.gms.common.api.GoogleApiActivity"
+132-->[com.google.android.gms:play-services-base:18.5.0] /Users/Patron/.gradle/caches/transforms-4/faf6ff9ed26d36e84aca8015df6c17cb/transformed/jetified-play-services-base-18.5.0/AndroidManifest.xml:5:19-85
+133            android:exported="false"
+133-->[com.google.android.gms:play-services-base:18.5.0] /Users/Patron/.gradle/caches/transforms-4/faf6ff9ed26d36e84aca8015df6c17cb/transformed/jetified-play-services-base-18.5.0/AndroidManifest.xml:5:146-170
+134            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+134-->[com.google.android.gms:play-services-base:18.5.0] /Users/Patron/.gradle/caches/transforms-4/faf6ff9ed26d36e84aca8015df6c17cb/transformed/jetified-play-services-base-18.5.0/AndroidManifest.xml:5:86-145
+135
+136        <meta-data
+136-->[com.google.android.gms:play-services-basement:18.4.0] /Users/Patron/.gradle/caches/transforms-4/3ab43f9a145c317128628e2cffffcee0/transformed/jetified-play-services-basement-18.4.0/AndroidManifest.xml:6:9-122
+137            android:name="com.google.android.gms.version"
+137-->[com.google.android.gms:play-services-basement:18.4.0] /Users/Patron/.gradle/caches/transforms-4/3ab43f9a145c317128628e2cffffcee0/transformed/jetified-play-services-basement-18.4.0/AndroidManifest.xml:6:20-65
+138            android:value="@integer/google_play_services_version" />
+138-->[com.google.android.gms:play-services-basement:18.4.0] /Users/Patron/.gradle/caches/transforms-4/3ab43f9a145c317128628e2cffffcee0/transformed/jetified-play-services-basement-18.4.0/AndroidManifest.xml:6:66-119
+139
+140        <provider
+140-->[androidx.emoji2:emoji2:1.2.0] /Users/Patron/.gradle/caches/transforms-4/4a16d427649930ebcbcedc25a5143b57/transformed/jetified-emoji2-1.2.0/AndroidManifest.xml:24:9-32:20
+141            android:name="androidx.startup.InitializationProvider"
+141-->[androidx.emoji2:emoji2:1.2.0] /Users/Patron/.gradle/caches/transforms-4/4a16d427649930ebcbcedc25a5143b57/transformed/jetified-emoji2-1.2.0/AndroidManifest.xml:25:13-67
+142            android:authorities="com.example.geoscapes.androidx-startup"
+142-->[androidx.emoji2:emoji2:1.2.0] /Users/Patron/.gradle/caches/transforms-4/4a16d427649930ebcbcedc25a5143b57/transformed/jetified-emoji2-1.2.0/AndroidManifest.xml:26:13-68
+143            android:exported="false" >
+143-->[androidx.emoji2:emoji2:1.2.0] /Users/Patron/.gradle/caches/transforms-4/4a16d427649930ebcbcedc25a5143b57/transformed/jetified-emoji2-1.2.0/AndroidManifest.xml:27:13-37
+144            <meta-data
+144-->[androidx.emoji2:emoji2:1.2.0] /Users/Patron/.gradle/caches/transforms-4/4a16d427649930ebcbcedc25a5143b57/transformed/jetified-emoji2-1.2.0/AndroidManifest.xml:29:13-31:52
+145                android:name="androidx.emoji2.text.EmojiCompatInitializer"
+145-->[androidx.emoji2:emoji2:1.2.0] /Users/Patron/.gradle/caches/transforms-4/4a16d427649930ebcbcedc25a5143b57/transformed/jetified-emoji2-1.2.0/AndroidManifest.xml:30:17-75
+146                android:value="androidx.startup" />
+146-->[androidx.emoji2:emoji2:1.2.0] /Users/Patron/.gradle/caches/transforms-4/4a16d427649930ebcbcedc25a5143b57/transformed/jetified-emoji2-1.2.0/AndroidManifest.xml:31:17-49
+147            <meta-data
+147-->[androidx.lifecycle:lifecycle-process:2.8.3] /Users/Patron/.gradle/caches/transforms-4/95cca7cf2651478de77e7de5de8524b8/transformed/jetified-lifecycle-process-2.8.3/AndroidManifest.xml:29:13-31:52
+148                android:name="androidx.lifecycle.ProcessLifecycleInitializer"
+148-->[androidx.lifecycle:lifecycle-process:2.8.3] /Users/Patron/.gradle/caches/transforms-4/95cca7cf2651478de77e7de5de8524b8/transformed/jetified-lifecycle-process-2.8.3/AndroidManifest.xml:30:17-78
+149                android:value="androidx.startup" />
+149-->[androidx.lifecycle:lifecycle-process:2.8.3] /Users/Patron/.gradle/caches/transforms-4/95cca7cf2651478de77e7de5de8524b8/transformed/jetified-lifecycle-process-2.8.3/AndroidManifest.xml:31:17-49
+150            <meta-data
+150-->[androidx.profileinstaller:profileinstaller:1.3.1] /Users/Patron/.gradle/caches/transforms-4/2df559e9fee834dd8d7b14ecd943ddf5/transformed/jetified-profileinstaller-1.3.1/AndroidManifest.xml:29:13-31:52
+151                android:name="androidx.profileinstaller.ProfileInstallerInitializer"
+151-->[androidx.profileinstaller:profileinstaller:1.3.1] /Users/Patron/.gradle/caches/transforms-4/2df559e9fee834dd8d7b14ecd943ddf5/transformed/jetified-profileinstaller-1.3.1/AndroidManifest.xml:30:17-85
+152                android:value="androidx.startup" />
+152-->[androidx.profileinstaller:profileinstaller:1.3.1] /Users/Patron/.gradle/caches/transforms-4/2df559e9fee834dd8d7b14ecd943ddf5/transformed/jetified-profileinstaller-1.3.1/AndroidManifest.xml:31:17-49
+153        </provider>
+154
+155        <uses-library
+155-->[androidx.window:window:1.0.0] /Users/Patron/.gradle/caches/transforms-4/82d87fffe1628a0d8eb39d258ca0a9d0/transformed/jetified-window-1.0.0/AndroidManifest.xml:25:9-27:40
+156            android:name="androidx.window.extensions"
+156-->[androidx.window:window:1.0.0] /Users/Patron/.gradle/caches/transforms-4/82d87fffe1628a0d8eb39d258ca0a9d0/transformed/jetified-window-1.0.0/AndroidManifest.xml:26:13-54
+157            android:required="false" />
+157-->[androidx.window:window:1.0.0] /Users/Patron/.gradle/caches/transforms-4/82d87fffe1628a0d8eb39d258ca0a9d0/transformed/jetified-window-1.0.0/AndroidManifest.xml:27:13-37
+158        <uses-library
+158-->[androidx.window:window:1.0.0] /Users/Patron/.gradle/caches/transforms-4/82d87fffe1628a0d8eb39d258ca0a9d0/transformed/jetified-window-1.0.0/AndroidManifest.xml:28:9-30:40
+159            android:name="androidx.window.sidecar"
+159-->[androidx.window:window:1.0.0] /Users/Patron/.gradle/caches/transforms-4/82d87fffe1628a0d8eb39d258ca0a9d0/transformed/jetified-window-1.0.0/AndroidManifest.xml:29:13-51
+160            android:required="false" />
+160-->[androidx.window:window:1.0.0] /Users/Patron/.gradle/caches/transforms-4/82d87fffe1628a0d8eb39d258ca0a9d0/transformed/jetified-window-1.0.0/AndroidManifest.xml:30:13-37
+161
+162        <service
+162-->[androidx.room:room-runtime:2.6.1] /Users/Patron/.gradle/caches/transforms-4/033b7201466cb4abca74613c230ca905/transformed/room-runtime-2.6.1/AndroidManifest.xml:24:9-28:63
+163            android:name="androidx.room.MultiInstanceInvalidationService"
+163-->[androidx.room:room-runtime:2.6.1] /Users/Patron/.gradle/caches/transforms-4/033b7201466cb4abca74613c230ca905/transformed/room-runtime-2.6.1/AndroidManifest.xml:25:13-74
+164            android:directBootAware="true"
+164-->[androidx.room:room-runtime:2.6.1] /Users/Patron/.gradle/caches/transforms-4/033b7201466cb4abca74613c230ca905/transformed/room-runtime-2.6.1/AndroidManifest.xml:26:13-43
+165            android:exported="false" /> <!-- The minimal version code of ARCore APK required for an app using this SDK. -->
+165-->[androidx.room:room-runtime:2.6.1] /Users/Patron/.gradle/caches/transforms-4/033b7201466cb4abca74613c230ca905/transformed/room-runtime-2.6.1/AndroidManifest.xml:27:13-37
+166        <meta-data
+166-->[com.google.ar:core:1.44.0] /Users/Patron/.gradle/caches/transforms-4/3ee412ce8563a874c63803f4ab63e21e/transformed/jetified-core-1.44.0/AndroidManifest.xml:32:9-34:41
+167            android:name="com.google.ar.core.min_apk_version"
+167-->[com.google.ar:core:1.44.0] /Users/Patron/.gradle/caches/transforms-4/3ee412ce8563a874c63803f4ab63e21e/transformed/jetified-core-1.44.0/AndroidManifest.xml:33:13-62
+168            android:value="240920000" /> <!-- This activity is critical for installing ARCore when it is not already present. -->
+168-->[com.google.ar:core:1.44.0] /Users/Patron/.gradle/caches/transforms-4/3ee412ce8563a874c63803f4ab63e21e/transformed/jetified-core-1.44.0/AndroidManifest.xml:34:13-38
+169        <activity
+169-->[com.google.ar:core:1.44.0] /Users/Patron/.gradle/caches/transforms-4/3ee412ce8563a874c63803f4ab63e21e/transformed/jetified-core-1.44.0/AndroidManifest.xml:36:9-42:80
+170            android:name="com.google.ar.core.InstallActivity"
+170-->[com.google.ar:core:1.44.0] /Users/Patron/.gradle/caches/transforms-4/3ee412ce8563a874c63803f4ab63e21e/transformed/jetified-core-1.44.0/AndroidManifest.xml:37:13-62
+171            android:configChanges="keyboardHidden|orientation|screenSize"
+171-->[com.google.ar:core:1.44.0] /Users/Patron/.gradle/caches/transforms-4/3ee412ce8563a874c63803f4ab63e21e/transformed/jetified-core-1.44.0/AndroidManifest.xml:38:13-74
+172            android:excludeFromRecents="true"
+172-->[com.google.ar:core:1.44.0] /Users/Patron/.gradle/caches/transforms-4/3ee412ce8563a874c63803f4ab63e21e/transformed/jetified-core-1.44.0/AndroidManifest.xml:39:13-46
+173            android:exported="false"
+173-->[com.google.ar:core:1.44.0] /Users/Patron/.gradle/caches/transforms-4/3ee412ce8563a874c63803f4ab63e21e/transformed/jetified-core-1.44.0/AndroidManifest.xml:40:13-37
+174            android:launchMode="singleTop"
+174-->[com.google.ar:core:1.44.0] /Users/Patron/.gradle/caches/transforms-4/3ee412ce8563a874c63803f4ab63e21e/transformed/jetified-core-1.44.0/AndroidManifest.xml:41:13-43
+175            android:theme="@android:style/Theme.Material.Light.Dialog.Alert" />
+175-->[com.google.ar:core:1.44.0] /Users/Patron/.gradle/caches/transforms-4/3ee412ce8563a874c63803f4ab63e21e/transformed/jetified-core-1.44.0/AndroidManifest.xml:42:13-77
+176
+177        <receiver
+177-->[androidx.profileinstaller:profileinstaller:1.3.1] /Users/Patron/.gradle/caches/transforms-4/2df559e9fee834dd8d7b14ecd943ddf5/transformed/jetified-profileinstaller-1.3.1/AndroidManifest.xml:34:9-52:20
+178            android:name="androidx.profileinstaller.ProfileInstallReceiver"
+178-->[androidx.profileinstaller:profileinstaller:1.3.1] /Users/Patron/.gradle/caches/transforms-4/2df559e9fee834dd8d7b14ecd943ddf5/transformed/jetified-profileinstaller-1.3.1/AndroidManifest.xml:35:13-76
+179            android:directBootAware="false"
+179-->[androidx.profileinstaller:profileinstaller:1.3.1] /Users/Patron/.gradle/caches/transforms-4/2df559e9fee834dd8d7b14ecd943ddf5/transformed/jetified-profileinstaller-1.3.1/AndroidManifest.xml:36:13-44
+180            android:enabled="true"
+180-->[androidx.profileinstaller:profileinstaller:1.3.1] /Users/Patron/.gradle/caches/transforms-4/2df559e9fee834dd8d7b14ecd943ddf5/transformed/jetified-profileinstaller-1.3.1/AndroidManifest.xml:37:13-35
+181            android:exported="true"
+181-->[androidx.profileinstaller:profileinstaller:1.3.1] /Users/Patron/.gradle/caches/transforms-4/2df559e9fee834dd8d7b14ecd943ddf5/transformed/jetified-profileinstaller-1.3.1/AndroidManifest.xml:38:13-36
+182            android:permission="android.permission.DUMP" >
+182-->[androidx.profileinstaller:profileinstaller:1.3.1] /Users/Patron/.gradle/caches/transforms-4/2df559e9fee834dd8d7b14ecd943ddf5/transformed/jetified-profileinstaller-1.3.1/AndroidManifest.xml:39:13-57
+183            <intent-filter>
+183-->[androidx.profileinstaller:profileinstaller:1.3.1] /Users/Patron/.gradle/caches/transforms-4/2df559e9fee834dd8d7b14ecd943ddf5/transformed/jetified-profileinstaller-1.3.1/AndroidManifest.xml:40:13-42:29
+184                <action android:name="androidx.profileinstaller.action.INSTALL_PROFILE" />
+184-->[androidx.profileinstaller:profileinstaller:1.3.1] /Users/Patron/.gradle/caches/transforms-4/2df559e9fee834dd8d7b14ecd943ddf5/transformed/jetified-profileinstaller-1.3.1/AndroidManifest.xml:41:17-91
+184-->[androidx.profileinstaller:profileinstaller:1.3.1] /Users/Patron/.gradle/caches/transforms-4/2df559e9fee834dd8d7b14ecd943ddf5/transformed/jetified-profileinstaller-1.3.1/AndroidManifest.xml:41:25-88
+185            </intent-filter>
+186            <intent-filter>
+186-->[androidx.profileinstaller:profileinstaller:1.3.1] /Users/Patron/.gradle/caches/transforms-4/2df559e9fee834dd8d7b14ecd943ddf5/transformed/jetified-profileinstaller-1.3.1/AndroidManifest.xml:43:13-45:29
+187                <action android:name="androidx.profileinstaller.action.SKIP_FILE" />
+187-->[androidx.profileinstaller:profileinstaller:1.3.1] /Users/Patron/.gradle/caches/transforms-4/2df559e9fee834dd8d7b14ecd943ddf5/transformed/jetified-profileinstaller-1.3.1/AndroidManifest.xml:44:17-85
+187-->[androidx.profileinstaller:profileinstaller:1.3.1] /Users/Patron/.gradle/caches/transforms-4/2df559e9fee834dd8d7b14ecd943ddf5/transformed/jetified-profileinstaller-1.3.1/AndroidManifest.xml:44:25-82
+188            </intent-filter>
+189            <intent-filter>
+189-->[androidx.profileinstaller:profileinstaller:1.3.1] /Users/Patron/.gradle/caches/transforms-4/2df559e9fee834dd8d7b14ecd943ddf5/transformed/jetified-profileinstaller-1.3.1/AndroidManifest.xml:46:13-48:29
+190                <action android:name="androidx.profileinstaller.action.SAVE_PROFILE" />
+190-->[androidx.profileinstaller:profileinstaller:1.3.1] /Users/Patron/.gradle/caches/transforms-4/2df559e9fee834dd8d7b14ecd943ddf5/transformed/jetified-profileinstaller-1.3.1/AndroidManifest.xml:47:17-88
+190-->[androidx.profileinstaller:profileinstaller:1.3.1] /Users/Patron/.gradle/caches/transforms-4/2df559e9fee834dd8d7b14ecd943ddf5/transformed/jetified-profileinstaller-1.3.1/AndroidManifest.xml:47:25-85
+191            </intent-filter>
+192            <intent-filter>
+192-->[androidx.profileinstaller:profileinstaller:1.3.1] /Users/Patron/.gradle/caches/transforms-4/2df559e9fee834dd8d7b14ecd943ddf5/transformed/jetified-profileinstaller-1.3.1/AndroidManifest.xml:49:13-51:29
+193                <action android:name="androidx.profileinstaller.action.BENCHMARK_OPERATION" />
+193-->[androidx.profileinstaller:profileinstaller:1.3.1] /Users/Patron/.gradle/caches/transforms-4/2df559e9fee834dd8d7b14ecd943ddf5/transformed/jetified-profileinstaller-1.3.1/AndroidManifest.xml:50:17-95
+193-->[androidx.profileinstaller:profileinstaller:1.3.1] /Users/Patron/.gradle/caches/transforms-4/2df559e9fee834dd8d7b14ecd943ddf5/transformed/jetified-profileinstaller-1.3.1/AndroidManifest.xml:50:25-92
+194            </intent-filter>
+195        </receiver>
+196
+197        <service
+197-->[com.google.android.datatransport:transport-backend-cct:2.3.3] /Users/Patron/.gradle/caches/transforms-4/a050c4c2b7cbaa1a442b667688f36f4f/transformed/jetified-transport-backend-cct-2.3.3/AndroidManifest.xml:29:9-35:19
+198            android:name="com.google.android.datatransport.runtime.backends.TransportBackendDiscovery"
+198-->[com.google.android.datatransport:transport-backend-cct:2.3.3] /Users/Patron/.gradle/caches/transforms-4/a050c4c2b7cbaa1a442b667688f36f4f/transformed/jetified-transport-backend-cct-2.3.3/AndroidManifest.xml:30:13-103
+199            android:exported="false" >
+199-->[com.google.android.datatransport:transport-backend-cct:2.3.3] /Users/Patron/.gradle/caches/transforms-4/a050c4c2b7cbaa1a442b667688f36f4f/transformed/jetified-transport-backend-cct-2.3.3/AndroidManifest.xml:31:13-37
+200            <meta-data
+200-->[com.google.android.datatransport:transport-backend-cct:2.3.3] /Users/Patron/.gradle/caches/transforms-4/a050c4c2b7cbaa1a442b667688f36f4f/transformed/jetified-transport-backend-cct-2.3.3/AndroidManifest.xml:32:13-34:39
+201                android:name="backend:com.google.android.datatransport.cct.CctBackendFactory"
+201-->[com.google.android.datatransport:transport-backend-cct:2.3.3] /Users/Patron/.gradle/caches/transforms-4/a050c4c2b7cbaa1a442b667688f36f4f/transformed/jetified-transport-backend-cct-2.3.3/AndroidManifest.xml:33:17-94
+202                android:value="cct" />
+202-->[com.google.android.datatransport:transport-backend-cct:2.3.3] /Users/Patron/.gradle/caches/transforms-4/a050c4c2b7cbaa1a442b667688f36f4f/transformed/jetified-transport-backend-cct-2.3.3/AndroidManifest.xml:34:17-36
+203        </service>
+204        <service
+204-->[com.google.android.datatransport:transport-runtime:2.2.6] /Users/Patron/.gradle/caches/transforms-4/0d2498ba1bd2d1afd9450a5eec920805/transformed/jetified-transport-runtime-2.2.6/AndroidManifest.xml:26:9-30:19
+205            android:name="com.google.android.datatransport.runtime.scheduling.jobscheduling.JobInfoSchedulerService"
+205-->[com.google.android.datatransport:transport-runtime:2.2.6] /Users/Patron/.gradle/caches/transforms-4/0d2498ba1bd2d1afd9450a5eec920805/transformed/jetified-transport-runtime-2.2.6/AndroidManifest.xml:27:13-117
+206            android:exported="false"
+206-->[com.google.android.datatransport:transport-runtime:2.2.6] /Users/Patron/.gradle/caches/transforms-4/0d2498ba1bd2d1afd9450a5eec920805/transformed/jetified-transport-runtime-2.2.6/AndroidManifest.xml:28:13-37
+207            android:permission="android.permission.BIND_JOB_SERVICE" >
+207-->[com.google.android.datatransport:transport-runtime:2.2.6] /Users/Patron/.gradle/caches/transforms-4/0d2498ba1bd2d1afd9450a5eec920805/transformed/jetified-transport-runtime-2.2.6/AndroidManifest.xml:29:13-69
+208        </service>
+209
+210        <receiver
+210-->[com.google.android.datatransport:transport-runtime:2.2.6] /Users/Patron/.gradle/caches/transforms-4/0d2498ba1bd2d1afd9450a5eec920805/transformed/jetified-transport-runtime-2.2.6/AndroidManifest.xml:32:9-34:40
+211            android:name="com.google.android.datatransport.runtime.scheduling.jobscheduling.AlarmManagerSchedulerBroadcastReceiver"
+211-->[com.google.android.datatransport:transport-runtime:2.2.6] /Users/Patron/.gradle/caches/transforms-4/0d2498ba1bd2d1afd9450a5eec920805/transformed/jetified-transport-runtime-2.2.6/AndroidManifest.xml:33:13-132
+212            android:exported="false" /> <!-- The activities will be merged into the manifest of the hosting app. -->
+212-->[com.google.android.datatransport:transport-runtime:2.2.6] /Users/Patron/.gradle/caches/transforms-4/0d2498ba1bd2d1afd9450a5eec920805/transformed/jetified-transport-runtime-2.2.6/AndroidManifest.xml:34:13-37
+213        <activity
+213-->[com.google.android.play:core-common:2.0.3] /Users/Patron/.gradle/caches/transforms-4/49fa3e74e205cfcde7dc1dd02ca937ee/transformed/jetified-core-common-2.0.3/AndroidManifest.xml:14:9-18:65
+214            android:name="com.google.android.play.core.common.PlayCoreDialogWrapperActivity"
+214-->[com.google.android.play:core-common:2.0.3] /Users/Patron/.gradle/caches/transforms-4/49fa3e74e205cfcde7dc1dd02ca937ee/transformed/jetified-core-common-2.0.3/AndroidManifest.xml:15:13-93
+215            android:exported="false"
+215-->[com.google.android.play:core-common:2.0.3] /Users/Patron/.gradle/caches/transforms-4/49fa3e74e205cfcde7dc1dd02ca937ee/transformed/jetified-core-common-2.0.3/AndroidManifest.xml:16:13-37
+216            android:stateNotNeeded="true"
+216-->[com.google.android.play:core-common:2.0.3] /Users/Patron/.gradle/caches/transforms-4/49fa3e74e205cfcde7dc1dd02ca937ee/transformed/jetified-core-common-2.0.3/AndroidManifest.xml:17:13-42
+217            android:theme="@style/Theme.PlayCore.Transparent" />
+217-->[com.google.android.play:core-common:2.0.3] /Users/Patron/.gradle/caches/transforms-4/49fa3e74e205cfcde7dc1dd02ca937ee/transformed/jetified-core-common-2.0.3/AndroidManifest.xml:18:13-62
+218    </application>
+219
+220</manifest>

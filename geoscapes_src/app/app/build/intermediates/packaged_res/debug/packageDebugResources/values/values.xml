@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="complete">#195B15</color>
+    <color name="gray">#C0C0C0</color>
+    <color name="ic_launcher_background">#FFFFFF</color>
+    <color name="inProgress">#F4DA12</color>
+    <color name="incomplete">#A12A2A</color>
+    <color name="red">#F03838</color>
+    <color name="white">#FFFFFFFF</color>
+    <string name="app_name">Geoscapes</string>
+    <string name="completed">Completed</string>
+    <string name="currentTaskKey">currentTaskKey</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="settingToggledKV">settingToggledKV</string>
+    <string name="setting_camera">Camera</string>
+    <string name="setting_dark_mode">Dark Mode</string>
+    <string name="setting_haptic_feedback">Haptic Feedback</string>
+    <string name="setting_location">Location</string>
+    <string name="setting_microphone">Microphone</string>
+    <string name="setting_music">Music</string>
+    <string name="setting_notifications">Notifications</string>
+    <string name="setting_sfx">SFX</string>
+    <string name="task_database">task_database</string>
+    <style name="Base.Theme.Geoscapes" parent="Theme.Material3.DayNight.NoActionBar">
+        
+        
+    </style>
+    <style name="Theme.Geoscapes" parent="Base.Theme.Geoscapes"/>
+</resources>

@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_main"
+    app:startDestination="@id/landingPageFragment">
+
+    <fragment
+        android:id="@+id/settingsFragment"
+        android:name="com.example.geoscapes.SettingsFragment"
+        android:label="SettingsFragment"
+        tools:layout="@layout/fragment_settings"
+        />
+    <fragment
+        android:id="@+id/mapsFragment"
+        android:name="com.example.geoscapes.MapsFragment"
+        android:label="fragment_maps"
+        tools:layout="@layout/fragment_maps">
+        <action
+            android:id="@+id/action_mapsFragment_to_tasksFragment"
+            app:destination="@id/tasksFragment"
+            app:popUpTo="@id/mapsFragment"
+            app:popUpToInclusive="true"/>
+    </fragment>
+    <fragment
+        android:id="@+id/tasksFragment"
+        android:name="com.example.geoscapes.TasksFragment"
+        android:label="TasksFragment"
+        tools:layout="@layout/fragment_tasks">
+        <action
+            android:id="@+id/action_tasksFragment_to_mapsFragment"
+            app:destination="@id/mapsFragment"
+            app:popUpTo="@id/tasksFragment"
+            app:popUpToInclusive="true"/>
+    </fragment>
+    <dialog
+        android:id="@+id/tutorialFragment"
+        android:name="com.example.geoscapes.TutorialDialogFragment"
+        android:label="TutorialDialogFragment" />
+    <fragment
+        android:id="@+id/landingPageFragment"
+        android:name="com.example.geoscapes.LandingPage"
+        android:label="LandingPage"
+        tools:layout="@layout/fragment_landing_page">
+        <action
+            android:id="@+id/action_landingPageFragment_to_mapsFragment"
+            app:destination="@id/mapsFragment"
+            app:popUpTo="@id/landingPageFragment"
+            app:popUpToInclusive="true"/>
+        <action
+            android:id="@+id/action_landingPageFragment_to_tasksFragment"
+            app:destination="@id/tasksFragment"
+            app:popUpTo="@id/landingPageFragment"
+            app:popUpToInclusive="true"/>
+    </fragment>
+    <fragment
+        android:id="@+id/cameraFragment"
+        android:name="com.example.geoscapes.CameraFragment"
+        android:label="Camera"
+        tools:layout="@layout/fragment_camera">
+        <action
+            android:id="@+id/action_cameraFragment_to_landingPageFragment"
+            app:destination="@id/landingPageFragment"
+            app:popUpTo="@id/cameraFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
+
+
+</navigation>

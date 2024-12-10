@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">Geoscapes</string>
+    <string name="settingToggledKV">settingToggledKV</string>
+    <string name="currentTaskKey">currentTaskKey</string>
+    <string name="task_database">task_database</string>"
+    <string name="completed">Completed</string>
+    <string name="setting_dark_mode">Dark Mode</string>
+    <string name="setting_music">Music</string>
+    <string name="setting_sfx">SFX</string>
+    <string name="setting_haptic_feedback">Haptic Feedback</string>
+    <string name="setting_notifications">Notifications</string>
+    <string name="setting_camera">Camera</string>
+    <string name="setting_microphone">Microphone</string>
+    <string name="setting_location">Location</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>

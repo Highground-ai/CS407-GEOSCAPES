@@ -1,0 +1,54 @@
+[
+    {
+        "merged": "/Users/Patron/.gradle/daemon/8.7/com.example.geoscapes.app-mergeDebugResources-79:/layout/item_setting.xml",
+        "source": "/Users/Patron/.gradle/daemon/8.7/com.example.geoscapes.app-main-82:/layout/item_setting.xml"
+    },
+    {
+        "merged": "/Users/Patron/.gradle/daemon/8.7/com.example.geoscapes.app-mergeDebugResources-79:/layout/fragment_settings.xml",
+        "source": "/Users/Patron/.gradle/daemon/8.7/com.example.geoscapes.app-main-82:/layout/fragment_settings.xml"
+    },
+    {
+        "merged": "com.example.geoscapes.app-mergeDebugResources-79:/layout/fragment_camera.xml",
+        "source": "com.example.geoscapes.app-main-82:/layout/fragment_camera.xml"
+    },
+    {
+        "merged": "/Users/Patron/.gradle/daemon/8.7/com.example.geoscapes.app-mergeDebugResources-79:/layout/item_step.xml",
+        "source": "/Users/Patron/.gradle/daemon/8.7/com.example.geoscapes.app-main-82:/layout/item_step.xml"
+    },
+    {
+        "merged": "/Users/Patron/.gradle/daemon/8.7/com.example.geoscapes.app-mergeDebugResources-79:/layout/fragment_tasks.xml",
+        "source": "/Users/Patron/.gradle/daemon/8.7/com.example.geoscapes.app-main-82:/layout/fragment_tasks.xml"
+    },
+    {
+        "merged": "/Users/Patron/.gradle/daemon/8.7/com.example.geoscapes.app-mergeDebugResources-79:/layout/activity_main.xml",
+        "source": "/Users/Patron/.gradle/daemon/8.7/com.example.geoscapes.app-main-82:/layout/activity_main.xml"
+    },
+    {
+        "merged": "/Users/Patron/.gradle/daemon/8.7/com.example.geoscapes.app-mergeDebugResources-79:/layout/fragment_landing_page.xml",
+        "source": "/Users/Patron/.gradle/daemon/8.7/com.example.geoscapes.app-main-82:/layout/fragment_landing_page.xml"
+    },
+    {
+        "merged": "/Users/Patron/.gradle/daemon/8.7/com.example.geoscapes.app-mergeDebugResources-79:/layout/item_task.xml",
+        "source": "/Users/Patron/.gradle/daemon/8.7/com.example.geoscapes.app-main-82:/layout/item_task.xml"
+    },
+    {
+        "merged": "/Users/Patron/.gradle/daemon/8.7/com.example.geoscapes.app-mergeDebugResources-79:/layout/popup_window.xml",
+        "source": "/Users/Patron/.gradle/daemon/8.7/com.example.geoscapes.app-main-82:/layout/popup_window.xml"
+    },
+    {
+        "merged": "/Users/Patron/.gradle/daemon/8.7/com.example.geoscapes.app-mergeDebugResources-79:/layout/fragment_maps.xml",
+        "source": "/Users/Patron/.gradle/daemon/8.7/com.example.geoscapes.app-main-82:/layout/fragment_maps.xml"
+    },
+    {
+        "merged": "/Users/Patron/.gradle/daemon/8.7/com.example.geoscapes.app-mergeDebugResources-79:/layout/fragment_camera.xml",
+        "source": "/Users/Patron/.gradle/daemon/8.7/com.example.geoscapes.app-main-82:/layout/fragment_camera.xml"
+    },
+    {
+        "merged": "/Users/Patron/.gradle/daemon/8.7/com.example.geoscapes.app-mergeDebugResources-79:/layout/fragment_ar_template.xml",
+        "source": "/Users/Patron/.gradle/daemon/8.7/com.example.geoscapes.app-main-82:/layout/fragment_ar_template.xml"
+    },
+    {
+        "merged": "/Users/Patron/.gradle/daemon/8.7/com.example.geoscapes.app-mergeDebugResources-79:/layout/fragment_banner.xml",
+        "source": "/Users/Patron/.gradle/daemon/8.7/com.example.geoscapes.app-main-82:/layout/fragment_banner.xml"
+    }
+]
