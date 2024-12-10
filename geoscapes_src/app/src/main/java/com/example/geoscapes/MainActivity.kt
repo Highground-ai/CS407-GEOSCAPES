@@ -43,8 +43,6 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 
 class MainActivity : AppCompatActivity() {
-    private var mlText: String = "" // Text from readText, is "No text found" if no text is found
-    private var mlLabels: List<String> = MutableList(0) {""} // List of labels from readLabels, first element is "No labels found" if no labels are found
     private lateinit var binding: ActivityMainBinding
     private lateinit var taskDB: TaskDatabase
     private var job : Job? = null
@@ -83,49 +81,6 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    // Reads text from the image and appends mlText with the text in it
-    fun readText(inputImage: ImageView){
-        val bitmap = (inputImage.drawable as BitmapDrawable).bitmap
-        val image = InputImage.fromBitmap(bitmap, 0)
-        val options = TextRecognizerOptions.DEFAULT_OPTIONS
-        val recognizer: TextRecognizer = TextRecognition.getClient(options)
-        mlText = ""
-        recognizer.process(image)
-            //executed when text recognition is successful
-            .addOnSuccessListener { visionText ->
-                if (visionText.textBlocks.isEmpty()) {
-                    mlText = "No text found"
-                } else {
-                    for (block in visionText.textBlocks) {
-                        mlText += block.text
-                    }
-                }
-            }
-            .addOnFailureListener {
-                // Failed to recognize text
-            }
-    }
-
-    fun readLabels(inputImage: ImageView) {
-        // TODO: Implement the Basic Setup For Label Recognition
-        val bitmap = (inputImage.drawable as BitmapDrawable).bitmap
-        val image = InputImage.fromBitmap(bitmap, 0)
-        val options = ImageLabelerOptions.DEFAULT_OPTIONS
-        val labeler: ImageLabeler = ImageLabeling.getClient(options)
-        mlLabels = emptyList()
-        // TODO: Add Listeners for Label detection process
-        labeler.process(image).addOnSuccessListener { labels ->
-            if (labels.isEmpty()) {
-                mlLabels += "No labels found"
-            }
-            for (label in labels) {
-                mlLabels += label.text
-            }
-        }.addOnFailureListener {
-            // Failed to detect labels
-        }
-    }
-
     private suspend fun createTasks() {
         // First task: A Hunter’s Tools
         taskDB.taskDao().upsert(Task(taskId=1,taskName=getString(R.string.first_task_name),
@@ -139,20 +94,19 @@ class MainActivity : AppCompatActivity() {
             taskDescription = getString(R.string.second_task_description),
             location = LatLng(43.0711021300514, -89.4093681166184), // Arch outside camp randall
             radius = 100,
-            storyline = getString(R.string.second_task_storyline))
+            storyline = getString(R.string.second_task_storyline),
+            activityId = getString(R.string.second_task_activity_id))
         )
         val secondTask = taskDB.taskDao().getTaskByName(getString(R.string.second_task_name))
         if (secondTask != null) {
             if (taskDB.stepDao().getByName(getString(R.string.second_task_step_one_name)) == null) {
                 taskDB.stepDao().upsertStep(Step(
-                    stepName=getString(R.string.second_task_step_one_name),
-                    activityId=null),
+                    stepName=getString(R.string.second_task_step_one_name)),
                     secondTask.taskId)
             }
             if (taskDB.stepDao().getByName(getString(R.string.second_task_step_two_name)) == null) {
                 taskDB.stepDao().upsertStep(Step(
-                    stepName=getString(R.string.second_task_step_two_name),
-                    activityId=null),
+                    stepName=getString(R.string.second_task_step_two_name)),
                     secondTask.taskId)
             }
         }
@@ -163,19 +117,21 @@ class MainActivity : AppCompatActivity() {
             taskDescription = getString(R.string.third_task_description),
             radius = 50,
             location = LatLng(43.07532181449608, -89.40369435577482),
-            storyline = getString(R.string.third_task_storyline)))
+            storyline = getString(R.string.third_task_storyline),
+            activityId = getString(R.string.third_task_activity_id))
+        )
 
         val thirdTask = taskDB.taskDao().getTaskByName(getString(R.string.third_task_name))
         if (thirdTask != null) {
             if (taskDB.stepDao().getByName(getString(R.string.third_task_step_one_name)) == null) {
                 taskDB.stepDao().upsertStep(Step(
-                    stepName=getString(R.string.third_task_step_one_name),
-                    activityId=null), thirdTask.taskId)
+                    stepName=getString(R.string.third_task_step_one_name)),
+                    thirdTask.taskId)
             }
             if (taskDB.stepDao().getByName(getString(R.string.third_task_step_two_name)) == null) {
                 taskDB.stepDao().upsertStep(Step(
-                    stepName=getString(R.string.third_task_step_two_name),
-                    activityId=null), thirdTask.taskId)
+                    stepName=getString(R.string.third_task_step_two_name)),
+                    thirdTask.taskId)
             }
         }
 
@@ -185,23 +141,25 @@ class MainActivity : AppCompatActivity() {
             taskDescription = getString(R.string.fourth_task_description),
             radius = 100,
             location = LatLng(43.076282453635386, -89.39986102675734),
-            storyline = getString(R.string.fourth_task_storyline)))
+            storyline = getString(R.string.fourth_task_storyline),
+            activityId = getString(R.string.fourth_task_activity_id))
+        )
         val fourthTask = taskDB.taskDao().getTaskByName(getString(R.string.fourth_task_name))
         if (fourthTask != null) {
             if (taskDB.stepDao().getByName(getString(R.string.fourth_task_step_one_name)) == null) {
                 taskDB.stepDao().upsertStep(Step(
-                    stepName=getString(R.string.fourth_task_step_one_name),
-                    activityId=null), fourthTask.taskId)
+                    stepName=getString(R.string.fourth_task_step_one_name)),
+                    fourthTask.taskId)
             }
             if (taskDB.stepDao().getByName(getString(R.string.fourth_task_step_two_name)) == null) {
                 taskDB.stepDao().upsertStep(Step(
-                    stepName=getString(R.string.fourth_task_step_two_name),
-                    activityId=null), fourthTask.taskId)
+                    stepName=getString(R.string.fourth_task_step_two_name)),
+                    fourthTask.taskId)
             }
             if (taskDB.stepDao().getByName(getString(R.string.fourth_task_step_three_name)) == null) {
                 taskDB.stepDao().upsertStep(Step(
-                    stepName=getString(R.string.fourth_task_step_three_name),
-                    activityId=null), fourthTask.taskId)
+                    stepName=getString(R.string.fourth_task_step_three_name)),
+                    fourthTask.taskId)
             }
         }
     }

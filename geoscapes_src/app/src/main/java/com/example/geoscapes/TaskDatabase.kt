@@ -26,10 +26,11 @@ data class Task (
     @PrimaryKey(autoGenerate = true) val taskId: Int = 0,
     val taskName: String = "", // Name of the task
     val taskDescription: String? = null, // Optional description of the task
-    val taskCompletion: Float = 0f, // Percentage of steps completed
+    var taskCompletion: Float = 0f, // Percentage of steps completed
     val location: LatLng = LatLng(0.0, 0.0), // The location of the task - could move to task if needed
     val radius: Int = 0, // Radius user needs to be to start task
     val storyline: String? = null, // Optional story of the task
+    val activityId: String? = null, // Optional activityId for the task
 )
 @Entity(
     primaryKeys = ["taskId", "stepId"],
@@ -55,8 +56,7 @@ data class Step (
     @PrimaryKey(autoGenerate = true) var stepId: Int = 0,
     val stepName: String, // Name of the step
     val stepDescription: String? = null, // Optional description of the step
-    val stepCompletion: Boolean = false, // Whether the step has been completed
-    val activityId: String? = null, // Optional activityId for the step
+    var stepCompletion: Boolean = false, // Whether the step has been completed
 )
 
 class Converters {
@@ -97,10 +97,32 @@ interface TaskDao {
                   AND Step.stepId = TaskStepRelation.stepId"""
     )
     suspend fun getStepsFromTask(id: Int): List<Step>
+
+    @Transaction
+    suspend fun updateTaskCompletion(taskId: Int) {
+        val task = getTaskById(taskId)
+        var completedSteps = 0
+        if (task != null) {
+            val steps = getStepsFromTask(taskId)
+            for (step in steps) {
+                if (step.stepCompletion) {
+                    completedSteps++
+                }
+            }
+            task.taskCompletion = (completedSteps.toFloat() / steps.size.toFloat()) * 100
+            }
+    }
 }
 
 @Dao
 interface StepDao {
+    @Transaction
+    suspend fun markStepAsCompleted(stepId: Int) {
+        val step = getById(stepId)
+        step.stepCompletion = true
+        upsert(step)
+    }
+
     @Query("SELECT * FROM step WHERE stepId = :id")
     suspend fun getById(id: Int): Step
 
@@ -166,7 +188,7 @@ interface DeleteDao {
     }
 }
 
-@Database(entities = [Task::class, Step::class, TaskStepRelation::class], version = 5)
+@Database(entities = [Task::class, Step::class, TaskStepRelation::class], version = 6)
 
 @TypeConverters(Converters::class)
 abstract  class TaskDatabase : RoomDatabase() {

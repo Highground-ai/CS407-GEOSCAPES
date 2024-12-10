@@ -164,8 +164,23 @@ class MapsFragment : Fragment() {
                 putInt("TaskID", activeTask!!.taskId)
                 putString("description", description)
             }
-            Navigation.findNavController(requireView())
-                .navigate(R.id.action_mapsFragment_to_arTemplateFragment, bundle)
+            when (activeTask?.activityId) {
+                null -> {
+                    // Tutorial task
+                }
+                getString(R.string.second_task_activity_id) -> {
+                    Navigation.findNavController(requireView())
+                        .navigate(R.id.action_mapsFragment_to_arTemplateFragment, bundle)
+                }
+                getString(R.string.third_task_activity_id) -> {
+                    // Navigate to ML task
+                }
+                getString(R.string.fourth_task_activity_id) -> {
+                    Navigation.findNavController(requireView())
+                        .navigate(R.id.action_mapsFragment_to_arTemplateFragment, bundle)
+                }
+            }
+
             taskDialog?.dismiss()
         }
         // Shows the dialog if it is not already showing
@@ -227,6 +242,17 @@ class MapsFragment : Fragment() {
                     if (currentTask.getInt("taskID", -1) != -1) {
                         if (checkRadius(currentLatLng, activeTask!!.location, activeTask!!.radius)) {
                             showPopup(activeTask!!.taskName, activeTask!!.taskDescription)
+                            job = CoroutineScope(Dispatchers.IO).launch {
+                                try {
+                                    val firstStep =
+                                        taskDB.taskDao().getStepsFromTask(activeTask!!.taskId)
+                                            .first()
+                                    taskDB.stepDao().markStepAsCompleted(firstStep.stepId)
+                                    taskDB.taskDao().updateTaskCompletion(activeTask!!.taskId)
+                                } catch (e: NoSuchElementException) {
+                                    // Do nothing, probably tutorial task
+                                }
+                            }
                         }
                     }
                 }

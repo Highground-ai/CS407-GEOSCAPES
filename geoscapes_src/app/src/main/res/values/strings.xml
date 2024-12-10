@@ -31,5 +31,8 @@
     <string name="fourth_task_storyline">Turns out Badgers don’t really understand platitudes. With Bucky on the run, the only way to get him back is to place treats at his favorite spot- The Terrace. </string>
     <string name="fourth_task_step_one_name">Go To Memorial Union</string>
     <string name="fourth_task_step_two_name">Place Three “Lures”</string>
-    <string name="fourth_task_step_three_name">“Catch” Bucky</string>"
+    <string name="fourth_task_step_three_name">“Catch” Bucky</string>
+    <string name="second_task_activity_id">ARFragment</string>
+    <string name="third_task_activity_id">MLFragment</string>
+    <string name="fourth_task_activity_id">ARFragment</string>
 </resources>
