@@ -113,7 +113,7 @@ interface TaskDao {
                 task.taskCompletion = (completedSteps.toFloat() / steps.size.toFloat()) * 100
                 upsert(task)
             }
-            }
+        }
     }
 }
 
