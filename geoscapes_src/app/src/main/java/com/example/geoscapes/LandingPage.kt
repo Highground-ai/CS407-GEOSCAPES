@@ -62,13 +62,21 @@ class LandingPage : Fragment() {
             }
 
         }
-        // TODO: Inflate storyline text
-
+        // Inflates storyline
+        job = CoroutineScope(Dispatchers.IO).launch {
+            val tasks = taskDB.taskDao().getAllTasks()
+            withContext(Dispatchers.Main) {
+                for (t in tasks) {
+                    if (t.taskCompletion > 0f) {
+                        storyTextView.append(t.storyline + "\n\n")
+                    }
+                }
+            }
+        }
         if (currentTask.getInt("taskID", -1) != -1) {
             // Get current task and display it
             job = CoroutineScope(Dispatchers.IO).launch {
                 val task = taskDB.taskDao().getTaskById(currentTask.getInt("taskID", -1))
-                val tasks = taskDB.taskDao().getAllTasks()
                 withContext(Dispatchers.Main) {
                     setTaskTextView.text = "Go to Task"
                     currentTaskTextView.text = task?.taskName
@@ -76,11 +84,6 @@ class LandingPage : Fragment() {
                         taskTextView.text = "No Task Description"
                     } else {
                         taskTextView.text = task.taskDescription
-                    }
-                    for (t in tasks) {
-                        if (t.taskCompletion > 0f) {
-                            storyTextView.append(t.storyline + "\n\n")
-                        }
                     }
                 }
             }

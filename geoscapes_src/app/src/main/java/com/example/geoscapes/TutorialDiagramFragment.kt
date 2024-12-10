@@ -2,6 +2,8 @@ package com.example.geoscapes
 
 import android.annotation.SuppressLint
 import android.app.Dialog
+import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.os.Handler
 import android.util.Log
@@ -10,13 +12,19 @@ import android.widget.Button
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.DialogFragment
 import androidx.navigation.fragment.findNavController
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.launch
 
 
 class TutorialDialogFragment : DialogFragment() {
 
     // Tracks the current step in the tutorial
     private var currentStep = 0
-
+    private var job : Job? = null
+    private lateinit var taskDB: TaskDatabase
+    private lateinit var currentTask: SharedPreferences
     // A function to get the current fragment
     private fun getCurrentFragmentId(): Int {
         val navController = findNavController()
@@ -45,7 +53,9 @@ class TutorialDialogFragment : DialogFragment() {
         //must return a dialog in OnCreateDialog to bypass logic
         val tutorialStartDialog = AlertDialog.Builder(requireContext())
             .create()
-
+        taskDB = TaskDatabase.getDatabase(requireContext())
+        currentTask = activity?.getSharedPreferences(
+            getString(R.string.currentTaskKey), Context.MODE_PRIVATE)!!
         navigateToNextFragment(fragmentSequence)
 
         return tutorialStartDialog
@@ -93,6 +103,14 @@ class TutorialDialogFragment : DialogFragment() {
                     continueButton.setOnClickListener {
                         nextDialog.dismiss()
                         navigateToNextFragment(fragmentSequence) // Proceed to the next step
+                        if (currentStep == fragmentSequence.size - 1) {
+                            job = CoroutineScope(Dispatchers.IO).launch {
+                                val tutorialTask = taskDB.taskDao().getTaskByName(getString(R.string.first_task_name))
+                                tutorialTask?.taskCompletion = 100f
+                                taskDB.taskDao().upsert(tutorialTask!!)
+                                currentTask.edit().putInt("taskID", -1).apply()
+                            }
+                        }
                     }
 
                     nextDialog.show()

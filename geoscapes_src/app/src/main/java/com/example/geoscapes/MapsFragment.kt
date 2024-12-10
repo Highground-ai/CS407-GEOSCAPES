@@ -239,7 +239,7 @@ class MapsFragment : Fragment() {
                 userLocation = locationResult.lastLocation!!
                 if (userLocation != null) {
                     val currentLatLng = LatLng(userLocation.latitude, userLocation.longitude)
-                    if (currentTask.getInt("taskID", -1) != -1) {
+                    if (currentTask.getInt("taskID", -1) != -1 && currentTask.getInt("taskID", -1) != 1) {
                         if (checkRadius(currentLatLng, activeTask!!.location, activeTask!!.radius)) {
                             showPopup(activeTask!!.taskName, activeTask!!.taskDescription)
                             job = CoroutineScope(Dispatchers.IO).launch {

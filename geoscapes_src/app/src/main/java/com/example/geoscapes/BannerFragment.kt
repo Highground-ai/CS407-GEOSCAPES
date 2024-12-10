@@ -1,5 +1,7 @@
 package com.example.geoscapes
 
+import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -12,6 +14,8 @@ import androidx.navigation.fragment.findNavController
 
 class BannerFragment : Fragment() {
 
+    private lateinit var currentTask: SharedPreferences
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -20,8 +24,12 @@ class BannerFragment : Fragment() {
 
         val helpIcon = view.findViewById<ImageView>(R.id.help_icon)
 
+        currentTask = activity?.getSharedPreferences(
+            getString(R.string.currentTaskKey), Context.MODE_PRIVATE)!!
+
         helpIcon.setOnClickListener {
             TutorialDialogFragment().show(parentFragmentManager, "tutorial")
+            currentTask.edit().putInt("taskID", 1).apply()
         }
 
 
