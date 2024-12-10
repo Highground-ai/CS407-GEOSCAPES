@@ -239,7 +239,7 @@ class MapsFragment : Fragment() {
                 userLocation = locationResult.lastLocation!!
                 if (userLocation != null) {
                     val currentLatLng = LatLng(userLocation.latitude, userLocation.longitude)
-                    if (currentTask.getInt("taskID", -1) != -1) {
+                    if (currentTask.getInt("taskID", -1) != -1 && currentTask.getInt("taskID", -1) != 1) {
                         if (checkRadius(currentLatLng, activeTask!!.location, activeTask!!.radius)) {
                             showPopup(activeTask!!.taskName, activeTask!!.taskDescription)
                             job = CoroutineScope(Dispatchers.IO).launch {
@@ -280,11 +280,9 @@ class MapsFragment : Fragment() {
         if (requestCode == LOCATION_PERMISSION_REQUEST_CODE) {
             if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 enableMyLocation()
-                settingToggledKV.edit().putBoolean(getString(R.string.setting_location), true).apply()
             } else {
                 Toast.makeText(requireContext(), "Location permission required", Toast.LENGTH_SHORT)
                     .show()
-                settingToggledKV.edit().putBoolean(getString(R.string.setting_location), false).apply()
             }
         }
     }

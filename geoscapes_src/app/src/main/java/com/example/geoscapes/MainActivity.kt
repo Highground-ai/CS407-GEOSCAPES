@@ -43,13 +43,12 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 
 class MainActivity : AppCompatActivity() {
-    private var mlText: String = "" // Text from readText, is "No text found" if no text is found
-    private var mlLabels: List<String> = MutableList(0) {""} // List of labels from readLabels, first element is "No labels found" if no labels are found
     private lateinit var binding: ActivityMainBinding
     private lateinit var taskDB: TaskDatabase
     private var job : Job? = null
     private lateinit var settingToggledKV: SharedPreferences
     private lateinit var tutorialOnFirstLoad: SharedPreferences
+    private lateinit var currentTask: SharedPreferences
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -57,14 +56,13 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         tutorialOnFirstLoad = getSharedPreferences("TutorialPrefs", MODE_PRIVATE)
+        currentTask = getSharedPreferences(getString(R.string.currentTaskKey), Context.MODE_PRIVATE)!!
 
         val navHost =
             supportFragmentManager.findFragmentById(R.id.fragment_container_view) as NavHostFragment
         val navController = navHost.navController
 
         binding.bottomNavigationView.setupWithNavController(navController)
-
-        tutorialOnFirstLoad = getSharedPreferences("TutorialPrefs", MODE_PRIVATE)
 
         settingToggledKV = this.getSharedPreferences(
             getString(R.string.settingToggledKV), Context.MODE_PRIVATE
@@ -83,8 +81,10 @@ class MainActivity : AppCompatActivity() {
                     taskDB.deleteDao().delete(task.taskId)
                 }
             }
+            // This is the same as first time user
             if (taskDB.taskDao().getAllTasks().isEmpty()) {
                 createTasks()
+                TutorialDialogFragment().show(supportFragmentManager, "tutorial")
             }
         }
     }

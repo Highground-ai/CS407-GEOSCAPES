@@ -50,26 +50,12 @@ class SettingsFragment : Fragment() {
             SettingItem(getString(R.string.setting_notifications), settingToggledKV.getBoolean(getString(R.string.setting_notifications), false)),
             SettingItem(getString(R.string.setting_camera), settingToggledKV.getBoolean(getString(R.string.setting_camera), false)),
             SettingItem(getString(R.string.setting_microphone), settingToggledKV.getBoolean(getString(R.string.setting_microphone), false)),
-            SettingItem(getString(R.string.setting_location), settingToggledKV.getBoolean(getString(R.string.setting_location), false))
         )
 
         settingsAdapter = SettingsAdapter(settingsList) { settingItem, isChecked ->
             // Handle the switch toggle event
             // TODO Switch the switch back off if the user denies the permission
             when (settingItem.title) {
-                getString(R.string.setting_location) -> {
-                    if (isChecked && ContextCompat.checkSelfPermission(
-                            requireContext(),
-                            Manifest.permission.ACCESS_FINE_LOCATION
-                        ) != PackageManager.PERMISSION_GRANTED
-                    ) {
-                        ActivityCompat.requestPermissions(
-                            this.requireActivity(),
-                            arrayOf(Manifest.permission.ACCESS_FINE_LOCATION), 1
-                        )
-                    }
-                }
-
                 getString(R.string.setting_camera) -> {
                     if (isChecked && ContextCompat.checkSelfPermission(
                             requireContext(),
