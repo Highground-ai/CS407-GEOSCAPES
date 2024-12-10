@@ -6,6 +6,8 @@ import android.graphics.Bitmap
 import android.graphics.drawable.BitmapDrawable
 import android.os.Bundle
 import android.provider.MediaStore
+import android.util.Log
+import android.content.Context
 import android.view.View
 import android.widget.Button
 import android.widget.ImageView
@@ -26,9 +28,9 @@ import java.io.InputStream
 class CameraFragment : Fragment(R.layout.fragment_camera) {
 
     private lateinit var photoImageView: ImageView
-    private lateinit var textOutput: TextView
     private lateinit var recognizer: TextRecognizer
     private lateinit var locations: List<Location>
+    private lateinit var taskDB: TaskDatabase
 
     companion object {
         private const val GALLERY_REQUEST_CODE = 100
@@ -39,22 +41,15 @@ class CameraFragment : Fragment(R.layout.fragment_camera) {
         super.onViewCreated(view, savedInstanceState)
 
         photoImageView = view.findViewById(R.id.photoImageView)
-        textOutput = view.findViewById(R.id.textOutput)
-
         val selectPhotoButton: Button = view.findViewById(R.id.selectPhotoButton)
         val takePhotoButton: Button = view.findViewById(R.id.takePhotoButton)
 
         recognizer = TextRecognition.getClient(TextRecognizerOptions.DEFAULT_OPTIONS)
-
         locations = loadLocationsFromJson()
+        taskDB = TaskDatabase.getDatabase(requireActivity())
 
-        selectPhotoButton.setOnClickListener {
-            openGallery()
-        }
-
-        takePhotoButton.setOnClickListener {
-            openCamera()
-        }
+        selectPhotoButton.setOnClickListener { openGallery() }
+        takePhotoButton.setOnClickListener { openCamera() }
     }
 
     private fun openGallery() {
@@ -72,30 +67,57 @@ class CameraFragment : Fragment(R.layout.fragment_camera) {
 
         recognizer.process(inputImage)
             .addOnSuccessListener { visionText ->
-                textOutput.text = ""
-
-                val detectedText = StringBuilder()
-                for (block in visionText.textBlocks) {
-                    detectedText.append(block.text).append(" ")
-                }
-
-                val matchedLocations = locations.filter { location ->
-                    detectedText.toString().contains(location.referenceText, ignoreCase = true)
-                }
-
-                if (matchedLocations.isNotEmpty()) {
-                    textOutput.text = "Matched Locations:\n"
-                    matchedLocations.forEach { location ->
-                        textOutput.append("${location.name}\n")
+                CoroutineScope(Dispatchers.IO).launch {
+                    val detectedText = StringBuilder()
+                    for (block in visionText.textBlocks) {
+                        detectedText.append(block.text).append(" ")
                     }
-                } else {
-                    textOutput.text = "No matching locations found."
+
+                    Log.d("CameraFragment", "Recognized Text: $detectedText")
+
+                    val sharedPreferences = requireActivity().getSharedPreferences(
+                        getString(R.string.currentTaskKey), Context.MODE_PRIVATE
+                    )
+                    val taskID = sharedPreferences.getInt("taskID", -1)
+
+                    if (taskID != -1) {
+                        val currentTask = taskDB.taskDao().getTaskById(taskID)
+
+                        if (currentTask != null) {
+                            Log.d("CameraFragment", "Current Task Location: ${currentTask.location.latitude}, ${currentTask.location.longitude}")
+
+                            val matchedLocations = locations.filter { location ->
+                                detectedText.toString().contains(location.referenceText, ignoreCase = true)
+                            }
+
+                            val taskMatchesLocation = matchedLocations.any { location ->
+                                location.name.equals(currentTask.taskName, ignoreCase = true)
+                            }
+
+                            withContext(Dispatchers.Main) {
+                                if (taskMatchesLocation) {
+                                    Log.d("CameraFragment", "PASS: Location and task text match.")
+                                } else {
+                                    Log.d("CameraFragment", "FAIL: No match between location and task text.")
+                                }
+                            }
+                        } else {
+                            withContext(Dispatchers.Main) {
+                                Log.d("CameraFragment", "FAIL: Current task not found in database.")
+                            }
+                        }
+                    } else {
+                        withContext(Dispatchers.Main) {
+                            Log.d("CameraFragment", "FAIL: Task ID not found in shared preferences.")
+                        }
+                    }
                 }
             }
             .addOnFailureListener { e ->
-                textOutput.text = "Error: ${e.localizedMessage}"
+                Log.e("CameraFragment", "Error recognizing text: ${e.localizedMessage}")
             }
     }
+
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
@@ -110,7 +132,7 @@ class CameraFragment : Fragment(R.layout.fragment_camera) {
                     if (bitmap != null) {
                         recognizeTextFromImage(bitmap)
                     } else {
-                        textOutput.text = "Failed to load image."
+                        Log.e("CameraFragment", "Failed to load image.")
                     }
                 }
                 CAMERA_REQUEST_CODE -> {
@@ -119,7 +141,7 @@ class CameraFragment : Fragment(R.layout.fragment_camera) {
                         photoImageView.setImageBitmap(bitmap)
                         recognizeTextFromImage(bitmap)
                     } else {
-                        textOutput.text = "Failed to capture image."
+                        Log.e("CameraFragment", "Failed to capture image.")
                     }
                 }
             }
