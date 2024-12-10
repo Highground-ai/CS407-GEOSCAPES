@@ -109,7 +109,10 @@ interface TaskDao {
                     completedSteps++
                 }
             }
-            task.taskCompletion = (completedSteps.toFloat() / steps.size.toFloat()) * 100
+            if (steps.isNotEmpty()) {
+                task.taskCompletion = (completedSteps.toFloat() / steps.size.toFloat()) * 100
+                upsert(task)
+            }
             }
     }
 }

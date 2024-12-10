@@ -18,7 +18,7 @@
         android:focusable="false"
         android:gravity="center"
         android:text="GEOSCAPES"
-        android:fontFamily="@font/Geoscapes"
+        android:fontFamily="@font/geoscapes"
         android:textAlignment="center"
         android:textColor="@color/white"
         android:textSize="32sp"
