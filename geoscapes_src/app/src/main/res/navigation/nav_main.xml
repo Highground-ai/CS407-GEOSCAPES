@@ -39,12 +39,6 @@
             app:popUpToInclusive="true"/>
     </fragment>
 
-    <!-- Tutorial Dialog -->
-    <dialog
-        android:id="@+id/tutorialFragment"
-        android:name="com.example.geoscapes.TutorialDialogFragment"
-        android:label="TutorialDialogFragment" />
-
     <!-- Landing Page Fragment -->
     <fragment
         android:id="@+id/landingPageFragment"

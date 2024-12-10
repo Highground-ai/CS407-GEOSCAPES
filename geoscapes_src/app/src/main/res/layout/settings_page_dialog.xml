@@ -35,7 +35,7 @@
             android:textSize="35sp"
             android:textStyle="bold"
             android:gravity="center"
-            android:text="Welcome Badger!"
+            android:text="These are your Settings!"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
@@ -52,7 +52,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:backgroundTint="#d21132"
-            android:text="Start Tutorial"
+            android:text="Continue"
             android:paddingStart="20dp"
             android:paddingEnd="20dp"
             android:elevation="4dp"
