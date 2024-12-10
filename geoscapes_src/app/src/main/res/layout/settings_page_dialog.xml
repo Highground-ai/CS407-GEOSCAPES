@@ -32,10 +32,10 @@
         android:layout_height="wrap_content"
         android:gravity="center">
         <TextView
-            android:textSize="35sp"
+            android:textSize="30sp"
             android:textStyle="bold"
             android:gravity="center"
-            android:text="These are your Settings!"
+            android:text="Personalize your Settings!"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
@@ -43,7 +43,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+            android:text=""
             android:textSize="20sp" />
 
         <Button

@@ -35,7 +35,7 @@
             android:textSize="35sp"
             android:textStyle="bold"
             android:gravity="center"
-            android:text="This is the Landing Page!"
+            android:text="Your Landing Page!"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 

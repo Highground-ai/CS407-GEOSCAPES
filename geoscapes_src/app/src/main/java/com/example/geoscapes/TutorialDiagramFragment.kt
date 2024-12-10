@@ -14,53 +14,45 @@ import androidx.navigation.fragment.findNavController
 
 class TutorialDialogFragment : DialogFragment() {
 
-    // A list of fragment IDs and corresponding tutorial dialog layouts for each step
-    private val fragmentSequence = listOf(
-        R.id.landingPageFragment to R.layout.landing_page_dialog,
-        R.id.mapsFragment to R.layout.map_page_dialog,
-        R.id.tasksFragment to R.layout.tasks_page_dialog,
-        R.id.settingsFragment to R.layout.settings_page_dialog,
-        R.id.landingPageFragment to R.layout.tutorial_get_started_dialog,
-    )
-
     // Tracks the current step in the tutorial
     private var currentStep = 0
 
-    @SuppressLint("UseGetLayoutInflater")
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        // Reset currentStep whenever the tutorial starts
-        currentStep = 0
+    // A function to get the current fragment
+    private fun getCurrentFragmentId(): Int {
+        val navController = findNavController()
+        return navController.currentDestination?.id ?: R.id.landingPageFragment // Default if no fragment is found
+    }
+
+    // Dynamically generates the fragment sequence
+    private fun getFragmentSequence(): List<Pair<Int, Int>> {
+        val currentFragmentId = getCurrentFragmentId()
+
+        return listOf(
+            currentFragmentId to R.layout.tutorial_dialog,
+            R.id.landingPageFragment to R.layout.landing_page_dialog,
+            R.id.tasksFragment to R.layout.tasks_page_dialog,
+            R.id.mapsFragment to R.layout.map_page_dialog,
+            R.id.settingsFragment to R.layout.settings_page_dialog,
+            R.id.landingPageFragment to R.layout.tutorial_get_started_dialog,
+        )
     }
 
     @SuppressLint("UseGetLayoutInflater")
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-        // Get the layout resource ID for the current tutorial step
-        val dialogLayoutResId = R.layout.tutorial_dialog
+        // Dynamically create the fragment sequence
+        val fragmentSequence = getFragmentSequence()
 
-        // Inflate the custom layout
-        val dialogView = LayoutInflater.from(requireContext()).inflate(dialogLayoutResId, null)
-
-        // Find the OK button in the layout
-        val startTutorialButton = dialogView.findViewById<Button>(R.id.button_okay)
-
-        // Create and return the dialog using the inflated view
+        //must return a dialog in OnCreateDialog to bypass logic
         val tutorialStartDialog = AlertDialog.Builder(requireContext())
-            .setView(dialogView) // Set the custom layout as the content
-            .setCancelable(true)
             .create()
 
-        // Set a click listener on the button to navigate to the next fragment
-        startTutorialButton.setOnClickListener {
-            navigateToNextFragment()
-        }
+        navigateToNextFragment(fragmentSequence)
 
         return tutorialStartDialog
-
     }
 
     @SuppressLint("UseGetLayoutInflater")
-    private fun navigateToNextFragment() {
+    private fun navigateToNextFragment(fragmentSequence: List<Pair<Int, Int>>) {
         if (currentStep < fragmentSequence.size) {
             val destinationId = fragmentSequence[currentStep].first
             val dialogLayoutResId = fragmentSequence[currentStep].second
@@ -83,17 +75,24 @@ class TutorialDialogFragment : DialogFragment() {
                     val nextDialogView =
                         LayoutInflater.from(requireContext()).inflate(dialogLayoutResId, null)
 
+
                     // Create and show the next dialog
                     val nextDialog = AlertDialog.Builder(requireContext())
                         .setView(nextDialogView)
-                        .setCancelable(false)
+                        .apply {
+                            if (currentStep == 1) {
+                                setCancelable(true) // Make the first dialog cancellable
+                            } else {
+                                setCancelable(false) // Make subsequent dialogs non-cancellable
+                            }
+                        }
                         .create()
 
                     val continueButton = nextDialogView.findViewById<Button>(R.id.button_okay)
 
                     continueButton.setOnClickListener {
                         nextDialog.dismiss()
-                        navigateToNextFragment() // Proceed to the next step
+                        navigateToNextFragment(fragmentSequence) // Proceed to the next step
                     }
 
                     nextDialog.show()
