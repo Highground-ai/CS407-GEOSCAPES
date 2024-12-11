@@ -1,5 +1,5 @@
 [
-  { "name": "Bascom Hill", "referenceText": "Bascom Hill" },
-  { "name": "Memorial Union", "referenceText": "Memorial Union" },
-  { "name": "Union South", "referenceText": "Union South" }
+  { "name": "Bascom Hill", "coords": [0.0,0.0], "referenceText": "Bascom Hill" },
+    { "name": "Memorial Union", "coords": [43.0, -83.0], "referenceText": "Memorial Union" },
+  { "name": "Union South", "coords": [43.0,-83.0], "referenceText": "Union South" }
 ]
