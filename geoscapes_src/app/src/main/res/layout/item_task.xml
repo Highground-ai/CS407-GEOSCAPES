@@ -1,68 +1,68 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingTop="15dp"
     android:paddingLeft="15dp"
+    android:paddingTop="15dp"
     android:paddingRight="15dp">
 
     <TextView
         android:id="@+id/taskTextView"
         android:layout_width="match_parent"
         android:layout_height="100dp"
-        android:text="Task Name"
+        android:background="#D9D9D9"
+        android:fontFamily="@font/text"
         android:gravity="center_vertical"
         android:paddingStart="90dp"
-        android:background="#D9D9D9"
-        android:textSize="24sp"
+        android:text="Task Name"
         android:textColor="@color/black"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        android:textSize="24sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <View
         android:id="@+id/taskColor"
         android:layout_width="50dp"
         android:layout_height="40dp"
-        android:background="@color/incomplete"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
         android:layout_marginStart="30dp"
-        android:layout_marginTop="30dp"/>
+        android:layout_marginTop="30dp"
+        android:background="@color/incomplete"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <View
         android:id="@+id/activeBorder"
         android:layout_width="match_parent"
         android:layout_height="100dp"
-        app:layout_constraintTop_toTopOf="@id/taskTextView"
-        app:layout_constraintBottom_toBottomOf="@id/taskTextView"
-        app:layout_constraintStart_toStartOf="@id/taskTextView"
-        app:layout_constraintEnd_toEndOf="@id/taskTextView"
         android:background="@drawable/active_border"
         android:visibility="invisible"
-        />
+        app:layout_constraintBottom_toBottomOf="@id/taskTextView"
+        app:layout_constraintEnd_toEndOf="@id/taskTextView"
+        app:layout_constraintStart_toStartOf="@id/taskTextView"
+        app:layout_constraintTop_toTopOf="@id/taskTextView" />
 
     <ImageView
         android:id="@+id/dropdownArrow"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="41dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="28dp"
+        android:layout_marginEnd="16dp"
+        android:rotation="-90"
         android:src="@drawable/dropdown_arrow"
-        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginEnd="15dp"
-        android:layout_marginTop="25dp"
-        android:rotation="-90"/>
+        app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/stepsRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:visibility="gone"
+        android:isScrollContainer="false"
         android:paddingLeft="15dp"
         android:paddingRight="15dp"
-        android:isScrollContainer="false"
-        app:layout_constraintTop_toBottomOf="@id/taskTextView"
-        app:layout_constraintStart_toStartOf="@id/taskTextView" >
+        android:visibility="gone"
+        app:layout_constraintStart_toStartOf="@id/taskTextView"
+        app:layout_constraintTop_toBottomOf="@id/taskTextView">
 
 
     </androidx.recyclerview.widget.RecyclerView>

@@ -3,9 +3,10 @@
     <item android:title="Settings"
         android:id="@+id/settingsFragment"
         android:icon="@drawable/baseline_settings_24"/>
-    <item android:title="Checklist"
+    <item
         android:id="@+id/tasksFragment"
-        android:icon="@drawable/baseline_list_alt_24"/>
+        android:icon="@drawable/baseline_list_alt_24"
+        android:title="Tasklist" />
     <item android:title="Home"
         android:id="@+id/landingPageFragment"
         android:icon="@drawable/baseline_home_24"/>

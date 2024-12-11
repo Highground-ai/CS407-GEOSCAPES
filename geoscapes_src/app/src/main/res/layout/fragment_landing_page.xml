@@ -15,6 +15,7 @@
         android:layout_marginTop="15dp"
         android:layout_marginEnd="15dp"
         android:background="@color/incomplete"
+        android:fontFamily="@font/text"
         android:text="To Catch a Badger"
         android:textAlignment="center"
         android:textColor="@color/white"
@@ -40,6 +41,7 @@
                 android:layout_height="wrap_content"
                 android:background="@color/gray"
                 android:paddingLeft="10dp"
+                android:fontFamily="@font/text"
                 android:paddingTop="5dp"
                 android:layout_marginStart="15dp"
                 android:layout_marginEnd="15dp"
@@ -63,6 +65,7 @@
         android:text="Current Task:"
         android:textAlignment="center"
         android:textColor="@color/white"
+        android:fontFamily="@font/text"
         android:textSize="30sp" />
 
     <TextView
@@ -72,6 +75,7 @@
         android:layout_marginStart="15dp"
         android:layout_marginEnd="15dp"
         android:background="@color/gray"
+        android:fontFamily="@font/text"
         android:paddingLeft="10dp"
         android:paddingTop="5dp"
         android:paddingRight="10dp"
@@ -94,7 +98,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="10"
-            android:text="Set Task"
+            android:text="Setting Task: "
+            android:fontFamily="@font/text"
             android:textSize="18sp" />
 
         <Button
@@ -103,7 +108,8 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:backgroundTint="@color/red"
-            android:text="Go"
+            android:fontFamily="@font/text"
+            android:text="GO"
             android:textSize="18sp" />
     </LinearLayout>
 

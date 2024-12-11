@@ -19,6 +19,7 @@
         android:layout_gravity="center_horizontal"
         android:background="#A12A2A"
         android:text="@string/completed"
+        android:fontFamily="@font/text"
         android:textAlignment="center"
         android:textColor="@color/white"
         android:textSize="24sp"

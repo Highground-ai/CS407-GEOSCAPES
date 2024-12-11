@@ -12,6 +12,7 @@
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:text="Setting Name"
+        android:fontFamily="@font/text"
         android:textSize="16sp"
         android:textColor="?android:attr/textColorPrimary" />
 
