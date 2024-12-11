@@ -42,7 +42,7 @@ class GeospatialFragment : Fragment(R.layout.fragment_geospatial) {
 
     //Get the view
     private val arSceneView get() = arFragment.arSceneView
-    private val session = arSceneView.session
+    //private val session = arSceneView.session
     private val scene get() = arSceneView.scene
 
     //Create the models
@@ -58,21 +58,17 @@ class GeospatialFragment : Fragment(R.layout.fragment_geospatial) {
     private lateinit var activeTask: Task
 
     //Initialize lat and long
-    private lateinit var latLng: LatLng
+    private var lat = 0.0
+    private var long = 0.0
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        lat = arguments?.getDouble("latitude")!!
+        long = arguments?.getDouble("longitude")!!
         checkPermissionsAndInitialize()
         currentTask = activity?.getSharedPreferences(
             getString(R.string.currentTaskKey), Context.MODE_PRIVATE)!!
         taskDB = TaskDatabase.getDatabase(requireActivity())
-
-
-        job = CoroutineScope(Dispatchers.IO).launch {
-            activeTask =
-                taskDB.taskDao().getTaskById(currentTask.getInt("taskID", -1))!!
-        }
-        latLng = activeTask.location
         arFragment = (childFragmentManager.findFragmentById(R.id.ARGeospatialFragment) as ArFragment)
             .apply {
                 setOnSessionConfigurationListener{ session,config ->
@@ -84,7 +80,9 @@ class GeospatialFragment : Fragment(R.layout.fragment_geospatial) {
                 }
             }
 
-        lifecycleScope.launchWhenCreated { loadModels()}
+        lifecycleScope.launchWhenCreated {
+            loadModels()
+        }
 
         // Check permissions and initialize AR session
     }
@@ -95,46 +93,52 @@ class GeospatialFragment : Fragment(R.layout.fragment_geospatial) {
             .setIsFilamentGltf(true)
             .await()
         modelAxe = ModelRenderable.builder()
-            .setSource(context, Uri.parse("models/free_axe_sylvaxe.glb"))
+            .setSource(context, Uri.parse("models/axe.glb"))
             .setIsFilamentGltf(true)
             .await()
         modelView = ViewRenderable.builder()
             .setView(context, R.layout.bucky_dialog)
             .build().await()
+        placeModels()
     }
 
     private fun placeModels(){
-        val earth = session?.earth ?: return
+        Toast.makeText(context, "Entered", Toast.LENGTH_SHORT).show()
+        val earth = arSceneView.session?.earth
 
-        if (earth.trackingState != TrackingState.TRACKING) {
-            return
-        }else{
-            val altitude = earth.cameraGeospatialPose.altitude - 1
+        if (earth != null) {
+            if (earth.trackingState!! != TrackingState.TRACKING) {
+                Toast.makeText(context, "Loading...", Toast.LENGTH_SHORT).show()
+                return
+            }else{
+                Toast.makeText(context, "Initializing...", Toast.LENGTH_SHORT).show()
+                val altitude = earth.cameraGeospatialPose.altitude - 1
 
-            val qtrnX = 0f; val qtrnY = 0f; val qtrnZ = 0f; val qtrnW = 1f;
+                val qtrnX = 0f; val qtrnY = 0f; val qtrnZ = 0f; val qtrnW = 1f;
 
-            val earthAnchor = earth.createAnchor(latLng.latitude,latLng.longitude,
-                altitude,qtrnX,qtrnY,qtrnZ,qtrnW)
-            val anchorNode = AnchorNode(earthAnchor)
-            anchorNode.parent = scene
-            anchorNode.addChild(TransformableNode(arFragment.transformationSystem).apply {
-                renderable = modelAxe
-                renderableInstance.setCulling(false)
-                setOnTapListener { hitResult: HitTestResult?, motionEvent: MotionEvent? ->
-                    Toast.makeText(context, "You've found the axe!", Toast.LENGTH_SHORT).show()
-                    //Set Task to Complete
-                    job = CoroutineScope(Dispatchers.IO).launch {
-                        val arTask = taskDB.taskDao().getTaskByName(getString(R.string.second_task_name))
-                        arTask?.taskCompletion = 100f
-                        taskDB.taskDao().upsert(arTask!!)
-                        //Set Current Task to None
-                        currentTask.edit().putInt("taskID", -1).apply()
+                val earthAnchor = earth.createAnchor(lat,long,
+                    altitude,qtrnX,qtrnY,qtrnZ,qtrnW)
+                val anchorNode = AnchorNode(earthAnchor)
+                anchorNode.parent = arSceneView.scene
+                anchorNode.addChild(TransformableNode(arFragment.transformationSystem).apply {
+                    renderable = modelAxe
+                    renderableInstance.setCulling(false)
+                    setOnTapListener { hitResult: HitTestResult?, motionEvent: MotionEvent? ->
+                        Toast.makeText(context, "You've found the axe!", Toast.LENGTH_SHORT).show()
+                        //Set Task to Complete
+                        job = CoroutineScope(Dispatchers.IO).launch {
+                            val arTask = taskDB.taskDao().getTaskByName(getString(R.string.second_task_name))
+                            arTask?.taskCompletion = 100f
+                            taskDB.taskDao().upsert(arTask!!)
+                            //Set Current Task to None
+                            currentTask.edit().putInt("taskID", -1).apply()
+                        }
+                        //Navigate to Landing Page
+                        Navigation.findNavController(requireView())
+                            .navigate(R.id.action_ArTemplateFragment_to_landingFragment)
                     }
-                    //Navigate to Landing Page
-                    Navigation.findNavController(requireView())
-                        .navigate(R.id.action_ArTemplateFragment_to_landingFragment)
-                }
-            })
+                })
+            }
         }
     }
 

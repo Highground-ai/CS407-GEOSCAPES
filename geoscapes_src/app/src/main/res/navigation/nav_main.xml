@@ -30,7 +30,7 @@
             app:popUpTo="@id/mapsFragment"
             app:popUpToInclusive="true" />
         <action
-            android:id="@+id/action_mapsFragment_to_geospatialFragment"
+            android:id="@+id/action_mapsFragment_to_arGeospatialFragment"
             app:destination="@id/ARGeospatialFragment"
             app:popUpTo="@id/mapsFragment"
             app:popUpToInclusive="true" />
