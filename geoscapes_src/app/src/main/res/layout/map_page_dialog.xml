@@ -45,7 +45,7 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:fontFamily="@font/text"
-            android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+            android:text="Welcome to the map! This is where your geocaching journey comes to life! When you activate a task in the task list, a marker and radius for your destination will become readily avaliable to find. When you are within the vicinity of a task with a radius, you will be given a pop-up to complete that task. This will involve the use of your phone camera. Gotta get your steps in somehow!"
             android:textSize="20sp" />
 
         <Button
