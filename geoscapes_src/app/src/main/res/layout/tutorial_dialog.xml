@@ -39,6 +39,7 @@
             android:gravity="center"
             android:text="Welcome Badger!"
             android:fontFamily="@font/text"
+            android:textColor="@color/black"
             android:textSize="35sp"
             android:textStyle="bold" />
 
@@ -47,6 +48,7 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:fontFamily="@font/text"
+            android:textColor="@color/black"
             android:text= "Welcome to Geoscapes, the ultimate virtual geocaching adventure in Madison, Wisconsin! Our app combines location-based tasks and augmented reality to guide you on exciting, interactive journeys through the city. Just like geoscaping, you'll complete challenges, uncover hidden gems, and explore new locations—all while learning about the beautiful surroundings. To get started, click the Start Tutorial button! This will guide you through the basics and help you get familiar with navigating and completing tasks in Geoscapes. Ready to start your adventure? The city of Madison awaits you—discover, explore, and geocache like never before with Geoscapes!"
         android:textSize="20sp" />
 

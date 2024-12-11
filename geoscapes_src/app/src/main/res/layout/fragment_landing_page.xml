@@ -42,6 +42,7 @@
                 android:background="@color/gray"
                 android:paddingLeft="10dp"
                 android:fontFamily="@font/text"
+                android:textColor="@color/black"
                 android:paddingTop="5dp"
                 android:layout_marginStart="15dp"
                 android:layout_marginEnd="15dp"
@@ -75,6 +76,7 @@
         android:layout_marginStart="15dp"
         android:layout_marginEnd="15dp"
         android:background="@color/gray"
+        android:textColor="@color/black"
         android:fontFamily="@font/text"
         android:paddingLeft="10dp"
         android:paddingTop="5dp"
@@ -98,6 +100,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="10"
+            android:textColor="@color/black"
             android:text="Setting Task: "
             android:fontFamily="@font/text"
             android:textSize="18sp" />
