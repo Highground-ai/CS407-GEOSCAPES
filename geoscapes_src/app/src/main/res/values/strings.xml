@@ -16,7 +16,8 @@
     <string name="first_task_description">GeoScapes Tutorial, familiarize yourself with the features of the app, complete as many times as you need</string>
     <string name="first_task_storyline">Bucky’s gone rogue, and with him, so has any chance for UW-Madison students to have affordable housing (slim as that chance may be). To find the highly implausible savior of this whole mess you’ll need to acquaint yourself with the tools of the trade: GeoScapes.</string>
     <string name="second_task_name">A Badger’s Shame</string>
-    <string name="second_task_description">Find Bucky (and the axe) at the Camp Randall Arch in order to calm him down.</string>"
+    <string name="second_task_description">Find Bucky (and the axe) at the Camp Randall Arch in order to calm him down.</string>
+    "
     <string name="second_task_storyline">It’s no secret that the UW-Madison football team has taken a deep dive into insignificance. Following the tragic thanksgiving game, Bucky has stolen the Axe in a desperate gamble to bring back relevance to the team. Retrieve the Axe, hidden at Camp Randall, in order to redirect Bucky’s rage into a more… healthy outlet.</string>
     <string name="second_task_step_one_name">Go To Camp Randall</string>
     <string name="second_task_step_two_name">Find Bucky and the Axe</string>
@@ -33,5 +34,7 @@
     <string name="fourth_task_step_three_name">“Catch” Bucky</string>
     <string name="second_task_activity_id">ARFragment</string>
     <string name="third_task_activity_id">MLFragment</string>
-    <string name="fourth_task_activity_id">ARFragment</string>
+    <string name="fourth_task_activity_id">ARGeoSpatial</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
