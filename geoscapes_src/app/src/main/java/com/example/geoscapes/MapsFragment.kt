@@ -173,7 +173,8 @@ class MapsFragment : Fragment() {
                         .navigate(R.id.action_mapsFragment_to_arGeospatialFragment, bundle)
                 }
                 getString(R.string.third_task_activity_id) -> {
-                    // Navigate to ML task
+                    Navigation.findNavController(requireView())
+                        .navigate(R.id.action_mapsFragment_to_cameraFragment, bundle)
                 }
                 getString(R.string.fourth_task_activity_id) -> {
                     Navigation.findNavController(requireView())
