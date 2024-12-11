@@ -41,7 +41,7 @@ class TutorialDialogFragment : DialogFragment() {
             R.id.tasksFragment to R.layout.tasks_page_dialog,
             R.id.mapsFragment to R.layout.map_page_dialog,
             R.id.settingsFragment to R.layout.settings_page_dialog,
-            R.id.tasksFragment to R.layout.tutorial_get_started_dialog,
+            R.id.landingPageFragment to R.layout.tutorial_get_started_dialog,
         )
     }
 

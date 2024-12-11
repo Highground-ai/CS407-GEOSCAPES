@@ -1,5 +1,6 @@
 package com.example.geoscapes
 
+import android.Manifest
 import android.app.Activity
 import android.content.Intent
 import android.graphics.Bitmap
@@ -8,10 +9,14 @@ import android.os.Bundle
 import android.provider.MediaStore
 import android.util.Log
 import android.content.Context
+import android.content.pm.PackageManager
 import android.view.View
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.example.geoscapes.R
 import com.google.mlkit.vision.common.InputImage
@@ -52,7 +57,9 @@ class CameraFragment : Fragment(R.layout.fragment_camera) {
         taskDB = TaskDatabase.getDatabase(requireActivity())
 
         selectPhotoButton.setOnClickListener { openGallery() }
-        takePhotoButton.setOnClickListener { openCamera() }
+        takePhotoButton.setOnClickListener {
+            checkPermissionsAndInitialize()
+            }
     }
 
 
@@ -209,4 +216,28 @@ class CameraFragment : Fragment(R.layout.fragment_camera) {
         val coords: Pair<Double, Double>,
         val referenceText: String
     )
+    private fun checkPermissionsAndInitialize() {
+        if (hasCameraPermission()) {
+            openCamera()
+        } else {
+            requestPermissionLauncher.launch(Manifest.permission.CAMERA)
+        }
+    }
+
+    private val requestPermissionLauncher =
+        registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted ->
+            if (isGranted) {
+                openCamera()
+            } else {
+                Toast.makeText(context, "Camera permission is required to use AR features.", Toast.LENGTH_LONG).show()
+                activity?.finish()
+            }
+        }
+
+    private fun hasCameraPermission(): Boolean {
+        return ContextCompat.checkSelfPermission(
+            requireContext(),
+            Manifest.permission.CAMERA
+        ) == PackageManager.PERMISSION_GRANTED
+    }
 }
