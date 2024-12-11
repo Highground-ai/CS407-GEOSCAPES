@@ -18,6 +18,7 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.fragment.app.FragmentManager
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.example.geoscapes.databinding.ActivityMainBinding
@@ -41,6 +42,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
@@ -84,7 +86,11 @@ class MainActivity : AppCompatActivity() {
             // This is the same as first time user
             if (taskDB.taskDao().getAllTasks().isEmpty()) {
                 createTasks()
-                TutorialDialogFragment().show(supportFragmentManager, "tutorial")
+                withContext(Dispatchers.Main) {
+                    if (!isFinishing && !isDestroyed) { // Check activity state
+                        TutorialDialogFragment().show(supportFragmentManager, "tutorial")
+                    }
+                }
             }
         }
     }
@@ -164,6 +170,11 @@ class MainActivity : AppCompatActivity() {
             if (taskDB.stepDao().getByName(getString(R.string.fourth_task_step_two_name)) == null) {
                 taskDB.stepDao().upsertStep(Step(
                     stepName=getString(R.string.fourth_task_step_two_name)),
+                    fourthTask.taskId)
+            }
+            if (taskDB.stepDao().getByName(getString(R.string.fourth_task_step_three_name)) == null) {
+                taskDB.stepDao().upsertStep(Step(
+                    stepName=getString(R.string.fourth_task_step_three_name)),
                     fourthTask.taskId)
             }
         }
