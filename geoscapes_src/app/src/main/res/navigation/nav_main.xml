@@ -79,5 +79,16 @@
             app:popUpToInclusive="true"
             />
     </fragment>
-
+<!--   Camera Fragment -->
+    <fragment
+        android:id="@+id/cameraFragment"
+        android:name="com.example.geoscapes.CameraFragment"
+        android:label="Camera"
+        tools:layout="@layout/fragment_camera">
+        <action
+            android:id="@+id/action_cameraFragment_to_landingPageFragment"
+            app:destination="@id/landingPageFragment"
+            app:popUpTo="@id/cameraFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
 </navigation>
