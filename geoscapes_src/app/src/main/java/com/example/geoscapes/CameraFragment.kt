@@ -121,6 +121,11 @@ class CameraFragment : Fragment(R.layout.fragment_camera) {
                                         )
                                         if (abs(currentTask.location.latitude - location.coords.first) <= 0.005 && abs(currentTask.location.longitude - location.coords.second) <= 0.005) {
                                             resultTextView.text = "Detected Location: $detectedLocationName"
+                                            currentTask.taskCompletion = 100f
+                                            taskDB.taskDao().upsert(currentTask)
+                                            val steps = taskDB.taskDao().getStepsFromTask(currentTask.taskId)
+                                            taskDB.stepDao().markStepAsCompleted(steps[1].stepId)
+                                            sharedPreferences.edit().putInt("taskID", -1).apply()
                                             Log.d(
                                                 "CameraFragment",
                                                 "Locations are Matches fr: ${currentTask.taskName}"
