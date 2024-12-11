@@ -46,8 +46,7 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:fontFamily="@font/text"
-            android:textColor="@color/black"
-            android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+            android:text="Your adventure begins here! This is your landing page, where you will be informed what your current task is and how your task relates to the storyline. In order to activate this page you must activate a task in your task list. To begin the task, press go to be brought to your map to begin your adventure!"
             android:textSize="20sp" />
 
         <Button
