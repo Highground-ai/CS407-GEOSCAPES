@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#f1ecf5">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="80dp">
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#d21132" />
+
+        <ImageView
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true"
+            android:scaleType="centerCrop"
+            android:src="@drawable/wisconsin_logo" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:paddingTop="15dp"
+        android:paddingBottom="15dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center">
+        <TextView
+            android:textSize="35sp"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:fontFamily="@font/text"
+            android:text="Your Landing Page!"
+            android:textColor="@color/black"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:fontFamily="@font/text"
+            android:text="Your adventure begins here! This is your landing page, where you will be informed what your current task is and how your task relates to the storyline. In order to activate this page you must activate a task in your task list. To begin the task, press go to be brought to your map to begin your adventure!"
+            android:textSize="20sp" />
+
+        <Button
+            android:id="@+id/button_okay"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:backgroundTint="#d21132"
+            android:text="Continue"
+            android:fontFamily="@font/text"
+            android:paddingStart="20dp"
+            android:paddingEnd="20dp"
+            android:elevation="4dp"
+            android:layout_gravity="center"/>
+    </LinearLayout>
+
+</LinearLayout>
