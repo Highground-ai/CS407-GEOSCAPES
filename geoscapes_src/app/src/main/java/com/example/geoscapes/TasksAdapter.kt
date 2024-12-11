@@ -1,5 +1,6 @@
 package com.example.geoscapes
 
+import android.animation.ObjectAnimator
 import android.content.SharedPreferences
 import android.util.Log
 import android.view.LayoutInflater
@@ -102,13 +103,13 @@ class TasksAdapter(
                 if (stepsRecyclerView.visibility == View.VISIBLE) {
                     stepsRecyclerView.visibility = View.GONE
                     dropdownArrow.rotation = -90f
+
                 } else {
                     stepsRecyclerView.visibility = View.VISIBLE
                     dropdownArrow.rotation = 0f
+
                 }
             }
-
-
         }
     }
 }

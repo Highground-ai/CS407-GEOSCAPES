@@ -3,7 +3,8 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:background="#D9D9D9">
 
     <TextView
         android:id="@+id/stepTextView"
@@ -14,7 +15,7 @@
         android:gravity="center_vertical"
         android:paddingStart="75dp"
         android:paddingEnd="15dp"
-        android:background="#EFEDED"
+        android:background="#D9D9D9"
         android:textSize="16sp"
         android:textColor="@color/black"
         app:layout_constraintTop_toTopOf="parent"

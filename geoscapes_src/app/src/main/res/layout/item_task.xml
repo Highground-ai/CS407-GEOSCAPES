@@ -2,69 +2,86 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:paddingLeft="15dp"
-    android:paddingTop="15dp"
-    android:paddingRight="15dp">
+    android:layout_height="wrap_content">
 
-    <TextView
-        android:id="@+id/taskTextView"
-        android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:background="#D9D9D9"
-        android:fontFamily="@font/text"
-        android:gravity="center_vertical"
-        android:paddingStart="90dp"
-        android:text="Task Name"
-        android:textColor="@color/black"
-        android:textSize="24sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <View
-        android:id="@+id/taskColor"
-        android:layout_width="50dp"
-        android:layout_height="40dp"
-        android:layout_marginStart="30dp"
-        android:layout_marginTop="30dp"
-        android:background="@color/incomplete"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <View
-        android:id="@+id/activeBorder"
-        android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:background="@drawable/active_border"
-        android:visibility="invisible"
-        app:layout_constraintBottom_toBottomOf="@id/taskTextView"
-        app:layout_constraintEnd_toEndOf="@id/taskTextView"
-        app:layout_constraintStart_toStartOf="@id/taskTextView"
-        app:layout_constraintTop_toTopOf="@id/taskTextView" />
-
-    <ImageView
-        android:id="@+id/dropdownArrow"
-        android:layout_width="41dp"
-        android:layout_height="48dp"
-        android:layout_marginTop="28dp"
-        android:layout_marginEnd="16dp"
-        android:rotation="-90"
-        android:src="@drawable/dropdown_arrow"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/stepsRecyclerView"
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:isScrollContainer="false"
-        android:paddingLeft="15dp"
-        android:paddingRight="15dp"
-        android:visibility="gone"
-        app:layout_constraintStart_toStartOf="@id/taskTextView"
-        app:layout_constraintTop_toBottomOf="@id/taskTextView">
+        android:layout_margin="16dp"
+        app:cardCornerRadius="20dp"
+        app:cardElevation="4dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#D9D9D9"
+            android:paddingLeft="15dp"
+            android:paddingTop="15dp"
+            android:paddingRight="15dp"
+            android:paddingBottom="10dp">
 
-    </androidx.recyclerview.widget.RecyclerView>
+            <TextView
+                android:id="@+id/taskTextView"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:fontFamily="@font/text"
+                android:gravity="center_vertical"
+                android:paddingStart="70dp"
+                android:text="Task Name"
+                android:textColor="@color/black"
+                android:textSize="26sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <View
+                android:id="@+id/taskColor"
+                android:layout_width="50dp"
+                android:layout_height="40dp"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="30dp"
+                android:background="@color/incomplete"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/dropdownArrow"
+                android:layout_width="41dp"
+                android:layout_height="48dp"
+                android:layout_marginTop="28dp"
+                android:layout_marginEnd="16dp"
+                android:rotation="-90"
+                android:src="@drawable/dropdown_arrow"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/stepsRecyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:isScrollContainer="false"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp"
+                android:visibility="gone"
+                app:layout_constraintStart_toStartOf="@id/taskTextView"
+                app:layout_constraintTop_toBottomOf="@id/taskTextView" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <View
+            android:id="@+id/activeBorder"
+            android:layout_width="match_parent"
+            android:layout_height="125dp"
+            android:background="@drawable/active_border"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="@id/cardView"
+            app:layout_constraintEnd_toEndOf="@id/cardView"
+            app:layout_constraintStart_toStartOf="@id/cardView"
+            app:layout_constraintTop_toTopOf="@id/cardView" />
+
+    </androidx.cardview.widget.CardView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

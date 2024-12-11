@@ -25,13 +25,13 @@ class TutorialDialogFragment : DialogFragment() {
     private var job : Job? = null
     private lateinit var taskDB: TaskDatabase
     private lateinit var currentTask: SharedPreferences
+
     // A function to get the current fragment
     private fun getCurrentFragmentId(): Int {
         val navController = findNavController()
         return navController.currentDestination?.id ?: R.id.landingPageFragment // Default if no fragment is found
     }
 
-    // Dynamically generates the fragment sequence
     private fun getFragmentSequence(): List<Pair<Int, Int>> {
         val currentFragmentId = getCurrentFragmentId()
 
@@ -47,7 +47,6 @@ class TutorialDialogFragment : DialogFragment() {
 
     @SuppressLint("UseGetLayoutInflater")
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-        // Dynamically create the fragment sequence
         val fragmentSequence = getFragmentSequence()
 
         //must return a dialog in OnCreateDialog to bypass logic
@@ -79,7 +78,6 @@ class TutorialDialogFragment : DialogFragment() {
 
             // Post the dialog creation after the fragment has been navigated
             Handler(requireContext().mainLooper).postDelayed({
-                // Make sure the fragment is still attached before showing the next dialog
                 if (isAdded) {
                     // Inflate the custom layout for the next dialog
                     val nextDialogView =
