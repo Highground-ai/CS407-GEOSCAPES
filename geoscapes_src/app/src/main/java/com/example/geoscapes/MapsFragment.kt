@@ -158,7 +158,7 @@ class MapsFragment : Fragment() {
         // function, else it should make a toast that says user isn't with the specified radius.
         popupBinding.actionButton.setOnClickListener {
             val bundle = Bundle().apply {
-                putDouble("latitude", activeTask!!.location.latitude)
+                putParcelable("latitude", activeTask!!.location)
                 putDouble("longitude", activeTask!!.location.longitude)
                 putString("title", title)
                 putInt("TaskID", activeTask!!.taskId)
@@ -170,7 +170,7 @@ class MapsFragment : Fragment() {
                 }
                 getString(R.string.second_task_activity_id) -> {
                     Navigation.findNavController(requireView())
-                        .navigate(R.id.action_mapsFragment_to_arTemplateFragment, bundle)
+                        .navigate(R.id.action_mapsFragment_to_arGeospatialFragment, bundle)
                 }
                 getString(R.string.third_task_activity_id) -> {
                     // Navigate to ML task

@@ -46,6 +46,7 @@
             android:gravity="center"
             android:fontFamily="@font/text"
             android:text="Congratulations, you're all set to begin your Geoscapes adventure! 🎉 Now that you’re familiar with the basics, it’s time to explore Madison, Wisconsin, and start your geocaching journey. Complete tasks, discover new locations, and have fun while geoscaping with augmented reality! Funily enough, it seems like you've already completed a task for doing the tutorial! Click GET STARTED to complete more tasks. The adventure awaits!"
+            android:textColor="@color/black"
             android:textSize="20sp" />
 
         <Button

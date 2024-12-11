@@ -12,6 +12,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Title"
+        android:textColor="@color/black"
         android:fontFamily="@font/text"
         android:textSize="18sp"
         android:textStyle="bold"
@@ -21,6 +22,7 @@
         android:id="@+id/descriptionTextView"
         android:layout_width="wrap_content"
         android:fontFamily="@font/text"
+        android:textColor="@color/black"
         android:layout_height="wrap_content"
         android:text="Description"
         android:layout_marginBottom="16dp" />

@@ -37,6 +37,7 @@
             android:gravity="center"
             android:text="These are your Tasks!"
             android:fontFamily="@font/text"
+            android:textColor="@color/black"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
@@ -46,6 +47,7 @@
             android:gravity="center"
             android:fontFamily="@font/text"
             android:text="Welcome to your task list. Here you'll find a variety of geocaching challenges that will take you on exciting journey through Madison, Wisocnisn. Each task is an oppurtunity to explore new locations, solve puzzles, and follow storylines. Hold down on a task to activate the task you want to complete. Tap on the arrow to expand the steps to complete the task."
+            android:textColor="@color/black"
             android:textSize="20sp" />
 
         <Button

@@ -37,6 +37,7 @@
             android:gravity="center"
             android:text="Personalize your Settings!"
             android:fontFamily="@font/text"
+            android:textColor="@color/black"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
@@ -46,6 +47,7 @@
             android:gravity="center"
             android:fontFamily="@font/text"
             android:text="Who doesn't like setting their own preferences? This is the settings page where you'll be able to do just that! In settings, toggle any switch to enable/disable a feature. Tailoring your experience is important!"
+            android:textColor="@color/black"
             android:textSize="20sp" />
 
         <Button
