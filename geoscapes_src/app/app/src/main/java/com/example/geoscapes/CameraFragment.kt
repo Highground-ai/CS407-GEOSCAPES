@@ -24,11 +24,13 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import org.json.JSONArray
 import java.io.InputStream
+import kotlin.math.abs
 
 class CameraFragment : Fragment(R.layout.fragment_camera) {
 
     private lateinit var photoImageView: ImageView
     private lateinit var recognizer: TextRecognizer
+    private lateinit var resultTextView: TextView
     private lateinit var locations: List<Location>
     private lateinit var taskDB: TaskDatabase
 
@@ -41,6 +43,7 @@ class CameraFragment : Fragment(R.layout.fragment_camera) {
         super.onViewCreated(view, savedInstanceState)
 
         photoImageView = view.findViewById(R.id.photoImageView)
+        resultTextView = view.findViewById(R.id.resultTextView)
         val selectPhotoButton: Button = view.findViewById(R.id.selectPhotoButton)
         val takePhotoButton: Button = view.findViewById(R.id.takePhotoButton)
 
@@ -51,6 +54,7 @@ class CameraFragment : Fragment(R.layout.fragment_camera) {
         selectPhotoButton.setOnClickListener { openGallery() }
         takePhotoButton.setOnClickListener { openCamera() }
     }
+
 
     private fun openGallery() {
         val intent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
@@ -84,21 +88,43 @@ class CameraFragment : Fragment(R.layout.fragment_camera) {
                         val currentTask = taskDB.taskDao().getTaskById(taskID)
 
                         if (currentTask != null) {
-                            Log.d("CameraFragment", "Current Task Location: ${currentTask.location.latitude}, ${currentTask.location.longitude}")
+                            Log.d(
+                                "CameraFragment",
+                                "Current Task Location: ${currentTask.location.latitude}, ${currentTask.location.longitude}"
+                            )
+                            Log.d("CameraFragment", "Current Task Radius: ${currentTask.radius}")
 
                             val matchedLocations = locations.filter { location ->
-                                detectedText.toString().contains(location.referenceText, ignoreCase = true)
-                            }
-
-                            val taskMatchesLocation = matchedLocations.any { location ->
-                                location.name.equals(currentTask.taskName, ignoreCase = true)
+                                detectedText.toString()
+                                    .contains(location.referenceText, ignoreCase = true)
                             }
 
                             withContext(Dispatchers.Main) {
-                                if (taskMatchesLocation) {
-                                    Log.d("CameraFragment", "PASS: Location and task text match.")
+                                if (matchedLocations.isNotEmpty()) {
+                                    Log.d("CameraFragment", "Detected matching locations:")
+                                    for (location in matchedLocations) {
+                                        val detectedLocationName = matchedLocations.first().name
+                                        Log.d(
+                                            "CameraFragment",
+                                            "Matched Location: ${location.name}"
+                                        )
+                                        if (abs(currentTask.location.latitude - location.coords.first) <= 5) {
+                                            resultTextView.text = "Detected Location: $detectedLocationName"
+                                            Log.d(
+                                                "CameraFragment",
+                                                "Locations are Matches fr: ${currentTask.taskName}"
+                                            )
+                                        }
+                                        else{
+                                            resultTextView.text = "That is not the landmark!"
+                                            Log.d(
+                                                "CameraFragment",
+                                                "Locations are not matched fr"
+                                            )
+                                        }
+                                    }
                                 } else {
-                                    Log.d("CameraFragment", "FAIL: No match between location and task text.")
+                                    Log.d("CameraFragment", "No matching locations detected.")
                                 }
                             }
                         } else {
@@ -108,7 +134,10 @@ class CameraFragment : Fragment(R.layout.fragment_camera) {
                         }
                     } else {
                         withContext(Dispatchers.Main) {
-                            Log.d("CameraFragment", "FAIL: Task ID not found in shared preferences.")
+                            Log.d(
+                                "CameraFragment",
+                                "FAIL: Task ID not found in shared preferences."
+                            )
                         }
                     }
                 }
@@ -117,7 +146,6 @@ class CameraFragment : Fragment(R.layout.fragment_camera) {
                 Log.e("CameraFragment", "Error recognizing text: ${e.localizedMessage}")
             }
     }
-
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
@@ -135,6 +163,7 @@ class CameraFragment : Fragment(R.layout.fragment_camera) {
                         Log.e("CameraFragment", "Failed to load image.")
                     }
                 }
+
                 CAMERA_REQUEST_CODE -> {
                     val bitmap = data?.extras?.get("data") as? Bitmap
                     if (bitmap != null) {
@@ -157,8 +186,15 @@ class CameraFragment : Fragment(R.layout.fragment_camera) {
         for (i in 0 until jsonArray.length()) {
             val jsonObject = jsonArray.getJSONObject(i)
             val name = jsonObject.getString("name")
+
+            val coordsArray = jsonObject.getJSONArray("coords")
+            val coords = Pair(
+                coordsArray.getDouble(0),
+                coordsArray.getDouble(1)
+            )
+
             val referenceText = jsonObject.getString("referenceText")
-            locationList.add(Location(name, referenceText))
+            locationList.add(Location(name, coords, referenceText))
         }
 
         return locationList
@@ -166,6 +202,7 @@ class CameraFragment : Fragment(R.layout.fragment_camera) {
 
     private data class Location(
         val name: String,
+        val coords: Pair<Double, Double>,
         val referenceText: String
     )
 }
